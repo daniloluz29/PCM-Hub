@@ -1,0 +1,137 @@
+/* ==========================================================================
+   COMPONENT: FILTROS
+   --------------------------------------------------------------------------
+   Estilos para componentes de filtro.
+   ========================================================================== */
+
+.filter-label-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.filter-label-group label {
+    font-weight: bold;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 0;
+}
+
+.filter-label-group button {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 0;
+}
+
+.filter-label-group button:hover {
+    text-decoration: underline;
+}
+
+/* --- Toggle Switch para Exibição (Ativos/Todos) --- */
+.toggle-switch-container {
+    display: flex;
+    flex-direction: column; /* CORREÇÃO: Empilha o label e as opções */
+    align-items: flex-start; /* Alinha os itens à esquerda */
+    gap: 8px; /* Espaço entre o label e o toggle */
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 8px 12px; /* Padding ajustado */
+    box-sizing: border-box;
+    /* A altura agora é automática */
+}
+
+/* Estilo para o label DENTRO do container */
+.toggle-switch-container .toggle-label {
+    font-weight: bold;
+    font-size: 14px;
+    color: #555;
+    margin: 0;
+}
+
+/* Wrapper para as opções do toggle para agrupar */
+.toggle-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Espaça 'Todos', switch e 'Ativos' */
+    width: 100%; /* Faz o wrapper ocupar toda a largura */
+    gap: 10px;
+}
+
+.toggle-options span {
+    font-size: 14px;
+    font-weight: 500;
+    color: #5f6368;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 28px;
+    flex-shrink: 0;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 28px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background-color: #27ae60; 
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(22px);
+}
+
+/* --- Botão Limpar Filtros no Modal --- */
+.clear-filters-modal-btn {
+    background: none;
+    border: none;
+    color: #c0392b;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.clear-filters-modal-btn:hover {
+    text-decoration: underline;
+}
+
+.clear-filters-modal-btn .bi-eraser {
+    font-size: 1.2em;
+}

@@ -1,0 +1,1028 @@
+/* ==========================================================================
+   PAGE: CADASTROS
+   --------------------------------------------------------------------------
+   Estilos para as páginas de cadastros (Usuários, CC, etc.).
+   ========================================================================== */
+
+/* --- NOVOS ESTILOS PARA O GERENCIADOR DE PERFIS --- */
+.permission-layout-container {
+    display: flex;
+    min-height: calc(100vh - 400px);
+}
+
+.permission-sidebar {
+    width: 250px;
+    border-right: 1px solid #e0e0e0;
+    padding-right: 20px;
+    flex-shrink: 0;
+}
+
+.permission-sidebar h4 {
+    margin: 0 0 15px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 16px;
+}
+
+.permission-sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.permission-sidebar li {
+    padding: 12px 15px;
+    cursor: pointer;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Alinha o nome à esquerda e os botões à direita */
+}
+
+.permission-sidebar li:hover {
+    background-color: #f4f5f7;
+}
+
+.permission-sidebar li.active {
+    background-color: #E87722;
+    color: white;
+    font-weight: bold;
+}
+
+/* --- ESTILOS PARA REORDENAÇÃO COM SETAS --- */
+.permission-sidebar li.fixed {
+    cursor: default;
+    color: #555;
+    background-color: #f8f9fa;
+}
+
+.reorder-buttons {
+    display: flex;
+    gap: 4px;
+    visibility: hidden; /* Escondido por padrão */
+}
+
+.permission-sidebar li:hover .reorder-buttons {
+    visibility: visible; /* Aparece no hover da linha */
+}
+
+.reorder-btn {
+    background: none;
+    border: 1px solid #ccc;
+    color: #555;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.reorder-btn:hover:not(:disabled) {
+    background-color: #e9ecef;
+    color: #000;
+}
+
+.reorder-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.reorder-btn .bi {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1;
+}
+/* --- FIM DOS ESTILOS DE REORDENAÇÃO --- */
+
+
+.permission-content {
+    flex-grow: 1;
+    padding-left: 25px;
+}
+
+.permission-content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.permission-content-header h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.sync-button {
+    background: none;
+    border: 1px solid #ccc;
+    color: #555;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.sync-button:hover {
+    background-color: #f0f2f5;
+    color: #007bff;
+    border-color: #007bff;
+}
+
+.sync-button .bi {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.permission-tree-node {
+    display: flex;
+    align-items: center;
+}
+
+.permission-tree-node.disabled .tree-node-label {
+    color: #808080;
+    cursor: not-allowed;
+}
+
+.disabled-tree {
+    background-color: #f8f9fa;
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.permission-footer {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.permission-footer small {
+    color: #808080;
+}
+
+/* -------------------------------------------------- */
+
+.form-actions-group {
+    display: flex;
+    align-items: flex-end; 
+    gap: 30px;
+    padding-bottom: 1px; 
+}
+
+.form-actions-group .delete-button {
+    margin-bottom: 0;
+}
+
+.permission-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.permission-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.permission-list input[type="checkbox"] {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+}
+
+.solicitacao-details {
+    padding: 10px 20px;
+    background-color: #f7f7f7;
+}
+
+.solicitacao-details p {
+    margin: 8px 0;
+}
+
+.solicitacao-actions {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.solicitacao-actions button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.solicitacao-actions button:hover {
+    opacity: 0.85;
+}
+
+.approve-button {
+    background-color: #27ae60; /* Verde */
+    color: white;
+}
+
+.deny-button {
+    background-color: #c0392b; /* Vermelho */
+    color: white;
+}
+
+.user-edit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; 
+    margin-bottom: 20px;
+}
+
+.user-edit-header .filter-group {
+    flex-grow: 1; 
+    margin-bottom: 0;
+}
+
+.save-button {
+    padding: 10px 20px;
+    margin-left: 20px; 
+    border: none;
+    border-radius: 6px;
+    background-color: #27ae60; 
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px; 
+    transition: background-color 0.3s;
+}
+
+.save-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.save-button:hover:not(:disabled) {
+    background-color: #229954;
+}
+
+.form-actions-group {
+    display: flex;
+    align-items: center;
+    gap: 20px; 
+    padding-top: 15px; 
+}
+
+.delete-button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    background-color: #c0392b; 
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+    background-color: #a93226;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background-color: #27ae60; 
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(26px);
+}
+
+.role-selection-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.role-selection-item {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.role-selection-item:hover {
+    border-color: #ccc;
+}
+
+.role-selection-item.selected {
+    border-color: #E87722; 
+    box-shadow: 0 0 5px rgba(232, 119, 34, 0.3);
+    background-color: #fff8f2;
+}
+
+.role-selection-item input[type="radio"] {
+    margin-right: 15px;
+    appearance: none;
+    background-color: #fff;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+}
+
+.role-selection-item input[type="radio"]::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em #E87722;
+}
+
+.role-selection-item input[type="radio"]:checked::before {
+    transform: scale(1);
+}
+
+.role-selection-item label {
+    cursor: pointer;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.password-validation-checklist {
+    list-style-type: none;
+    padding: 0;
+    margin: 15px 0 0 0;
+    text-align: left;
+    font-size: 14px;
+}
+
+.password-validation-checklist li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    transition: color 0.2s ease-in-out;
+}
+
+.password-validation-checklist li.invalid {
+    color: #c0392b; 
+}
+.password-validation-checklist li.invalid .bi {
+    color: #c0392b;
+}
+
+.password-validation-checklist li.valid {
+    color: #27ae60; 
+}
+.password-validation-checklist li.valid .bi {
+    color: #27ae60;
+}
+
+.password-validation-checklist .bi {
+    margin-right: 10px; 
+    font-size: 18px;
+}
+
+.generate-password-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px dashed #E87722;
+    background-color: #fff8f2;
+    color: #E87722;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.generate-password-btn:hover {
+    background-color: #fdecdb;
+}
+
+.password-tools-container {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: -1px; 
+}
+
+.list-container {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.list-header-financeira {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 2fr 0.5fr 0.5fr;
+    gap: 15px;
+    padding: 12px 15px;
+    background-color: #f8f9fa;
+    font-weight: bold;
+    font-size: 14px;
+    color: #343a40;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.list-body-financeira {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    max-height: calc(100vh - 400px);
+    overflow-y: auto;
+}
+
+.list-item-financeira {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 2fr 0.5fr 0.5fr;
+    gap: 15px;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid #f1f3f5;
+    font-size: 15px;
+}
+
+.list-item-financeira:last-child {
+    border-bottom: none;
+}
+
+.list-item-financeira:hover {
+    background-color: #f8f9fa;
+}
+
+.list-item-actions {
+    text-align: right;
+}
+
+.list-item-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #808080;
+    font-size: 18px;
+    padding: 2px 5px;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.list-item-actions button:hover {
+    background-color: #f0f2f5;
+    color: #c0392b;
+}
+
+.faixas-card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.faixa-card {
+    background-color: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.faixa-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.faixa-card-header h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.faixa-title-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.faixa-title-edit-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #adb5bd;
+    font-size: 16px;
+    padding: 0 5px;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.faixa-title-edit-btn:hover {
+    color: #2c3e50;
+}
+
+.faixa-action-btn {
+    background: none;
+    border: 1px solid #ced4da;
+    color: #495057;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.faixa-action-btn:hover {
+    background-color: #f1f3f5;
+}
+
+.faixa-table {
+    padding: 0;
+}
+
+.faixa-table-header {
+    display: grid;
+    grid-template-columns: 2.5fr 1fr 1fr 1fr 1fr;
+    gap: 15px;
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    font-weight: bold;
+    font-size: 14px;
+    color: #343a40;
+}
+
+.faixa-table-body {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.faixa-table-body li {
+    display: grid;
+    grid-template-columns: 2.5fr 1fr 1fr 1fr 1fr;
+    gap: 15px;
+    align-items: center;
+    padding: 12px 20px;
+    border-top: 1px solid #f1f3f5;
+}
+
+.faixa-table-body li:hover {
+    background-color: #fdfdfd;
+}
+
+.faixa-table-actions {
+    text-align: right;
+}
+
+.faixa-table-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #808080;
+    font-size: 18px;
+    padding: 2px 5px;
+    margin-left: 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.faixa-table-actions button:hover {
+    background-color: #f0f2f5;
+    color: #2c3e50;
+}
+
+.tree-node-cc-label .iqd-star {
+    color: #f39c12;
+    font-size: 14px;
+    margin-right: 8px;
+}
+
+.tree-view-container-cc {
+    margin-top: 15px;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    min-height: calc(100vh - 350px); 
+    overflow-y: auto;
+}
+
+.tree-view-container-cc ul {
+    list-style-type: none;
+    padding-left: 25px;
+    position: relative;
+}
+
+.tree-view-container-cc ul::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10px;
+    width: 1px;
+    height: 100%;
+    background-color: #dcdcdc;
+}
+
+.tree-view-container-cc li {
+    padding: 4px 0;
+    position: relative;
+}
+
+.tree-view-container-cc li::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: -15px;
+    width: 15px;
+    height: 1px;
+    background-color: #dcdcdc;
+}
+
+.tree-node-cc {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f8f9fa; 
+    border: 1px solid #e9ecef; 
+    border-radius: 6px;
+    padding: 8px 15px; 
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.tree-node-cc:hover {
+    background-color: #ffffff;
+    border-color: #dee2e6;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.tree-node-cc-label {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.tree-node-cc-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #808080;
+    font-size: 18px;
+    margin-left: 10px;
+    padding: 2px 5px;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.tree-node-cc-actions button:hover {
+    background-color: #f0f2f5;
+    color: #2c3e50;
+}
+
+.tree-view-container-cc .tree-toggle-btn {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dcdcdc;
+    background-color: #f7f7f7;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1;
+    color: #555;
+    flex-shrink: 0; 
+}
+
+/* Estilos para o novo Gerenciamento de Banco de Dados */
+.sql-textarea {
+    width: 100%;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 10px;
+    box-sizing: border-box;
+    resize: vertical;
+    color: #495057;
+}
+
+.sql-textarea.editable {
+    background-color: #fff;
+    color: #212529;
+}
+
+.warning-text {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.warning-text .bi {
+    font-size: 20px;
+}
+
+/* NOVO: Ajuste de layout para os botões de ação do cabeçalho */
+.user-edit-header .header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* NOVO: Estilos para a visualização de diferenças (diff) no modal */
+.schema-diff-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.diff-section {
+    border: 1px solid #eee;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.diff-section h5 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.diff-section pre {
+    margin: 0;
+    padding: 10px;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.diff-removed {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.diff-added {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+/* NOVO: Estilos para o botão e container de pré-visualização */
+.preview-button-container {
+    margin-top: 10px;
+    text-align: right;
+}
+
+.preview-button {
+    background: none;
+    border: 1px solid #007bff;
+    color: #007bff;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.preview-button:hover:not(:disabled) {
+    background-color: #007bff;
+    color: white;
+}
+
+.preview-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.preview-table-container {
+    margin-top: 20px;
+    max-height: 250px; /* Limita a altura da prévia */
+    overflow-y: auto;
+}
+
+.edit-button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    background-color: #e87722; 
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s;
+}
+
+/* --- NOVOS ESTILOS PARA A ÁREA DE IMPORTAÇÃO DE DADOS --- */
+.drop-zone-container {
+    border: 2px dashed #adb5bd;
+    border-radius: 8px;
+    max-height: 70px;
+    padding: 30px;
+    text-align: center;
+    color: #6c757d;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.drop-zone-container:hover {
+    background-color: #f8f9fa;
+    border-color: #007bff;
+}
+
+.drop-zone-container .bi {
+    font-size: 25px;
+    margin-bottom: 10px;
+    color: #ced4da;
+}
+
+/* --- NOVOS ESTILOS PARA O MODAL DE VALIDAÇÃO DE IMPORTAÇÃO --- */
+.validation-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 60vh; /* Limita a altura do conteúdo do modal */
+    overflow-y: auto; /* Adiciona scroll se necessário */
+    padding-right: 15px; /* Espaço para a barra de scroll */
+    margin-bottom: 25px; /* Espaço inferior para o botão de fechar */
+}
+
+.validation-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid;
+}
+
+.validation-item .bi {
+    font-size: 24px;
+    margin-top: 2px;
+}
+
+.validation-item div {
+    flex-grow: 1;
+}
+
+.validation-item strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.validation-item p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.validation-item.info {
+    background-color: #e7f3ff;
+    border-color: #b3d7ff;
+    color: #004085;
+}
+.validation-item.info .bi { color: #007bff; }
+
+.validation-item.warning {
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+    color: #856404;
+}
+.validation-item.warning .bi { color: #ffc107; }
+
+.validation-item.error {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+.validation-item.error .bi { color: #dc3545; }
+
+/* --- NOVOS ESTILOS PARA O MODAL DE CONFIGURAÇÃO DE IMPORTAÇÃO --- */
+.import-config-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.column-checkbox-list {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #eee;
+    padding: 10px;
+    border-radius: 6px;
+    margin-top: 5px;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 5px;
+}
+
+.radio-label-group {
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center !important; /* alinha pelo topo */
+  gap: 12px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.radio-label-group input[type="radio"] {
+  align-self: flex-start !important; /* posiciona no topo */
+  margin: 2px 0 0 0 !important;      /* ajuste fino para casar com a primeira linha (tweak se precisar) */
+  float: none !important;
+  margin-left: 0 !important;
+  position: relative !important;
+}
+
+.radio-label-group div p {
+    margin: 0;
+    font-size: 13px;
+    color: #5f6368;
+}
+
+.checkbox-label-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}

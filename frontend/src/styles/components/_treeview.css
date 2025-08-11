@@ -1,0 +1,90 @@
+/* ==========================================================================
+   Arquivo: styles/components/_treeview.css
+   --------------------------------------------------------------------------
+   Componente para exibir dados em uma estrutura de árvore hierárquica,
+   com nós que podem ser expandidos e recolhidos.
+   ========================================================================== */
+
+/* O container principal que envolve toda a árvore */
+.tree-view-container {
+    margin-top: 15px;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    max-height: 400px; /* Altura máxima antes de a rolagem ser ativada */
+    overflow-y: auto; /* Adiciona uma barra de rolagem vertical quando o conteúdo excede a altura máxima */
+}
+
+/* Estilo para a lista de nós filhos (<ul>) */
+.tree-view-container ul {
+    list-style-type: none;
+    padding-left: 25px;
+    position: relative; /* Serve como âncora para a linha guia vertical */
+}
+
+/* A linha guia vertical que conecta os nós de um mesmo nível */
+.tree-view-container ul::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10px;
+    width: 1px;
+    height: 100%;
+    background-color: #dcdcdc;
+}
+
+/* Um item da lista (<li>), que representa um nó da árvore */
+.tree-view-container li {
+    padding: 4px 0;
+    position: relative; /* Serve como âncora para a linha guia horizontal */
+}
+
+/* A linha guia horizontal que conecta um nó à linha guia vertical principal */
+.tree-view-container li::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: -15px;
+    width: 15px;
+    height: 1px;
+    background-color: #dcdcdc;
+}
+
+/* O container para o conteúdo de um nó (botão, checkbox, texto) */
+.tree-node {
+    display: flex;
+    align-items: center;
+}
+
+/* O botão para expandir ou recolher os nós filhos */
+.tree-toggle-btn {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dcdcdc;
+    background-color: #f7f7f7;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1;
+    color: #555;
+}
+
+/* O texto (label) do nó */
+.tree-node-label {
+    margin-left: 8px;
+    font-size: 16px;
+    user-select: none; /* Impede que o texto seja selecionado ao clicar */
+    cursor: pointer;
+}
+
+/* O checkbox para selecionar um nó */
+.tree-node input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}

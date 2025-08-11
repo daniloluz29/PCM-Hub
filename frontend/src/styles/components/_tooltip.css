@@ -1,0 +1,52 @@
+/* ==========================================================================
+   Arquivo: styles/components/_tooltip.css
+   --------------------------------------------------------------------------
+   Componente para balões de ajuda (tooltips) que aparecem ao passar o
+   mouse sobre um elemento, fornecendo informações adicionais.
+   ========================================================================== */
+
+/* O container que envolve o elemento que terá o tooltip */
+.tooltip-container {
+    position: relative; /* Essencial para posicionar o texto do tooltip em relação a este container */
+    display: inline-block; /* Faz o container se comportar como texto, mas permitindo largura e altura */
+    width: 100%; /* Faz o container ocupar toda a largura do seu elemento pai */
+}
+
+/* O balão de texto do tooltip, que fica escondido por padrão */
+.tooltip-text {
+    visibility: hidden; /* Esconde o elemento completamente, inclusive de leitores de tela */
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px;
+    position: absolute;
+    z-index: 10; /* Garante que o tooltip fique sobre outros elementos */
+    top: 115%; /* Posiciona o tooltip um pouco abaixo do elemento container */
+    left: 50%;
+    margin-left: -125px; /* Truque para centralizar o tooltip horizontalmente (metade da sua largura) */
+    opacity: 0; /* Começa totalmente transparente para o efeito de fade-in */
+    transition: opacity 0.3s; /* Animação suave da opacidade */
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* A pequena seta triangular que aponta para o elemento */
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    bottom: 100%; /* Posiciona a seta no topo do balão de texto */
+    left: 50%;
+    margin-left: -5px; /* Centraliza a seta */
+    border-width: 5px;
+    border-style: solid;
+    /* Cria um triângulo apontando para baixo com a borda inferior */
+    border-color: transparent transparent #333 transparent;
+}
+
+/* Quando o mouse passa sobre o container, o texto do tooltip se torna visível */
+.tooltip-container:hover .tooltip-text {
+    visibility: visible; /* Torna o elemento visível */
+    opacity: 1; /* Torna o elemento totalmente opaco */
+}

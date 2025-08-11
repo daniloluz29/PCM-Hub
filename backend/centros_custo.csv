@@ -1,0 +1,201 @@
+﻿cod_cc;nome_cc;tipo;pai_id;estado;gestor;controlador;responde_iqd;status;teste
+SUP-01;Superintendência Administrativa;Superintendencia;;;Barbara Fernanda Costa;;0;1;1
+NUC-01;SG&A;Núcleo;SUP-01;;Barbara Fernanda Costa;;0;1;1
+1.10.0001.00;Adm.- Diretoria;Contrato;NUC-01;Minas Gerais;Barbara Fernanda Costa;Administrativo;0;1;1
+1.10.0001.01;Administrativo - Matriz;Contrato;NUC-01;Minas Gerais;Barbara Fernanda Costa;Administrativo;0;1;1
+1.10.0001.02;Adm.- Contábil/Fiscal;Contrato;NUC-01;Minas Gerais;Gisele Izidro de Moura;Administrativo;0;1;1
+1.10.0001.03;Adm.- Financeiro;Contrato;NUC-01;Minas Gerais;Rayane Fernandes Caixeta;Administrativo;0;1;1
+1.10.0001.05;Adm.- T.I;Contrato;NUC-01;Minas Gerais;Renato Adriano Fideles;Administrativo;0;1;1
+1.10.0001.07;Adm.- Serviços Gerais;Contrato;NUC-01;Minas Gerais;Barbara Fernanda Costa;Administrativo;0;1;1
+1.10.0001.09;Adm.- Marketing;Contrato;NUC-01;Minas Gerais;Barbara Fernanda Costa;Administrativo;0;1;1
+1.10.0001.10;Adm. - Prof. Pedro Coelho - Sede;Contrato;NUC-01;Minas Gerais;Barbara Fernanda Costa;Administrativo;0;1;1
+1.10.0001.12;Adm.- Jurídico;Contrato;NUC-01;Minas Gerais;Gisele Izidro de Moura;Administrativo;0;1;1
+1.10.0001.13;Adm.- Controladoria;Contrato;NUC-01;Minas Gerais;Dulce Maiara Duarte de Morais;Administrativo;0;1;1
+1.10.0001.14;Adm.- Planejamento e Performance;Contrato;NUC-01;Minas Gerais;Dulce Maiara Duarte de Morais;Administrativo;0;1;1
+1.10.0001.15;Adm.- Logística;Contrato;NUC-01;Minas Gerais;Eder Ribeiro Duarte;Administrativo;0;1;1
+1.10.0001.17;Administrativo - Itabirito - Galpão;Contrato;NUC-01;Minas Gerais;Barbara Fernanda Costa;Administrativo;0;1;1
+1.10.0001.18;Adm.- Novos Negócios;Contrato;NUC-01;Minas Gerais;Mario Nogueira Marcelo;Administrativo;0;1;1
+1.10.0001.19;Adm.- Processos e Faturamento;Contrato;NUC-01;Minas Gerais;Barbara Fernanda Costa;Administrativo;0;1;1
+1.10.0001.20;Administrativo - Itabirito - Marzagão;Contrato;NUC-01;Minas Gerais;Barbara Fernanda Costa;Administrativo;0;1;1
+1.10.0007.02;Adm.- Segurança do Trabalho e Meio Ambiente;Contrato;NUC-01;Minas Gerais;Angelica Caetano Pinto;Administrativo;0;1;1
+1.10.0007.04;Adm.- Apoio Comercial;Contrato;NUC-01;Minas Gerais;Felipe D Ascencao de Freitas;Administrativo;0;1;1
+1.10.0031.01;Adm.- Suprimentos - Compras;Contrato;NUC-01;Minas Gerais;Gustavo Rodrigues Lima;Administrativo;0;1;1
+1.10.0031.02;Adm.- Suprimentos - Almoxarifado;Contrato;NUC-01;Minas Gerais;Lucas Carvalho da Silva;Administrativo;0;1;1
+SUP-02;Superintendência Dealer;Superintendencia;;;Daniel Marques Brina;;0;1;1
+NUC-02;Núcleo Revenda - ES;Núcleo;SUP-02;;Daniel Marques Brina;;0;1;1
+1.10.0090.01;Espírito Santo - Administrativo;Contrato;NUC-02;Espirito Santo;Daniel Marques Brina;Administrativo;0;1;1
+1.10.0090.02;Espírito Santo - Vendas de Peças;Contrato;NUC-02;Espirito Santo;Daniel Marques Brina;Vendas;0;1;1
+1.10.0090.03;Espírito Santo - Vendas de Máquinas;Contrato;NUC-02;Espirito Santo;Daniel Marques Brina;Vendas;0;1;1
+1.10.0090.04;Espírito Santo - Assistência Técnica;Contrato;NUC-02;Espirito Santo;Daniel Marques Brina;Ass. Téc.;0;1;1
+1.10.0090.07;Espírito Santo - Vendas de Máquinas - Genie;Contrato;NUC-02;Espirito Santo;Daniel Marques Brina;Vendas;0;1;1
+NUC-03;Núcleo Revenda - GO;Núcleo;SUP-02;;Felipe Nunes Severino;;0;1;1
+5.50.0001.01;Goiás - Administrativo;Contrato;NUC-03;Goiás;Felipe Nunes Severino;Administrativo;0;1;1
+5.50.0007.02;Goiás - Vendas de Máquinas - Genie;Contrato;NUC-03;Goiás;Felipe Nunes Severino;Vendas;0;1;1
+5.50.0008.01;Seminovos - Goiás;Contrato;NUC-03;Goiás;Felipe Nunes Severino;Vendas;0;1;1
+5.50.0005.01;Goiás - Assistência Técnica;Contrato;NUC-03;Goiás;Felipe Nunes Severino;Ass. Téc.;0;1;1
+5.50.0006.01;Goiás - Vendas de Peças;Contrato;NUC-03;Goiás;Felipe Nunes Severino;Vendas;0;1;1
+5.50.0007.01;Goiás - Vendas de Máquinas;Contrato;NUC-03;Goiás;Felipe Nunes Severino;Vendas;0;1;1
+5.50.0007.03;Goiás - Distrito Federal - Vendas de Máquinas;Contrato;NUC-03;Goiás;Felipe Nunes Severino;Vendas;0;1;1
+NUC-04;Núcleo Revenda - RJ;Núcleo;SUP-02;;Daniel Marques Brina;;0;1;1
+4.10.0001.01;RJ - Administrativo;Contrato;NUC-04;Rio de Janeiro;Daniel Marques Brina;Administrativo;0;1;1
+4.10.0001.03;RJ - Almoxarifado;Contrato;NUC-04;Rio de Janeiro;Lucas Carvalho da Silva;Administrativo;0;1;1
+4.10.0002.01;RJ - Vendas de Peças;Contrato;NUC-04;Rio de Janeiro;Daniel Marques Brina;Vendas;0;1;1
+4.10.0003.01;RJ - Vendas de Máquinas - Genie;Contrato;NUC-04;Rio de Janeiro;Daniel Marques Brina;Vendas;0;1;1
+4.10.0003.02;RJ - Vendas de Máquinas;Contrato;NUC-04;Rio de Janeiro;Daniel Marques Brina;Vendas;0;1;1
+4.10.0004.02;RJ - Assistência Técnica;Contrato;NUC-04;Rio de Janeiro;Daniel Marques Brina;Ass. Téc.;0;1;1
+NUC-05;Núcleo Revenda - MG;Núcleo;SUP-02;;Daniel Marques Brina;;0;1;1
+1.10.0002.01;Vendas de Peças - Adm. - MG;Contrato;NUC-05;Minas Gerais;Alberto Victor Ambrosio Basilio;Vendas;0;1;1
+1.10.0002.02;Vendas de Peças - Balcão - MG;Contrato;NUC-05;Minas Gerais;Alberto Victor Ambrosio Basilio;Vendas;0;1;1
+1.10.0003.01;Vendas de Máquinas - Adm.- MG;Contrato;NUC-05;Minas Gerais;Priscila Silva de Souza;Vendas;0;1;1
+1.10.0003.02;Vendas de Máquinas Grande BH;Contrato;NUC-05;Minas Gerais;Priscila Silva de Souza;Vendas;0;1;1
+1.10.0003.03;Vendas de Máquinas Sul de Minas;Contrato;NUC-05;Minas Gerais;Priscila Silva de Souza;Vendas;0;1;1
+1.10.0003.04;Vendas de Máquinas Zona da Mata;Contrato;NUC-05;Minas Gerais;Priscila Silva de Souza;Vendas;0;1;1
+1.10.0003.05;Vendas de Máquinas Triângulo Mineiro;Contrato;NUC-05;Minas Gerais;Priscila Silva de Souza;Vendas;0;1;1
+1.10.0003.06;Vendas de Máquinas - MG - Genie;Contrato;NUC-05;Minas Gerais;Priscila Silva de Souza;Vendas;0;1;1
+1.10.0004.01;Assistência Técnica - Adm.- MG;Contrato;NUC-05;Minas Gerais;Alberto Victor Ambrosio Basilio;Ass. Téc.;0;1;1
+1.10.0004.02;Assistência Técnica - Operacional - Matriz;Contrato;NUC-05;Minas Gerais;Alberto Victor Ambrosio Basilio;Ass. Téc.;0;1;1
+1.10.0054.01;Seminovos - Matriz;Contrato;NUC-05;Minas Gerais;Luiz Antonio de Araujo Neto;Administrativo;0;1;1
+NUC-06;Núcleo Plataformas;Núcleo;SUP-02;;Lucas de Aguiar;;0;1;1
+1.10.0032.02;Minas Gerais - Plataformas - Rental;Contrato;NUC-06;Minas Gerais;Lucas de Aguiar;Lucas;0;1;1
+1.10.0032.04;Pará - Plataformas - Rental;Contrato;NUC-06;Goiás;Daniel Marques Brina;Lucas;0;1;1
+1.10.0090.05;Espírito Santo - Plataformas - Rental;Contrato;NUC-06;Espirito Santo;Daniel Marques Brina;Lucas;0;1;1
+5.50.0002.02;Goiás - Plataformas - Rental;Contrato;NUC-06;Goiás;Felipe Nunes Severino;Lucas;0;1;1
+7.10.0001.02;Taubaté - Plataformas - Rental;Contrato;NUC-06;São Paulo;Mayara de Almeida Alcantara;Lucas;0;1;1
+NUC-07;Apoio Dealer;Núcleo;SUP-02;;Daniel Marques Brina;;0;1;1
+7.10.0001.01;Taubaté - Administração;Contrato;NUC-07;São Paulo;Mayara de Almeida Alcantara;Josué Paixão;0;1;1
+7.10.0001.04;Taubaté - Almoxarifado;Contrato;NUC-07;São Paulo;Lucas Carvalho da Silva;Josué Paixão;0;1;1
+SUP-03;Superintendência de Frotas;Superintendencia;;;Robson Ferreira;;0;1;1
+NUC-08;Manutenção Central;Núcleo;SUP-03;;Pedro Henrique Rossi de Oliveira Fraga;;0;1;1
+1.10.0005.01;Manutenção - PCM;Contrato;NUC-08;Minas Gerais;Pedro Henrique Rossi de Oliveira Fraga;Administrativo;0;1;1
+1.10.0005.03;Manutenção - Oficina Central;Contrato;NUC-08;Minas Gerais;Wallace Felipe Siqueira;Túlio;0;1;1
+1.10.0005.05;Manutenção - Oficina Itabirito;Contrato;NUC-08;Minas Gerais;Pedro Henrique Rossi de Oliveira Fraga;Gabriel Santos;0;1;1
+1.10.0005.06;Reforma de Equipamentos - CAPEX;Contrato;NUC-08;Minas Gerais;Pedro Henrique Rossi de Oliveira Fraga;Pedro Fraga;0;1;1
+1.10.0005.07;Gestão de Pneus - Itabirito;Contrato;NUC-08;Minas Gerais;Pedro Henrique Rossi de Oliveira Fraga;Luciano Bretas;0;1;1
+SUP-04;Superintendência de RH;Superintendencia;;;Andre Nery Silva;;0;1;1
+NUC-09;Núcleo RH;Núcleo;SUP-04;;Andre Nery Silva;;0;1;1
+1.10.0001.04;Adm.- RH - Recursos Humanos;Contrato;NUC-09;Minas Gerais;Andre Nery Silva;Administrativo;0;1;1
+1.10.0001.06;Adm.- RH - Empregados com Contrato Suspenso;Contrato;NUC-09;Minas Gerais;Andre Nery Silva;Administrativo;0;1;1
+1.10.0001.08;Adm.- Projetos Sociais;Contrato;NUC-09;Minas Gerais;Andre Nery Silva;Administrativo;0;1;1
+1.10.0007.03;Adm.- Qualidade;Contrato;NUC-09;Minas Gerais;Andre Nery Silva;Administrativo;0;1;1
+SUP-05;Superintendência Mineração;Superintendencia;;;Marcelo Teixeira Almeida;;0;1;1
+NUC-10;Núcleo Mineração;Núcleo;SUP-05;;Marcelo Teixeira Almeida;;0;1;1
+1.10.0007.06;Apoio - Núcleo Mineração;Contrato;NUC-10;Minas Gerais;Marcelo Teixeira Almeida;Josué Paixão;0;1;1
+1.10.0104.05;GSM - Ferro Puro e Capanema - MG - Logística;Contrato;NUC-10;Minas Gerais;Guilherme Eduardo Braga;Josué Paixão;0;1;1
+1.10.0109.01;Regional Norte - Parauapebas - PA;Contrato;NUC-10;Pará;Fabyanna Pontini Miranda Pereira;Josué Paixão;0;1;1
+1.10.0103.01;Bemisa - Locação - MG - Rental;Contrato;NUC-10;Minas Gerais;Marcelo Teixeira Almeida;Josué Paixão;0;1;1
+1.10.0053.13;Vale - Reparação de Acessos - MG - Logística;Contrato;NUC-10;Minas Gerais;Antonio Bertoldo Junior;Josué Paixão;0;1;1
+1.10.0053.16;Nexus - Ouro Preto - MG - Logística;Contrato;NUC-10;Minas Gerais;Antonio Bertoldo Junior;Josué Paixão;0;1;1
+1.10.0053.26;Vale - Capanema - Rental;Contrato;NUC-10;Minas Gerais;Antonio Bertoldo Junior;Josué Paixão;0;1;1
+1.10.0119.01;Mineral do Brasil - Brumadinho - MG - Logística;Contrato;NUC-10;Minas Gerais;Antonio Bertoldo Junior;Josué Paixão;0;1;1
+1.10.0053.19;Vale - Pelotização VGR – MG - Logística;Contrato;NUC-10;Minas Gerais;Joao Paulo Miranda de Oliveira;Josué Paixão;0;1;1
+1.10.0053.20;Vale - Vargem Grande - MG - Logística;Contrato;NUC-10;Minas Gerais;Joao Paulo Miranda de Oliveira;Josué Paixão;0;1;1
+1.10.0104.04;GSM - Mina da Barra - Pátio - MG - Rental;Contrato;NUC-10;Minas Gerais;Fabio Jose Ferreira;Josué Paixão;0;1;1
+1.10.0053.11;Vale - Pipa - Juatuba - MG - Logística;Contrato;NUC-10;Minas Gerais;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+NUC-11;Núcleo CPBS;Núcleo;SUP-05;;Barbara Fernanda Costa;;0;1;1
+1.10.0053.15;Vale - CPBS - RJ - Logística;Contrato;NUC-11;Rio de Janeiro;Barbara Fernanda Costa;Flora Mandelli;0;1;1
+NUC-12;Núcleo Norte;Núcleo;SUP-05;;Marcelo Teixeira Almeida;;0;1;1
+1.10.0053.03;Vale - Ourilândia - PA - Rental;Contrato;NUC-12;Pará;Eder Nunes Almeida;Josué Paixão;0;1;1
+1.10.0053.04;Vale - Manutenção de Bermas - PA - Rental;Contrato;NUC-12;Pará;Jose Oliveira da Silva Filho;Josué Paixão;0;1;1
+1.10.0053.08;Vale - Empilhadeiras Sossego - PA - Rental;Contrato;NUC-12;Pará;Leandro Feitosa da Silva;Josué Paixão;0;1;1
+1.10.0053.12;Vale - Locação de Equip. Sossego - PA - Rental;Contrato;NUC-12;Pará;Gleidson Luiz Gomes do Amaral;Josué Paixão;0;1;1
+1.10.0053.18;Vale - Salobo - Munck Oficina - PA - Logística;Contrato;NUC-12;Pará;Evaldo Silva Araujo;Josué Paixão;0;1;1
+1.10.0053.22;Vale - S11D Caminhos de Rolamentos - PA - Logística;Contrato;NUC-12;Pará;José Oliveira da Silva Filho;Josué Paixão;0;1;1
+1.10.0053.23;Vale - Rompedores Carajás - PA - Logística;Contrato;NUC-12;Pará;Guilherme Douglas da Silva Costa;Josué Paixão;0;1;1
+1.10.0053.25;Vale - Empilhadeira Salobo - Rental;Contrato;NUC-12;Pará;Leandro Feitosa da Silva;Josué Paixão;0;1;1
+1.10.0053.27;Vale - Mov. Interna Sossego - Britagem - Logística;Contrato;NUC-12;Pará;Fabyanna Pontini Miranda Pereira;Josué Paixão;0;1;1
+1.10.0053.24;Vale - S11D Infra - PA - Logística;Contrato;NUC-12;Pará;Roney da Silva;Josué Paixão;0;1;1
+1.10.0053.07;Vale - S11D Içamento de Carga - PA - Logística;Contrato;NUC-12;Pará;Washington Oliveira dos Santos;Josué Paixão;0;1;1
+NUC-13;Núcleo TSL;Núcleo;SUP-05;;Pedro Henrique Rossi de Oliveira Fraga;;0;1;1
+1.10.0126.01;TSL - Mina Pau Branco e Mina Herculano - MG;Contrato;NUC-13;Minas Gerais;Pedro Henrique Rossi de Oliveira Fraga;Josué Paixão;0;1;1
+1.10.0126.02;TSL - Mina S11D - PA;Contrato;NUC-13;Pará;Pedro Henrique Rossi de Oliveira Fraga;Josué Paixão;0;1;1
+SUP-06;Superintendência Siderurgia;Superintendencia;;;Fabio Adler;;0;1;1
+NUC-14;Apoio Siderurgias;Núcleo;SUP-06;;Fabio Adler;;0;1;1
+1.10.0007.01;Apoio Logístico;Contrato;NUC-14;Minas Gerais;Fabio Adler;Administrativo;0;1;1
+1.10.0090.06;Espírito Santo - Manutenção - Rental;Contrato;NUC-14;Espirito Santo;Antonio Aparecido Bahia dos Reis;Flora Mandelli;0;1;1
+4.10.0001.02;RJ - Manutenção;Contrato;NUC-14;Rio de Janeiro;Antonio Aparecido Bahia dos Reis;Flora Mandelli;0;1;1
+NUC-15;Núcleo Araucária;Núcleo;SUP-06;;Fabio Adler;;0;1;1
+1.10.0052.16;Gerdau - Araucária - PR - Rental;Contrato;NUC-15;Paraná;Fabio Adler;Flora Mandelli;0;1;1
+NUC-16;Núcleo Charqueadas;Núcleo;SUP-06;;Marcos de Oliveira Abreu;;0;1;1
+1.10.0052.14;Gerdau - Charqueadas - Rental;Contrato;NUC-16;Rio Grande do Sul;Marcos de Oliveira Abreu;Flora Mandelli;0;1;1
+NUC-17;Núcleo Cosigua;Núcleo;SUP-06;;Luis Fernando Santana da Silva;;0;1;1
+1.10.0052.12;Gerdau - Cosigua RJ - Rental;Contrato;NUC-17;Rio de Janeiro;Luis Fernando Santana da Silva;Flora Mandelli;0;1;1
+NUC-18;Núcleo RJ e ES;Núcleo;SUP-06;;Antonio Aparecido Bahia dos Reis;;0;1;1
+1.10.0024.06;Vallourec - Serra (ES) - Logística;Contrato;NUC-18;Espirito Santo;Antonio Aparecido Bahia dos Reis;Flora Mandelli;0;1;1
+1.10.0026.03;Arcelor Mittal - Serra/ES - Rental;Contrato;NUC-18;Rio de Janeiro;Antonio Aparecido Bahia dos Reis;Flora Mandelli;0;1;1
+1.10.0038.05;Ambev - Piraí - Rental;Contrato;NUC-18;Rio de Janeiro;Antonio Aparecido Bahia dos Reis;Flora Mandelli;0;1;1
+1.10.0038.08;Ambev - Petropolis - Rental;Contrato;NUC-18;Rio de Janeiro;Antonio Aparecido Bahia dos Reis;Flora Mandelli;0;1;1
+1.10.0038.15;Ambev - Cervejaria Macacu - Rental;Contrato;NUC-18;Rio de Janeiro;Antonio Aparecido Bahia dos Reis;Flora Mandelli;0;1;1
+1.10.0038.16;Ambev - UFRJ - Rental;Contrato;NUC-18;Rio de Janeiro;Antonio Aparecido Bahia dos Reis;Flora Mandelli;0;1;1
+1.10.0060.04;Bunge - Duque de Caxias - RJ - Rental;Contrato;NUC-18;Espirito Santo;Antonio Aparecido Bahia dos Reis;Flora Mandelli;0;1;1
+1.10.0067.02;Cimentos Tupi - Rio de Janeiro - RJ - Rental;Contrato;NUC-18;Rio de Janeiro;Antonio Aparecido Bahia dos Reis;Flora Mandelli;0;1;1
+1.10.0072.02;CSN - Volta Redonda - Rental;Contrato;NUC-18;Rio de Janeiro;Antonio Aparecido Bahia dos Reis;Flora Mandelli;0;1;1
+1.10.0086.01;Prest Serv - Cachoeiras de Macacu - RJ - Rental;Contrato;NUC-18;Rio de Janeiro;Antonio Aparecido Bahia dos Reis;Flora Mandelli;0;1;1
+1.10.0087.01;Valgroup RJ - Rental;Contrato;NUC-18;Rio de Janeiro;Antonio Aparecido Bahia dos Reis;Flora Mandelli;0;1;1
+1.10.0093.01;Farmoquímica - Rio de Janeiro - RJ - Rental;Contrato;NUC-18;Rio de Janeiro;Antonio Aparecido Bahia dos Reis;Flora Mandelli;0;1;1
+1.10.0095.01;Vesuvius - Rio de Janeiro - RJ - Rental;Contrato;NUC-18;Rio de Janeiro;Antonio Aparecido Bahia dos Reis;Flora Mandelli;0;1;1
+1.10.0095.02;Vesuvius - Resende - RJ - Rental;Contrato;NUC-18;Rio de Janeiro;Antonio Aparecido Bahia dos Reis;Flora Mandelli;0;1;1
+1.10.0105.01;Log in - TVV - ES - Rental;Contrato;NUC-18;Espirito Santo;Antonio Aparecido Bahia dos Reis;Flora Mandelli;0;1;1
+1.10.0113.01;Quaker - Campo Grande - RJ - Rental;Contrato;NUC-18;Rio de Janeiro;Antonio Aparecido Bahia dos Reis;Flora Mandelli;0;1;1
+1.10.0117.01;Lubrizol - Belford Roxo - RJ - Rental;Contrato;NUC-18;Rio de Janeiro;Antonio Aparecido Bahia dos Reis;Flora Mandelli;0;1;1
+1.10.0120.01;FM2C - Belford Roxo - RJ - Rental;Contrato;NUC-18;Rio de Janeiro;Antonio Aparecido Bahia dos Reis;Flora Mandelli;0;1;1
+1.10.0122.01;Essencis - Magé - RJ - Rental;Contrato;NUC-18;Rio de Janeiro;Antonio Aparecido Bahia dos Reis;Flora Mandelli;0;1;1
+1.10.0038.01;Ambev - Nova Rio  - RJ - Rental;Contrato;NUC-18;Rio de Janeiro;Antonio Aparecido Bahia dos Reis;Flora Mandelli;0;1;1
+1.10.0112.01;Bertolini - Colatina - ES - Rental;Contrato;NUC-18;Espirito Santo;Antonio Aparecido Bahia dos Reis;Flora Mandelli;0;1;1
+NUC-19;Núcleo SP Siderurgias;Núcleo;SUP-06;;Luciano Leao;;0;1;1
+1.10.0052.01;Gerdau - Pindamonhangaba - SP - Rental;Contrato;NUC-19;São Paulo;Luciano Leao;Flora Mandelli;0;1;1
+1.10.0052.02;Gerdau - Mogi das Cruzes - SP - Rental;Contrato;NUC-19;São Paulo;Luciano Leao;Flora Mandelli;0;1;1
+NUC-20;Núcleo Vallourec;Núcleo;SUP-06;;Fabio Adler;;0;1;1
+1.10.0024.01;Vallourec - Barreiro (MG) - Logística;Contrato;NUC-20;Minas Gerais;Diego Henrique Formiga;Flora Mandelli;0;1;1
+1.10.0024.05;Vallourec - Jeceaba (MG) - Logística;Contrato;NUC-20;Minas Gerais;Deivson Viana Salgado;Flora Mandelli;0;1;1
+1.10.0024.04;Vallourec - Rio das Ostras (RJ) - Logística;Contrato;NUC-20;Rio de Janeiro;Alfredo da Silva Bento;Flora Mandelli;0;1;1
+NUC-21;Núcleo Zona da Mata;Núcleo;SUP-06;;Diego Parreira Martins;;0;1;1
+1.10.0052.13;Gerdau - Ouro Branco - Rental;Contrato;NUC-21;Minas Gerais;Diego Parreira Martins;Flora Mandelli;0;1;1
+1.10.0067.01;Cimentos Tupi - Carandaí - MG - Rental;Contrato;NUC-21;Minas Gerais;Diego Parreira Martins;Flora Mandelli;0;1;1
+1.10.0067.03;Cimentos Tupi - Juiz de Fora - MG - Rental;Contrato;NUC-21;Minas Gerais;Diego Parreira Martins;Flora Mandelli;0;1;1
+1.10.0082.01;AMG - Nazareno - MG - Rental;Contrato;NUC-21;Minas Gerais;Diego Parreira Martins;Flora Mandelli;0;1;1
+1.10.0083.01;AMG - São João Del Rei - MG - Rental;Contrato;NUC-21;Minas Gerais;Diego Parreira Martins;Flora Mandelli;0;1;1
+2.20.0002.01;Arcelor Mittal  Juiz de Fora - Rental;Contrato;NUC-21;Minas Gerais;Diego Parreira Martins;Flora Mandelli;0;1;1
+SUP-07;Núcleo MG, GO e SP;Superintendencia;;;Gabriela Cabral dos Santos;;0;1;1
+NUC-22;Núcleo MG, GO e SP;Núcleo;SUP-07;;Gabriela Cabral dos Santos;;0;1;1
+1.10.0078.01;Friato - Pires do Rio - Rental;Contrato;NUC-22;Goiás;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0080.01;CMOC - Niobrás - Ouvidor - GO - Rental;Contrato;NUC-22;Goiás;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0080.03;CMOC - Copebrás - Ouvidor - GO - Rental;Contrato;NUC-22;Goiás;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0101.01;T&T Friato - Aparecida de Goiânia - GO - Rental;Contrato;NUC-22;Goiás;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0114.01;Sika - Aparecida de Goiânia - GO - Rental;Contrato;NUC-22;Goiás;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0115.01;Saint Gobain - Anápolis - GO - Rental;Contrato;NUC-22;Goiás;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0129.01;Frico Alimentos - Trindade - GO - Rental;Contrato;NUC-22;Goiás;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0131.02;Rede Dor - Brasília - DF - Rental;Contrato;NUC-22;Goiás;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0007.07;Regional Rental e Logística;Contrato;NUC-22;Goiás;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0012.01;Smart Logística  - Rental;Contrato;NUC-22;Minas Gerais;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0016.01;Flsmidth Santa Luzia - Rental;Contrato;NUC-22;Minas Gerais;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0026.01;Arcelor Mittal - Sabará - Rental;Contrato;NUC-22;Minas Gerais;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0060.01;Bunge Alimentos - Santa Luzia - Rental;Contrato;NUC-22;Minas Gerais;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0067.04;Cimentos Tupi - Contagem - MG - Rental;Contrato;NUC-22;Minas Gerais;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0077.01;MRS - Horto - Logística;Contrato;NUC-22;Minas Gerais;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0087.02;Valgroup - Betim - MG - Rental;Contrato;NUC-22;Minas Gerais;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0087.03;Valgroup - Poços de Caldas - MG - Rental;Contrato;NUC-22;Minas Gerais;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0094.01;Tiberina - Juatuba - MG - Rental;Contrato;NUC-22;Minas Gerais;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0096.01;Engemec - Vale Itabira - MG - Rental;Contrato;NUC-22;Minas Gerais;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0106.01;Trufer - Tiberina - Juatuba - MG - Rental;Contrato;NUC-22;Minas Gerais;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0110.01;Expresso Nepomuceno - Juatuba - MG - Rental;Contrato;NUC-22;Minas Gerais;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0110.02;Expresso Nepomuceno - Lavras - MG - Rental;Contrato;NUC-22;Minas Gerais;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0116.01;Metal Stamp - Belo Horizonte - MG - Rental;Contrato;NUC-22;Minas Gerais;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0127.01;Oggi Sorvetes - Betim - MG - Rental;Contrato;NUC-22;Minas Gerais;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0130.01;Rigger Guindastes - Rental;Contrato;NUC-22;Minas Gerais;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0016.03;Thyssenkrupp - SP - Logística;Contrato;NUC-22;São Paulo;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0052.03;Gerdau - Fábrica - São José dos Campos - SP - Rental;Contrato;NUC-22;São Paulo;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0052.04;Gerdau - Cotia - SP - Rental;Contrato;NUC-22;São Paulo;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0052.05;Gerdau - Cumbica - SP - Rental;Contrato;NUC-22;São Paulo;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0052.06;Gerdau - Pirituba - SP - Rental;Contrato;NUC-22;São Paulo;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0052.09;Gerdau - Araçariguama  - SP - Rental;Contrato;NUC-22;São Paulo;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0084.01;Transamigos - Pirapora do Bom Jesus - SP - Rental;Contrato;NUC-22;São Paulo;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0097.01;Liebherr - Guaratinguetá - SP - Rental;Contrato;NUC-22;São Paulo;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0123.01;Monin - SP - Rental;Contrato;NUC-22;São Paulo;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0125.01;John Deere - Indaiatuba - Rental;Contrato;NUC-22;São Paulo;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0128.01;Novelis - Pindamonhangaba - SP - Rental;Contrato;NUC-22;São Paulo;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0131.01;Rede Dor - Embu das Artes - SP - Rental;Contrato;NUC-22;São Paulo;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+7.10.0001.03;Taubaté - Manutenção;Contrato;NUC-22;São Paulo;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0014.01;Aethra - Centauro - Logística;Contrato;NUC-22;Minas Gerais;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0038.04;Ambev - Sete Lagoas - MG - Rental;Contrato;NUC-22;Minas Gerais;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0038.06;Ambev - Juatuba - Logística;Contrato;NUC-22;Minas Gerais;Gabriela Cabral dos Santos;Josué Paixão;0;1;1
+1.10.0121.01;Tora Recintos - Betim - Rental;Contrato;NUC-22;Minas Gerais;Gabriela Cabral dos Santos;Josué Paixão;0;1;1

@@ -1,0 +1,49 @@
+/* ==========================================================================
+   Arquivo: styles/pages/_documentation.css
+   --------------------------------------------------------------------------
+   Estilos para a página de Documentação.
+   ========================================================================== */
+
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px; 
+}
+
+.doc-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.doc-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.doc-card-icon {
+    font-size: 40px;
+    color: #E87722; 
+    margin-bottom: 15px;
+}
+
+.doc-card-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.doc-card-description {
+    font-size: 15px;
+    color: #5f6368;
+    line-height: 1.5;
+    flex-grow: 1; 
+}

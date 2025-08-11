@@ -1,0 +1,45 @@
+/* ==========================================================================
+   Arquivo: styles/components/_context.css
+   --------------------------------------------------------------------------
+   Estilos para o menu de contexto, que aparece com o clique direito do
+   mouse sobre determinados elementos (como tarefas em um plano de ação).
+   ========================================================================== */
+
+/* O container flutuante do menu */
+.context-menu-container {
+    position: absolute; /* Permite que o menu seja posicionado dinamicamente via JavaScript */
+    z-index: 2100; /* Garante que o menu fique acima de outros elementos, como o overlay do modal */
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Sombra suave para dar profundidade */
+    border: 1px solid #ddd;
+    padding: 5px 0; /* Espaçamento vertical interno */
+    min-width: 160px; /* Largura mínima para o menu */
+}
+
+/* Um item individual clicável dentro do menu (ex: "Editar", "Excluir") */
+.context-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espaço entre o ícone e o texto */
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Efeito visual ao passar o mouse sobre um item */
+.context-menu-item:hover {
+    background-color: #f5f5f5;
+}
+
+/* Modificador para um item de exclusão, com destaque em vermelho no hover */
+.context-menu-item.delete:hover {
+    background-color: #f8d7da; /* Fundo vermelho claro */
+    color: #721c24; /* Texto vermelho escuro */
+}
+
+/* Estilo para o ícone dentro de um item do menu */
+.context-menu-item .bi {
+    font-size: 16px;
+}

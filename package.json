@@ -1,0 +1,19 @@
+{
+  "name": "pcm-hub-backend",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "concurrently \"cd frontend && npm run dev\" \"python run.py\"",
+    "setup-db": "cd backend && python init_db.py && python conv_db.py && python data_db.py && python import_db.py"
+  },
+  "dependencies": {
+    "@ag-grid-community/client-side-row-model": "^32.3.5",
+    "@ag-grid-community/core": "^32.3.5",
+    "react-data-grid": "^7.0.0-beta.56",
+    "react-easy-panzoom": "^0.4.4",
+    "react-select": "^5.10.2",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

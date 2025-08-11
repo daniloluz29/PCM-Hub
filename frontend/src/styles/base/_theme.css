@@ -1,0 +1,26 @@
+/* Estilos para o cabeçalho personalizado (substitui a barra de título) */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Alinha os itens à esquerda por padrão */
+  height: 30px; /* Altura aproximada da barra de título padrão */
+  background-color: #f0f0f0; /* Cor de fundo do cabeçalho */
+  color: #333;
+  padding-left: env(titlebar-area-x); /* Espaço para os controles da janela à esquerda */
+  padding-right: calc(100vw - env(titlebar-area-x) - env(titlebar-area-width)); /* Espaço à direita */
+  -webkit-app-region: drag; /* Permite arrastar a janela por esta área */
+}
+
+/* Para os elementos dentro do cabeçalho que não devem ser arrastáveis */
+.app-header button,
+.app-header input,
+.app-header a {
+  -webkit-app-region: no-drag;
+}
+
+.app-title {
+  font-size: 1em;
+  margin-left: 10px;
+}
+
+/* Você pode adicionar mais estilos aqui para botões, ícones, etc. */

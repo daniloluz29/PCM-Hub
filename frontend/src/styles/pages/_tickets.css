@@ -1,0 +1,283 @@
+/* ==========================================================================
+   Arquivo: styles/pages/_tickets.css
+   --------------------------------------------------------------------------
+   Estilos para o portal de chamados e a tela de detalhes.
+   ========================================================================== */
+
+/* --- ESTILOS ATUALIZADOS PARA O MODAL DE DETALHES --- */
+.detail-modal.anexos-visible .modal-content {
+    max-width: 1100px;
+}
+
+.detail-modal .modal-content {
+    transition: max-width 0.3s ease-in-out;
+    max-width: 800px; 
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh; 
+}
+
+.detail-modal .modal-body {
+    display: flex;
+    gap: 20px;
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+.main-content-column {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow-y: auto;
+}
+
+.side-panel {
+    width: 300px;
+    flex-shrink: 0;
+    border-left: 1px solid #e0e0e0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+}
+
+.anexos-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.anexo-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 5px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.anexo-item:last-child {
+    border-bottom: none;
+}
+
+.anexo-item .bi {
+    font-size: 28px;
+    color: #5f6368;
+}
+
+.anexo-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.anexo-nome {
+    font-weight: 500;
+    color: #007bff;
+    cursor: pointer;
+}
+.anexo-nome:hover {
+    text-decoration: underline;
+}
+
+.anexo-tamanho {
+    font-size: 12px;
+    color: #808080;
+}
+
+.delete-anexo-btn {
+    background: none;
+    border: none;
+    color: #808080;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 5px;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+.delete-anexo-btn:hover {
+    color: #c0392b;
+    background-color: #f1f3f5;
+}
+
+/* --- ESTILOS PARA DRAG-AND-DROP DE ANEXOS --- */
+.drop-zone {
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    color: #808080;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+.drop-zone.active {
+    border-color: #007bff;
+    background-color: #f0f8ff;
+    color: #007bff;
+}
+
+.drop-zone .bi {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.detail-modal .modal-content {
+    max-width: 800px; 
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh; 
+}
+
+.detail-modal .modal-body {
+    overflow-y: auto; 
+    flex-grow: 1; 
+}
+
+.solution-box {
+    margin-top: 25px;
+}
+
+.solution-box textarea,
+.chat-input-area textarea,
+textarea {
+    width: 100%;
+    min-height: 80px; 
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-style: sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+    resize: none; 
+}
+
+.history-chat-container {
+    margin-top: 25px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.history-item {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.history-item-icon {
+    font-size: 24px;
+    color: #808080;
+    margin-right: 15px;
+    margin-top: 5px;
+}
+
+.history-item-content {
+    background-color: #f1f3f5; 
+    padding: 15px;
+    border-radius: 8px;
+    flex-grow: 1;
+}
+
+.history-item-header {
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.history-item-header small {
+    font-weight: normal;
+    color: #808080;
+    margin-left: 10px;
+}
+
+.history-item-body {
+    margin: 0;
+    line-height: 1.6;
+    white-space: pre-wrap; 
+}
+
+.detail-actions-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.footer-actions-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1;
+}
+
+.footer-actions-left textarea {
+    flex-grow: 1;
+    min-height: 40px;
+    height: 40px;
+    padding: 8px 12px;
+    resize: none;
+}
+
+.footer-actions-left button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #5f6368;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.footer-actions-left button:hover {
+    color: #E87722;
+}
+
+.footer-actions-right {
+    display: flex;
+    gap: 15px;
+    margin-left: 20px;
+}
+
+
+.ticket-list-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 15px;
+}
+
+.ticket-list-table thead {
+    background-color: #f8f9fa;
+}
+
+.ticket-list-table th, .ticket-list-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.ticket-list-table tbody tr {
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.ticket-list-table tbody tr:hover {
+    background-color: #f1f3f5;
+}
+
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 12px;
+    color: white;
+    text-transform: uppercase;
+    white-space: nowrap; 
+}
+
+.status-pendente { background-color: #E87722; } 
+.status-em-andamento { background-color: #007bff; } 
+.status-concluido { background-color: #27ae60; } 
+.status-cancelado { background-color: #808080; } 
+.status-default { background-color: #6c757d; } 

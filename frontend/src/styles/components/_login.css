@@ -1,0 +1,213 @@
+/* ==========================================================================
+   Arquivo: styles/components/_login.css
+   --------------------------------------------------------------------------
+   Estilos específicos para a página e o componente da caixa de login.
+   ========================================================================== */
+
+/* Classe para ser aplicada a um campo de input quando há um erro de validação */
+.input-error {
+    /* O uso de !important pode ser um sinal de que a especificidade está
+       a causar conflitos. Refatorar para BEM pode ajudar a evitar isso. */
+    border-width: 1px !important;
+    border-color: #c0392b !important;
+    border-style: solid;
+}
+
+/* Estilo de erro específico para um componente de select (provavelmente uma biblioteca) */
+.select-error .css-13cymwt-control {
+    border-color: #c0392b !important;
+}
+
+/* Mensagem de texto que aparece abaixo de um campo com erro */
+.error-message {
+    color: #c0392b !important;
+    font-size: 14px !important;
+    margin: 0;
+}
+
+/* Container que ocupa a tela inteira para a página de login */
+.login-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    background-color: #808080;
+    overflow: hidden;
+}
+
+/* O componente principal da caixa de login */
+.login-box {
+    background-color: white;
+    padding: 40px 50px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 350px;
+    text-align: center;
+    z-index: 10;
+}
+
+/* Container para o logo dentro da caixa de login */
+.login-logo-container {
+    margin-bottom: 25px;
+}
+
+.login-logo-container img {
+    height: 60px;
+}
+
+.login-logo-container span {
+    display: block;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-top: 5px;
+}
+
+/* Container para um campo de input e seu ícone */
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #808080;
+    z-index: 1;
+}
+
+/* Estilo específico para o ícone de "olho" de senha */
+.input-group .eye-icon {
+    left: auto;
+    right: 15px;
+    cursor: pointer;
+}
+
+/* Estilos para os campos de input dentro da caixa de login */
+.login-box input {
+    width: 100%;
+    padding: 15px 15px 15px 50px; /* Padding esquerdo para dar espaço ao ícone */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    background-color: white;
+}
+
+/* Estilo do texto de placeholder */
+::placeholder {
+    color: #c0c0c0;
+    opacity: 1;
+}
+
+/* Botão principal de login */
+.login-box .login-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #E87722;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px; /* Reduzido para acomodar o erro */
+}
+
+.login-box .login-btn:hover {
+    background-color: #d46a1e;
+}
+
+/* Link para a página de cadastro */
+.login-box .signup-link {
+    margin-top: 30px;
+    font-size: 14px;
+    color: #808080;
+}
+
+.login-box .signup-link a {
+    color: #E87722;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* Logo decorativo no canto inferior direito da página */
+.bottom-right-logo {
+    position: absolute;
+    right: 40px;
+    bottom: 30px;
+    z-index: 5;
+}
+
+.bottom-right-logo img {
+    height: 40px;
+    opacity: 0.8;
+}
+
+/* --- CORREÇÕES E ADIÇÕES --- */
+
+/* Mensagem de erro com maior especificidade */
+.login-box .error-message {
+    color: #c0392b;
+    font-size: 14px;
+    font-weight: 500;
+    margin: -10px 0 15px 0;
+    text-align: left;
+}
+
+/* Input com erro com maior especificidade */
+.login-box .input-group input.input-error {
+    border-color: #c0392b;
+    border-width: 1.5px;
+}
+
+/* Container para as opções de login (checkbox) */
+.login-options {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Estilo para o label do checkbox customizado */
+.login-options .checkbox-label-group {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 15px;
+    color: #555;
+    user-select: none;
+}
+
+/* Esconde o checkbox padrão do navegador */
+.login-options input[type="checkbox"] {
+    display: none;
+}
+
+/* Cria a aparência da caixa do checkbox */
+.login-options .checkbox-label-group span::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    vertical-align: -4px;
+    transition: all 0.2s;
+}
+
+/* Adiciona o "check" quando o checkbox está marcado */
+.login-options input[type="checkbox"]:checked + span::before {
+    background-color: #E87722;
+    border-color: #E87722;
+    content: '✓';
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    line-height: 16px;
+}

@@ -1,0 +1,17 @@
+/* ==========================================================================
+   Arquivo: styles/base/_reset.css
+   --------------------------------------------------------------------------
+   Reseta estilos padrão do navegador e define configurações globais para
+   garantir uma base consistente em todos os browsers.
+   ========================================================================== */
+
+/* Estilo base para o corpo do documento */
+body {
+    /* Remove a margem padrão do navegador */
+    margin: 0;
+    /* Define a família de fontes padrão para toda a aplicação */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;    /* Define a cor de fundo principal */
+    background-color: #f4f7f6;
+}

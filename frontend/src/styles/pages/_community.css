@@ -1,0 +1,549 @@
+/* ==========================================================================
+   PAGE: COMMUNITY
+   --------------------------------------------------------------------------
+   Estilos para a página Comunidade (Catálogo de Contatos e Calendário).
+   ========================================================================== */
+
+
+.modal-footer small {
+    margin-right: auto;
+    color: #6c757d;
+}
+
+/* Remove o container antigo, pois agora a coluna fará esse papel */
+.recorrencia-container {
+    margin-top: 0;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+}
+
+/* Container principal do formulário */
+.form-grid-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Ativa o layout de 2 colunas para o formulário geral */
+.form-grid-layout.recorrencia-ativa {
+    grid-template-columns: 60% 40%;
+}
+
+/* Colunas principais */
+.form-column-left,
+.form-column-right {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.form-column-right {
+    padding-left: 20px;
+    border-left: 1px solid #e9ecef;
+}
+
+/* Os estilos para os botões de dia da semana (.dia-semana-btn) continuam os mesmos */
+.dias-semana-group {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.dia-semana-btn {
+    border: 1px solid #ced4da;
+    background-color: #fff;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.dia-semana-btn.selected {
+    background-color: #2c3e50;
+    color: white;
+    border-color: #2c3e50;
+}
+
+/* Estilo para o checkbox de "Ativar Recorrência" */
+.recorrencia-toggle {
+    margin-top: 10px;
+    padding-left: 5px;
+}
+
+/* NOVO: Estilo para o checkbox empilhado abaixo do input de Fim */
+.recorrencia-toggle-stacked {
+    margin-top: 8px; /* Pequeno espaço entre o input de Fim e o checkbox */
+}
+
+.recorrencia-toggle-stacked .checkbox-label-group {
+    /* Alinha o checkbox e o texto na horizontal */
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Espaço entre a caixinha e o texto "Recorrente" */
+    cursor: pointer;
+    margin: 0; /* Reseta margens */
+    padding: 0; /* Reseta preenchimentos */
+}
+
+/* NOVO: Estilo para deixar o checkbox e o texto BEM PEQUENOS */
+.recorrencia-toggle-stacked input[type="checkbox"] {
+    /* Tamanho da caixinha */
+    width: 14px;
+    height: 14px;
+    margin: 0; /* Remove margens padrão do navegador */
+    cursor: pointer;
+    flex-shrink: 0; /* Impede que o checkbox encolha */
+}
+
+.recorrencia-toggle-stacked span {
+    /* Tamanho da fonte do texto "Recorrente" */
+    font-size: 13px;
+    line-height: 1; /* Alinhamento vertical do texto */
+    user-select: none; /* Impede que o texto seja selecionado ao clicar */
+}
+
+
+/* Ajustes no título e espaçamento da coluna direita para ficar mais compacto */
+.form-column-right h4 {
+    margin-bottom: 0;
+    font-weight: 600;
+}
+.form-column-right .filter-group {
+    margin-top: 5px;
+}
+
+
+/* IMPORTANTE: A regra para alargar o modal continua necessária */
+body.modal-is-wide .modal-content {
+   max-width: 950px;
+   transition: max-width 0.3s ease-in-out;
+}
+
+/* Container principal do chat */
+.history-chat-container {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* Estilo base para cada item (balão de mensagem) no chat */
+.history-item {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+/* Conteúdo do balão da mensagem */
+.history-item-content {
+    background-color: #f1f0f0;
+    border-radius: 12px;
+    padding: 10px 15px;
+    max-width: 80%;
+    position: relative; /* Essencial para posicionar o ícone de ação */
+}
+
+/* Cabeçalho da mensagem (nome e data) */
+.history-item-header {
+    font-weight: bold;
+    font-size: 13px;
+    margin-bottom: 5px;
+    color: #333;
+}
+.history-item-header small {
+    font-weight: normal;
+    color: #888;
+    margin-left: 8px;
+}
+
+/* Corpo do texto da mensagem */
+.history-item-body {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+    white-space: pre-wrap; /* Mantém as quebras de linha */
+    word-wrap: break-word; /* Quebra palavras longas */
+}
+
+/* Ícone de três pontos que aparece no hover */
+.message-action-trigger {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    line-height: 1;
+}
+.message-action-trigger:hover {
+    background-color: rgba(0,0,0,0.08);
+}
+.message-action-trigger i {
+    color: #555;
+    font-size: 16px;
+}
+
+/* Wrapper para o menu flutuante (balão de contexto) */
+.floating-menu-wrapper {
+    position: fixed; /* Posição fixa para flutuar sobre tudo */
+    z-index: 9999;
+}
+
+/* Container do menu de contexto */
+.options-menu-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    padding: 5px 0;
+    min-width: 180px;
+    overflow: hidden;
+}
+
+.options-menu-section {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilo para cada item do menu (Reagir, Editar, Excluir) */
+.options-menu-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+.options-menu-item:hover {
+    background-color: #f5f5f5;
+}
+.options-menu-item i {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Seção de reações com emojis */
+.options-menu-section.reactions {
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 5px;
+}
+.emoji-reaction {
+    font-size: 22px;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.emoji-reaction:hover {
+    background-color: #f5f5f5;
+}
+
+/* Balãozinho da reação abaixo da mensagem */
+.reaction-bubble {
+    position: absolute;
+    bottom: -15px;
+    right: 10px;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 50%;
+    padding: 2px 5px;
+    font-size: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+
+/* Estilos para mensagens enviadas (à direita) */
+.history-item.sent {
+    flex-direction: row-reverse;
+}
+.history-item.sent .history-item-content {
+    background-color: #dcf8c6; /* Verde claro, similar ao WhatsApp */
+}
+.history-item.sent .reaction-bubble {
+    left: 10px;
+    right: auto;
+}
+
+/* Modo de edição da mensagem */
+.history-item-edit-mode {
+    width: 100%;
+}
+.history-item-edit-mode textarea {
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    padding: 8px;
+    font-size: 14px;
+    resize: vertical;
+}
+.history-item-edit-mode .edit-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 5px;
+}
+.history-item-edit-mode .edit-actions button {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+
+.admin-actions-bar {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.admin-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #2c3e50; 
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s;
+    position: relative;
+    flex-shrink: 0; /* Impede que o botão encolha */
+}
+
+.admin-actions-bar .admin-button:hover {
+    background-color: #34495e;
+}
+
+.admin-button.pending-button {
+    background-color: #7f8c8d; 
+}
+.admin-button.pending-button:hover {
+    background-color: #95a5a6;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #e74c3c; 
+    color: white;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+
+.editable-event-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.editable-event-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.editable-event-item:last-child {
+    border-bottom: none;
+}
+
+.editable-event-item .event-title {
+    font-weight: bold;
+}
+
+.editable-event-item .event-actions button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 15px;
+    color: #808080;
+}
+
+
+.search-filter-header {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.search-bar-group {
+    position: relative;
+    flex-grow: 1;
+}
+
+.search-bar-group .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #808080;
+    font-size: 18px;
+}
+
+.search-bar-group input {
+    width: 100%;
+    padding: 12px 20px 12px 50px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.filter-toggle-btn {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    background-color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.filter-toggle-btn.active {
+    background-color: #E87722;
+    color: white;
+    border-color: #E87722;
+}
+
+.filter-panel {
+    background-color: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.active-filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.filter-pill {
+    display: flex;
+    align-items: center;
+    background-color: #e0e0e0;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+    color: #333;
+}
+
+.filter-pill button {
+    background: none;
+    border: none;
+    margin-left: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 0;
+    line-height: 1;
+}
+
+.filter-options-list {
+    max-height: 140px; 
+    overflow-y: auto; 
+    padding-right: 10px; 
+    margin-top: 10px;
+}
+
+.clear-filters-link {
+    background: none;
+    border: none;
+    color: #E87722;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.checkbox-label-group {
+    display: flex;
+    align-items: center; 
+    margin-bottom: 8px; 
+    cursor: pointer; 
+    user-select: none; 
+}
+
+.checkbox-label-group label {
+    position: relative; 
+    top: 4px;           
+}
+
+.checkbox-label-group input[type="checkbox"] {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+}
+
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+    margin-top: 25px; 
+}
+
+.contact-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-left: 5px solid #E87722; 
+}
+
+.contact-card h3 {
+    margin-top: 0;
+    font-size: 18px;
+    color: #2c3e50;
+}
+
+.contact-card p {
+    margin: 4px 0;
+    color: #5f6368;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+}
+
+.contact-card .bi {
+    margin-right: 10px;
+    color: #808080;
+    font-size: 16px;
+}
+
+.calendar-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}

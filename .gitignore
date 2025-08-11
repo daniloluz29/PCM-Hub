@@ -1,0 +1,55 @@
+# Arquivo .gitignore para um projeto com Backend (Python/Flask) e Frontend (Node.js)
+
+### Backend - Python/Flask ###
+
+# Ambientes virtuais
+/venv/
+/env/
+/.venv/
+
+# Arquivos de cache do Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Banco de dados SQLite
+# É importante não enviar o banco de dados para o repositório
+*.db
+*.sqlite3
+
+# Pasta 'instance' do Flask
+# Pode conter configurações secretas e o banco de dados
+/instance/
+
+# Arquivos de ambiente
+# Contêm senhas, chaves de API e outras informações sensíveis
+.env
+.env.*
+!.env.example
+
+
+### Frontend - Node.js/React/Vite ###
+
+# Dependências do Node.js
+# Esta pasta pode ter milhares de arquivos e é recriada com 'npm install'
+/node_modules/
+
+# Pasta de build/produção
+# Gerada automaticamente ao compilar o projeto
+/dist/
+/.output/
+/.vite-press/dist
+
+# Arquivos de log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Arquivos de configuração de IDEs e editores
+.vscode/
+.idea/
+
+# Arquivos de sistema operacional
+.DS_Store
+Thumbs.db

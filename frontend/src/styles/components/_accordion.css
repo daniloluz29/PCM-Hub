@@ -1,0 +1,105 @@
+/* ==========================================================================
+   Arquivo: styles/components/_accordion.css
+   --------------------------------------------------------------------------
+   Componente de conteúdo expansível (sanfona), ideal para seções de FAQ
+   ou para exibir/ocultar informações de forma compacta.
+   ========================================================================== */
+
+/* O container para cada conjunto de pergunta e resposta */
+.accordion-item {
+    background-color: #ffffff;
+    margin-bottom: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden; /* Garante que o conteúdo não vaze durante a animação */
+}
+
+/* A área clicável que contém o texto da pergunta */
+.accordion-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px;
+    cursor: pointer;
+    background-color: #ffffff;
+    font-weight: bold;
+    font-size: 16px;
+    color: #2c3e50;
+    position: relative;
+}
+
+/* Efeito visual ao passar o mouse sobre a pergunta */
+.accordion-question:hover {
+    background-color: #f9f9f9;
+}
+
+/* O ícone (geralmente uma seta) dentro da área da pergunta */
+.accordion-question .icon {
+    font-size: 20px;
+    transition: transform 0.3s ease; /* Anima a rotação do ícone */
+}
+
+/* A área de conteúdo (resposta) que é escondida por padrão */
+.accordion-answer {
+    max-height: 0; /* Começa com altura zero, efetivamente escondido */
+    overflow: hidden;
+    /* Anima a transição da altura para um efeito suave de abertura/fechamento */
+    transition: max-height 0.4s ease-out, padding 0.4s ease;
+    padding: 0 20px;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Quando a classe .active é adicionada ao .accordion-item... */
+
+/* ...o ícone dentro da pergunta gira 180 graus */
+.accordion-item.active .accordion-question .icon {
+    transform: rotate(180deg);
+}
+
+/* ...e a área da resposta se expande para sua altura máxima, revelando o conteúdo */
+.accordion-item.active .accordion-answer {
+    max-height: 500px; /* Um valor alto o suficiente para caber qualquer conteúdo */
+    padding: 0 20px 20px 20px; /* Adiciona padding inferior quando aberto */
+}
+
+.accordion-question {
+    position: relative;
+}
+
+.accordion-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.accordion-actions .action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #808080;
+    padding: 5px;
+    border-radius: 50%;
+    display: none; /* Escondido por padrão */
+    transition: background-color 0.2s;
+}
+
+/* Mostra os botões de ação quando o mouse passa sobre o item do acordeão */
+.accordion-item:hover .accordion-actions .action-btn {
+    display: block;
+}
+
+.accordion-actions .action-btn:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.accordion-answer small {
+    display: block;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    font-style: italic;
+    color: #808080;
+}

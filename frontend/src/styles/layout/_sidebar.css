@@ -1,0 +1,243 @@
+/* ==========================================================================
+   Arquivo: styles/layout/_sidebar.css
+   --------------------------------------------------------------------------
+   Estilos para as barras laterais (sidebars) da aplicação, incluindo a
+   navegação da área de administração e a sidebar de filtros.
+   ========================================================================== */
+
+/* --- Estilos para a Sidebar de Navegação do Layout de Administração --- */
+
+/* O container principal que envolve a sidebar e o conteúdo da página de admin */
+.admin-layout-container {
+    display: flex;
+    margin-top: 25px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    min-height: calc(100vh - 230px); /* Garante uma altura mínima */
+    overflow: hidden;
+}
+
+/* A sidebar de navegação da área de admin */
+.admin-layout-sidebar {
+    width: 70px; /* Largura inicial (recolhida) */
+    border-right: 1px solid #e0e0e0;
+    background-color: #f9fafb;
+    transition: width 0.3s ease; /* Anima a mudança de largura */
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+/* Efeito de expansão ao passar o mouse sobre a sidebar */
+.admin-layout-sidebar:hover {
+    width: 240px;
+}
+
+.admin-layout-sidebar nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Botão de navegação individual na sidebar de admin */
+.sidebar-nav-button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 17px 25px;
+    border: none;
+    background-color: transparent;
+    text-align: left;
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    border-left: 4px solid transparent;
+    transition: background-color 0.2s, border-left-color 0.2s;
+    white-space: nowrap; /* Impede que o texto quebre a linha */
+    overflow: hidden;
+}
+
+.sidebar-nav-button .bi {
+    margin-right: 15px;
+    font-size: 20px;
+    color: #5f6368;
+}
+
+/* O texto do botão, escondido por padrão */
+.sidebar-nav-button span {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    display: inline-block;
+}
+
+/* Mostra o texto quando a sidebar está expandida (no hover) */
+.admin-layout-sidebar:hover .sidebar-nav-button span {
+    opacity: 1;
+}
+
+.sidebar-nav-button:hover {
+    background-color: #f0f2f5;
+}
+
+/* Modificador para o botão de navegação ativo */
+.sidebar-nav-button.active {
+    background-color: #fff8f2;
+    color: #E87722;
+    border-left-color: #E87722;
+    font-weight: bold;
+}
+
+.sidebar-nav-button.active .bi {
+    color: #E87722;
+}
+
+/* A área de conteúdo principal da página de admin */
+.admin-layout-content {
+    flex-grow: 1;
+    padding: 25px 15px;
+    overflow-y: auto;
+}
+
+
+/* --- Estilos para a Sidebar de Filtros Retrátil --- */
+
+/* O container que envolve a sidebar de filtros e a área de conteúdo principal */
+.page-container {
+    display: flex;
+    padding-top: 56px; /* Altura do menu principal */
+}
+
+/* A sidebar de filtros, fixa à esquerda */
+.filter-sidebar {
+    position: fixed;
+    left: 0;
+    top: 56px; /* Abaixo do menu principal */
+    height: calc(100vh - 56px);
+    background-color: #ffffff;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+    border-right: 1px solid #e0e0e0;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Modificador para a sidebar de filtros expandida */
+.filter-sidebar.expanded {
+    width: 280px;
+}
+
+/* Modificador para a sidebar de filtros recolhida */
+.filter-sidebar.collapsed {
+    width: 60px;
+    align-items: center;
+}
+
+/* A área de conteúdo que se ajusta à sidebar de filtros */
+.content-area {
+    transition: margin-left 0.3s ease;
+    flex-grow: 1;
+    padding: 20px;
+}
+
+/* Modificador para o conteúdo quando a sidebar está expandida */
+.content-area.sidebar-expanded {
+    margin-left: 280px;
+}
+
+/* Modificador para o conteúdo quando a sidebar está recolhida */
+.content-area.sidebar-collapsed {
+    margin-left: 60px;
+}
+
+/* Cabeçalho da sidebar (título e botão de recolher) */
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    flex-shrink: 0; /* Impede que o cabeçalho encolha */
+}
+
+.sidebar-header h3 {
+    margin: 0;
+    white-space: nowrap; /* Impede a quebra de linha do título */
+}
+
+/* Botão para expandir/recolher a sidebar de filtros */
+.sidebar-toggle-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #808080;
+    padding: 0;
+    line-height: 1;
+}
+
+/* Conteúdo interno da sidebar (onde os filtros ficarão) */
+.sidebar-content {
+    padding: 0 20px 20px 20px;
+    overflow-y: auto; /* Adiciona scroll se os filtros forem muitos */
+    flex-grow: 1;
+}
+
+/* Título vertical que aparece quando a sidebar de filtros está recolhida */
+.sidebar-title-vertical {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    white-space: nowrap;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-top: 20px;
+}
+
+/* Botão para limpar os filtros */
+.clear-filters-btn {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #c0392b;
+    background-color: #fceae8;
+    color: #c0392b;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.2s;
+}
+
+.clear-filters-btn:hover {
+    background-color: #f9d8d5;
+}
+
+/* Um grupo de filtros (ex: "Período", "Status") */
+.filter-group {
+    margin-bottom: 20px;
+}
+
+.filter-group label {
+    font-weight: bold;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.filter-group input, .filter-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.filter-group input[type="date"] {
+    margin-bottom: 5px;
+}

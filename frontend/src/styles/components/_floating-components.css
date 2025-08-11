@@ -1,0 +1,121 @@
+/* ==========================================================================
+   COMPONENT: FLOATING WIDGETS
+   --------------------------------------------------------------------------
+   Estilos para os componentes flutuantes (Perfil e Filtros Gerais).
+   ========================================================================== */
+
+.floating-widget {
+    position: fixed;
+    background-color: rgba(44, 62, 80, 0.9); /* Cor escura semi-transparente */
+    color: white;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1500;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    opacity: 0.6;
+}
+
+.floating-widget:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* --- Widget de Perfil (Esquerda) --- */
+/* --- Barra Flutuante de Informações do Usuário --- */
+.floating-user-info {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgba(44, 62, 80, 0.9); /* Cor escura semi-transparente */
+    color: white;
+    padding: 8px 15px 8px 8px; /* Padding ajustado para a animação */
+    border-radius: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 1500;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    overflow: hidden; /* Esconde o texto durante a animação de recolher */
+    transition: all 0.4s ease-in-out; /* Animação suave para todas as propriedades */
+}
+
+/* Estilo para o estado recolhido */
+.floating-user-info.collapsed {
+    width: 23px; /* Largura do avatar */
+    gap: 0;
+    opacity: 0.6; /* Deixa o widget semi-transparente */
+}
+
+/* Efeito de hover APENAS quando estiver recolhido */
+.floating-user-info.collapsed:hover {
+    opacity: 1; /* Restaura a cor original no hover, sem expandir */
+}
+
+.floating-user-info .avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #E87722;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.floating-user-info .user-details {
+    transition: opacity 0.2s ease-in-out;
+    white-space: nowrap; /* Impede que o texto quebre a linha durante a animação */
+}
+
+/* Esconde os detalhes do usuário quando o widget está recolhido */
+.floating-user-info.collapsed .user-details {
+    opacity: 0;
+    width: 0; /* Faz o elemento encolher */
+}
+
+.floating-user-info .user-details p {
+    margin: 0;
+    line-height: 1.2;
+}
+
+.floating-user-info .user-details .user-name {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.floating-user-info .user-details .user-matricula {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+
+/* --- Widget de Filtros (Direita) --- */
+.floating-filters {
+    right: 10px;
+    bottom: 10px;
+    width: 40px;
+    height: 40px;
+}
+
+.floating-filters .bi-funnel-fill {
+    font-size: 18px;
+}
+
+.floating-filters-container.hidden {
+  display: none;
+}
+
+.floating-filters-container.visible {
+  display: block;
+}

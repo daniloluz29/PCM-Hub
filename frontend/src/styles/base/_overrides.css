@@ -1,0 +1,16 @@
+/* ==========================================================================
+   Arquivo: styles/base/_overrides.css
+   --------------------------------------------------------------------------
+   Este arquivo contém substituições de estilos para remover ou alterar
+   comportamentos padrão de navegadores ou bibliotecas que não são desejados.
+   ========================================================================== */
+
+/*
+ * Remove os botões de "Picture-in-Picture" e o menu de "três pontos"
+ * que aparecem por padrão em elementos de vídeo no Chrome e Edge.
+ * Isso ajuda a criar uma interface mais limpa e com aparência de aplicativo.
+ */
+video::-webkit-media-controls-picture-in-picture-button,
+video::-webkit-media-controls-overflow-button {
+    display: none !important;
+}

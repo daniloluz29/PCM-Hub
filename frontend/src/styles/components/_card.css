@@ -1,0 +1,73 @@
+/* ==========================================================================
+   Arquivo: styles/components/_card.css
+   --------------------------------------------------------------------------
+   Estilos para componentes de card, usados para exibir informações em
+   blocos de conteúdo visualmente distintos.
+   ========================================================================== */
+
+/* Classe de layout para organizar uma linha de cards de KPI */
+.kpi-row {
+    display: flex; /* Alinha os cards horizontalmente */
+    flex-wrap: wrap; /* Permite que os cards quebrem para a próxima linha em telas menores */
+    gap: 20px; /* Espaçamento entre os cards */
+    margin-bottom: 30px; /* Espaçamento abaixo da linha de cards */
+}
+
+/* O componente de card para Indicadores Chave de Performance (KPI) */
+.kpi-card {
+    flex: 1; /* Faz com que cada card ocupe o espaço disponível igualmente */
+    min-width: 200px; /* Largura mínima para cada card */
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s; /* Efeito suave de transição */
+}
+
+/* Efeito visual ao passar o mouse sobre o card de KPI */
+.kpi-card:hover {
+    transform: translateY(-5px); /* Eleva o card sutilmente */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1); /* Aumenta a sombra */
+}
+
+/* O título do KPI (ex: "Faturamento", "Novos Clientes") */
+.kpi-title {
+    font-size: 14px;
+    color: #808080;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* O valor numérico principal do KPI */
+.kpi-value {
+    font-size: 36px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+/* A variação (delta) do KPI (ex: "+5% vs. mês anterior") */
+.kpi-delta {
+    font-size: 14px;
+}
+
+/* Modificador para a variação positiva (verde) */
+.kpi-delta.positive {
+    color: #27ae60;
+}
+
+/* Modificador para a variação negativa (vermelho) */
+.kpi-delta.negative {
+    color: #c0392b;
+}
+
+/* Um card genérico e simples para qualquer tipo de conteúdo */
+.card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    margin-top: 20px;
+}

@@ -1,0 +1,99 @@
+/* ==========================================================================
+   Arquivo: styles/components/_graficos.css
+   --------------------------------------------------------------------------
+   Estilos para os containers de gráficos e a funcionalidade de "modo foto",
+   que permite visualizar um gráfico em um modal.
+   ========================================================================== */
+
+/* O container que envolve um gráfico (chart) */
+.chart-wrapper {
+    position: relative;
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.chart-header h3 {
+    margin: 0;
+}
+
+.chart-container {
+    width: 100%;
+}
+
+
+/* O botão de "modo foto" que fica sobre o gráfico */
+.photo-mode-btn {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    color: #495057;
+    border-radius: 50%; /* Deixa o botão redondo */
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    z-index: 10; /* Garante que o botão fique acima do conteúdo do gráfico */
+    transition: background-color 0.2s, color 0.2s;
+}
+
+/* Efeito visual ao passar o mouse sobre o botão de "modo foto" */
+.photo-mode-btn:hover {
+    background-color: #E87722;
+    color: white;
+}
+
+/* Estilos específicos para o conteúdo do modal quando ele exibe um gráfico */
+.chart-modal-content {
+    max-width: 900px; /* Define uma largura maior para o modal do gráfico */
+    width: 90%;
+}
+
+/* Estilos para o corpo do modal do gráfico */
+.chart-modal-body {
+    padding: 20px;
+    width: 100%;
+}
+
+/* Estilos para o rodapé do modal do gráfico */
+.chart-modal-footer {
+    justify-content: flex-end; /* Alinha os botões do rodapé à direita */
+}
+
+/* Estilo para o botão de confirmação no rodapé do modal do gráfico */
+.chart-modal-footer .modal-button.confirm {
+    background-color: #27ae60; /* Cor verde para a ação de copiar/salvar */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* --- NOVO: Estilo para o Tooltip Customizado --- */
+.custom-tooltip {
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid #ccc;
+    padding: 15px; /* Adiciona espaçamento interno */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.custom-tooltip .label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.custom-tooltip .intro {
+    font-weight: bold;
+}
+
+.custom-tooltip .desc {
+    color: #555;
+    margin: 2px 0;
+}

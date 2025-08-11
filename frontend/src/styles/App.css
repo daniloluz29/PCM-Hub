@@ -1,0 +1,41 @@
+/* ==========================================================================
+   Este arquivo não contém estilos diretos. Sua única função é importar
+   todos os outros arquivos CSS (parciais) na ordem correta.
+   ========================================================================== */
+
+/* 1. Base */
+@import url('./base/_overrides.css');
+@import url('./base/_reset.css');
+@import url('./base/_theme.css');
+@import url('./base/_typography.css');
+
+/* 2. Layout */
+@import url('./layout/_grid.css');
+@import url('./layout/_navigation.css');
+@import url('./layout/_sidebar.css');
+
+/* 3. Components */
+@import url('./components/_accordion.css');
+@import url('./components/_card.css');
+@import url('./components/_context.css');
+@import url('./components/_filtros.css');
+@import url('./components/_graficos.css');
+@import url('./components/_login.css');
+@import url('./components/_modal.css');
+@import url('./components/_notification.css');
+@import url('./components/_profile.css');
+@import url('./components/_table.css');
+@import url('./components/_tabs.css');
+@import url('./components/_tooltip.css');
+@import url('./components/_treeview.css');
+@import url('./components/_page-header.css');
+@import url('./components/_floating-components.css');
+
+/* 4. Pages */
+@import url('./pages/_cadastros.css');
+@import url('./pages/_community.css');
+@import url('./pages/_dashboard.css');
+@import url('./pages/_documentation.css');
+@import url('./pages/_gestao-acoes.css');
+@import url('./pages/_tickets.css');
+@import url('./pages/_preventivas.css');

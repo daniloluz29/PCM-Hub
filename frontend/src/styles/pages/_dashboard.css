@@ -1,0 +1,114 @@
+/* ==========================================================================
+   PAGE: DASHBOARD
+   --------------------------------------------------------------------------
+   Estilos para a página de Dashboard e Análises.
+   ========================================================================== */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Duas colunas de largura igual */
+    gap: 25px;
+    align-items: start; /* Alinha os itens no topo */
+}
+
+/* Layout específico para a grid de preventivas */
+.preventivas-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px; /* CORREÇÃO: Define o espaçamento vertical e horizontal para 10px */
+    margin-top: 10px; /* CORREÇÃO: Remove a margem extra dos cards */
+}
+
+/* NOVO: Remove a margem extra dos cards dentro desta grid específica */
+.preventivas-grid > .card {
+    margin-top: 0;
+}
+
+@media (max-width: 1200px) {
+    .preventivas-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.table-container {
+    max-height: 300px; /* Altura fixa para o container da tabela */
+    overflow-y: auto; /* Adiciona scroll vertical */
+    border: 1px solid #eee;
+    border-radius: 6px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.data-table thead th {
+    background-color: #f8f9fa;
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: 600;
+    color: #495057;
+    position: sticky; /* Cabeçalho fixo */
+    top: 0;
+    z-index: 1;
+}
+
+.data-table tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #f1f3f5;
+}
+
+.data-table tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+.data-table .status-cell span {
+    display: inline-block; /* Garante que o padding seja aplicado corretamente */
+}
+
+/* Customização do Tooltip do Recharts */
+.recharts-tooltip-wrapper {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid #ccc !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* --- NOVOS ESTILOS PARA KPIs de Preventivas --- */
+.kpi-preventivas-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.kpi-card-preventivas {
+    background-color: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: left;
+}
+
+.kpi-card-preventivas .kpi-title {
+    font-size: 14px;
+    color: #5f6368;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.kpi-card-preventivas .kpi-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2c3e50;
+    line-height: 1.2;
+}
+
+.kpi-card-preventivas .kpi-subtitle {
+    font-size: 13px;
+    color: #808080;
+}
+
+.kpi-card-preventivas.kpi-atrasadas .kpi-value {
+    color: #c0392b; /* Vermelho para destaque */
+}

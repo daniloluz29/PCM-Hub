@@ -1,0 +1,445 @@
+/* ==========================================================================
+   Arquivo: styles/components/_table.css
+   --------------------------------------------------------------------------
+   Estilos para tabelas de dados, incluindo wrappers e customizações para
+   a biblioteca de tabelas avançadas (react-data-grid).
+   ========================================================================== */
+
+
+/* Container (wrapper) para uma tabela, permitindo posicionamento de botões */
+.table-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Cabeçalho opcional para o container da tabela */
+.table-wrapper-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Botão para expandir a tabela em um modal */
+.expand-table-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    color: #495057;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    z-index: 10;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.expand-table-btn:hover {
+    background-color: #E87722;
+    color: white;
+}
+
+/* --- Estilos para o Modal da Tabela --- */
+
+/* Modificador de conteúdo para o modal que exibe a tabela expandida */
+.table-modal-content {
+    max-width: 1200px; /* Modal bem largo para a tabela */
+    width: 95%;
+    height: 90vh; /* Ocupa 90% da altura da tela */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Corpo do modal da tabela */
+.table-modal-body {
+    flex-grow: 1; /* Faz o corpo do modal crescer para ocupar o espaço */
+    overflow: hidden; /* Evita barras de rolagem duplas */
+    padding: 0;
+    position: relative; /* Para posicionar o menu de contexto */
+}
+
+/* --- Estilos de Customização para a Biblioteca react-data-grid --- */
+
+/* Força a tabela a ocupar toda a altura do seu container (o .table-modal-body) */
+.rdg {
+    height: 100% !important;
+}
+
+/* NOVO: Estilos para o cabeçalho com ícone de filtro */
+.header-cell-with-filter-button {
+    /* Permite o posicionamento absoluto do botão em relação à célula */
+    position: relative; 
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraliza o título */
+}
+
+.filter-icon-btn {
+    position: absolute;
+    right: 5px; /* Posiciona o botão à direita */
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #808080;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+.filter-icon-btn:hover {
+    background-color: #e9ecef;
+    color: #000;
+}
+
+/* NOVO: Estilo para o ícone de filtro quando ativo */
+.filter-icon-btn.active {
+    color: #E87722;
+}
+
+/* --- NOVO: Estilos para o Menu de Contexto de Filtro --- */
+.filter-context-menu {
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-radius: 6px;
+    width: 300px;
+    font-size: 14px;
+}
+
+.filter-context-section {
+    padding: 8px 12px;
+    border-bottom: 1px solid #eee;
+}
+.filter-context-section:last-child {
+    border-bottom: none;
+}
+
+.sort-section, .clear-filter-section {
+    display: flex;
+    flex-direction: column;
+}
+.sort-section button, .clear-filter-section button {
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 8px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%; /* Garante que o hover pegue na linha toda */
+}
+.sort-section button:hover, .clear-filter-section button:not(:disabled):hover {
+    color: #007bff;
+}
+
+.clear-filter-section button:disabled {
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+.filter-search-input {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.filter-values-list {
+    max-height: 200px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+.filter-values-list label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+    width: 100%;
+}
+
+.filter-values-list label span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-grow: 1; /* Permite que o span cresça e o ellipsis funcione */
+}
+
+.filter-context-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 8px 12px;
+    background-color: #f8f9fa;
+}
+.context-btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.context-btn-secondary {
+    background-color: #e9ecef;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+/* --- ESTILOS PARA A TABELA SIMPLES DE VISUALIZAÇÃO --- */
+.simple-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.simple-data-table thead th {
+    background-color: #f8f9fa;
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: 600;
+    color: #495057;
+    border-bottom: 2px solid #dee2e6;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.simple-data-table tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #f1f3f5;
+    color: #212529;
+}
+
+.simple-data-table tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+/* --- ESTILOS ATUALIZADOS PARA A TABELA EDITÁVEL --- */
+.editable-container {
+    position: relative; /* Contexto para o botão de adicionar */
+    overflow-y: auto;
+}
+
+.dynamic-table-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    padding-left: 45px;
+    box-sizing: border-box;
+}
+
+.simple-data-table.editable tbody td {
+    cursor: cell;
+    height: 20px; 
+    vertical-align: middle;
+    /* CORREÇÃO: Adiciona a linha vertical suave entre as colunas */
+    border-right: 1px solid #f1f3f5;
+    position: relative; /* Para o ícone de edição */
+}
+
+/* CORREÇÃO: Remove a borda da penúltima coluna (antes da coluna de ação) */
+.simple-data-table.editable tr td:nth-last-child(2) {
+    border-right: none;
+}
+
+.simple-data-table.editable tbody td:last-child {
+    border-right: none;
+}
+
+/* CORREÇÃO: Ícone de lápis para células vazias, excluindo a última coluna */
+.simple-data-table.editable tbody td:not(:last-child):empty::after {
+    content: '\F4CA'; /* Código do ícone de lápis do Bootstrap Icons */
+    font-family: 'bootstrap-icons';
+    position: absolute;
+    top: 50%;
+    left: 22px;
+    transform: translate(-50%, -50%);
+    color: #e0e0e0; /* Cor cinzenta bem clara */
+    font-size: 16px;
+    pointer-events: none; /* Garante que o ícone não interfere no clique */
+}
+
+.simple-data-table.editable tbody td input {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #007bff;
+    border-radius: 4px;
+    font-size: 14px;
+    border-right: 1px solid #f1f3f5;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.simple-data-table.editable .action-column {
+    width: 50px;
+    text-align: center;
+    cursor: default;
+}
+
+.delete-row-btn {
+    background: none;
+    border: none;
+    color: #808080;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+.delete-row-btn:hover {
+    color: #c0392b;
+    background-color: #f1f3f5;
+}
+
+/* --- NOVOS ESTILOS PARA O BOTÃO DE ADICIONAR LINHA --- */
+.add-row-btn {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    background-color: #f8f9fa;
+    color: #555;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.add-row-btn:hover {
+    background-color: #27ae60;
+    color: white;
+    border-color: #27ae60;
+}
+
+.insert-preview-row td {
+    padding: 0 !important;
+    height: 3px !important; /* Altura da linha de pré-visualização */
+    background-color: #007bff; /* Cor da linha */
+    border: none;
+    transition: height 0.2s;
+}
+
+/* --- NOVO: Estilos para o Modal de Classificação Avançada --- */
+.sort-modal-content {
+    max-width: 700px;
+}
+
+.sort-modal-toolbar {
+    display: flex;
+    gap: 10px;
+    padding: 10px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.sort-modal-toolbar button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.sort-modal-toolbar button:hover:not(:disabled) {
+    background-color: #e9ecef;
+}
+.sort-modal-toolbar button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.clear-sort-btn-modal {
+    margin-left: auto; /* Empurra o botão para a direita */
+    color: #c0392b;
+}
+
+.sort-modal-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* ATUALIZAÇÃO: Ajuste no layout da grade para incluir o seletor */
+.sort-header-grid, .sort-level-grid {
+    display: grid;
+    /* Adiciona uma coluna de tamanho automático para o radio button */
+    grid-template-columns: auto 2fr 1fr; 
+    gap: 10px;
+    align-items: center;
+}
+
+.sort-header-grid span {
+    font-weight: 600;
+    font-size: 13px;
+    color: #555;
+    padding: 0 8px;
+}
+
+.sort-level-grid.selected {
+    background-color: #e7f3ff;
+    border-radius: 4px;
+}
+
+/* NOVO: Estilização para a célula do seletor */
+.sort-level-grid .checkbox-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 8px;
+}
+
+.sort-level-grid .checkbox-cell input[type="radio"] {
+    cursor: pointer;
+    /* Aumenta um pouco o tamanho para facilitar o clique */
+    width: 16px;
+    height: 16px;
+}
+
+/* NOVO: Container para o botão de classificação e o de limpar */
+.advanced-sort-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-right: auto; /* Empurra para a esquerda do rodapé */
+}
+
+.advanced-sort-btn.active {
+    color: #E87722;
+    border-color: #E87722;
+}
+
+.clear-sort-btn {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    width: 36px;
+    height: 36px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.clear-sort-btn:hover {
+    background-color: #f1b0b7;
+}

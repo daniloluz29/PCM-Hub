@@ -1,0 +1,17 @@
+/* ==========================================================================
+   LAYOUT: GRID
+   --------------------------------------------------------------------------
+   Classes para criar layouts de grid para formulários e outros conteúdos.
+   ========================================================================== */
+
+
+/* Classes de grid genéricas*/
+.form-grid, .user-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.form-grid .full-width,
+.user-form-grid .full-width {
+    grid-column: 1 / -1;
+}

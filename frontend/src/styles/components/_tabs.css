@@ -1,0 +1,41 @@
+/* ==========================================================================
+   Arquivo: styles/components/_tabs.css
+   --------------------------------------------------------------------------
+   Componente para navegação por abas, permitindo alternar entre diferentes
+   painéis de conteúdo na mesma página.
+   ========================================================================== */
+
+/* O container que envolve todas as abas */
+.tabs-container {
+    display: flex; /* Alinha as abas horizontalmente */
+    border-bottom: 1px solid #dcdcdc; /* Linha de base para as abas */
+    margin-bottom: 25px;
+}
+
+/* Um item de aba individual e clicável */
+.tab-item {
+    padding: 16px 0px;
+    margin-right: 32px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: #5f6368;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent; /* Borda inferior invisível por padrão */
+    margin-bottom: -1px; /* Puxa o item para baixo para que sua borda sobreponha a do container */
+    transition: color 0.3s, border-color 0.3s; /* Transição suave para cores */
+}
+
+/* Efeito visual ao passar o mouse sobre uma aba que não está ativa */
+.tab-item:not(.active):hover {
+    background-color: #f1f1f1;
+    border-bottom: 2px solid #dcdcdc;
+}
+
+/* Modificador para a aba que está atualmente selecionada */
+.tab-item.active {
+    color: #E87722; /* Cor de destaque para o texto */
+    font-weight: 600;
+    border-bottom: 2px solid #E87722; /* Borda inferior com a cor de destaque */
+}

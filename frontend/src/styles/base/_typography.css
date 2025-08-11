@@ -1,0 +1,42 @@
+/* ==========================================================================
+   Arquivo: styles/base/_typography.css
+   --------------------------------------------------------------------------
+   Define a aparência padrão para elementos de texto básicos como títulos,
+   parágrafos e links em toda a aplicação.
+   ========================================================================== */
+
+/* Estilos de Título Padrão */
+h1, h2, h3 {
+    color: #2c3e50;
+}
+
+/* Container principal do conteúdo */
+.main-content-wrapper {
+    background-color: #f4f7f6;
+}
+
+/* Espaçamento superior para o conteúdo principal para não ficar atrás do menu fixo */
+.main-content {
+    padding-top: 56px;
+}
+
+/* Componente de cabeçalho de página */
+.page-header {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: left;
+}
+
+.page-header h1 {
+    font-size: 28px;
+    margin: 0 0 5px 0;
+}
+
+.page-header p {
+    font-size: 16px;
+    color: #5f6368;
+    margin: 0;
+    line-height: 1.4;
+}
+

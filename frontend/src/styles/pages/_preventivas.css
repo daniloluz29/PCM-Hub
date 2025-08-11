@@ -1,0 +1,203 @@
+/* ==========================================================================
+   PAGE: PREVENTIVAS
+   --------------------------------------------------------------------------
+   Estilos para a página de Análise de Preventivas, incluindo o novo
+   layout de controle segmentado e sidebar fixa.
+   ========================================================================== */
+
+/* --- Estilos para o Controle Segmentado (Sub-Abas) --- */
+
+.segmented-control-container {
+    display: inline-flex;
+    background-color: #e9ecef;
+    border-radius: 8px;
+    padding: 5px;
+    margin-bottom: 25px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.segmented-control-button {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #5f6368;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.segmented-control-button:hover:not(.active) {
+    background-color: #dee2e6;
+}
+
+.segmented-control-button.active {
+    background-color: #ffffff;
+    color: #E87722;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.segmented-control-button .bi {
+    font-size: 1.1em;
+}
+
+/* --- NOVOS ESTILOS PARA BLOCOS DE ANÁLISE --- */
+
+.analysis-block {
+    margin-bottom: 20px;
+}
+
+.analysis-block-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: #E87722;
+    margin: 0 0 15px 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #E87722;
+    cursor: pointer;
+}
+
+.analysis-block-title h2 {
+    margin: 0;
+    font-size: 1em; /* Herda o tamanho da fonte do pai */
+}
+
+.collapse-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #E87722;
+    font-size: 24px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.collapse-button.collapsed {
+    transform: rotate(-90deg);
+}
+
+.analysis-block-content {
+    display: grid;
+    gap: 10px; /* Espaçamento entre as linhas de gráficos */
+    max-height: 2000px; /* Altura grande para garantir que o conteúdo caiba */
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out;
+    opacity: 1;
+}
+
+.analysis-block-content.collapsed {
+    max-height: 0;
+    opacity: 0;
+    /* Adiciona padding 0 para evitar que a margem dos filhos vaze */
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* Grid para um único gráfico que ocupa a linha inteira */
+.full-width-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+/* Grid para múltiplos gráficos na mesma linha */
+.preventivas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px; 
+    margin-top: 10px;
+}
+
+.preventivas-grid > .card {
+    margin-top: 0;
+}
+
+/* --- NOVOS ESTILOS PARA A TABELA DE DETALHAMENTO --- */
+.status-atrasada {
+    color: #c0392b; /* Vermelho */
+    font-weight: bold;
+}
+
+.status-antecipada {
+    color: #d35400; /* Amarelo/Laranja escuro */
+    font-weight: bold;
+}
+
+/* --- ESTILOS PARA O CHART WRAPPER E KPIs --- */
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.chart-title-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 1;
+}
+
+.chart-header h3 {
+    margin: 0;
+    line-height: 1.2;
+}
+
+.photo-mode-btn {
+    order: -1;
+}
+
+.kpi-card-container {
+    display: flex;
+    gap: 5px;
+    justify-content: flex-end;
+    flex-shrink: 0;
+}
+
+.kpi-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;      /* Centraliza o conteúdo */
+    justify-content: center;  /* Centraliza o conteúdo */
+    text-align: center;       /* Centraliza o texto */
+    padding: 2px 2px;
+    border-radius: 0px;
+    box-shadow: none;         /* Remove qualquer sombra */
+    min-width: 70px;          /* Define uma largura mínima */
+    transition: none;         /* Remove transições no hover */
+}
+
+.kpi-card:hover {
+    box-shadow: none;         /* Garante que não haja sombra no hover */
+    transform: none;          /* Garante que não haja efeito de escala/movimento */
+}
+
+.kpi-card-title {
+    font-size: 12px;
+    color: #e87722;
+    font-weight: 500;
+    white-space: nowrap;
+    margin-bottom: 2px;
+}
+
+.kpi-card-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2c3e50;
+    line-height: 1.1;
+}
+
+.chart-wrapper.filter-source {
+    border: 2px solid #E87722;
+    box-shadow: 0 0 12px rgba(232, 119, 34, 0.4);
+    transition: border 0.3s, box-shadow 0.3s;
+}

@@ -1,0 +1,130 @@
+/* ==========================================================================
+   Arquivo: styles/layout/_navigation.css
+   --------------------------------------------------------------------------
+   Estilos para a barra de navegação principal (menu superior), que é
+   fixa no topo da página e contém os links de navegação e opções do usuário.
+   ========================================================================== */
+
+/* O container principal da barra de menu, fixo no topo da página */
+.menu-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #808080;
+    z-index: 1000; /* Garante que o menu fique sobre outros conteúdos */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    display: flex; /* Ativa o layout flexbox */
+    justify-content: space-between; /* Alinha os filhos (logo e lista) nas extremidades */
+    align-items: center; /* Centraliza os filhos verticalmente */
+    padding: 0 0 0 2rem;
+    box-sizing: border-box;
+}
+
+/* O logo clicável no menu */
+.menu-logo img {
+    height: 40px;
+    display: block;
+    cursor: pointer;
+}
+
+/* A lista de itens de navegação */
+.menu-list {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container para as opções do usuário no canto direito */
+.menu-options {
+    position: relative; /* Âncora para o dropdown */
+    width: 65px; /* Largura fixa para o container */
+}
+
+/* Um item individual da lista de navegação */
+.menu-item {
+    position: relative; /* Âncora para o dropdown */
+}
+
+/* O link de navegação dentro de um item */
+.menu-item .nav-link {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 22px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+/* Efeito visual ao passar o mouse sobre um link */
+.menu-item .nav-link:hover {
+    background-color: #E87722;
+}
+
+/* Modificador para um link de navegação que está selecionado */
+.menu-item > .nav-link.selected {
+    background-color: transparent !important;
+    box-shadow: inset 0 -3px 0 0 #E87722; /* Mantém a linha inferior */
+}
+
+/* Estilo APENAS para o item selecionado DENTRO do dropdown */
+.dropdown-content .nav-link.selected {
+    background-color: #bfbfbf !important; /* Cor de fundo laranja */
+    color: white !important; /* Texto branco para contraste */
+    box-shadow: none; /* Garante que não haverá a linha de baixo aqui */
+}/* O container do menu suspenso (dropdown) */
+
+.dropdown-content {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 0 0 5px 5px;
+    transform: translateY(-10px); /* Começa um pouco para cima */
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+/* Mostra o dropdown quando o mouse está sobre o elemento pai */
+.menu-item:hover .dropdown-content, .menu-options:hover .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0); /* Volta para a posição normal */
+}
+
+/* Estilo para os links dentro do dropdown */
+.dropdown-content .nav-link {
+    color: black;
+    text-align: left;
+}
+
+.dropdown-content .nav-link:hover {
+    background-color: #ddd;
+}
+
+/* Alinha o dropdown das opções do usuário à direita */
+.menu-options .dropdown-content {
+    right: 0;
+}
+
+/* Estilo para ícones dentro dos links de navegação */
+.menu-item .nav-link .bi {
+    margin-right: 10px;
+    font-size: 1.1em;
+    vertical-align: -2px;
+}
+
+/* Linha divisória para usar dentro de um dropdown */
+.menu-divider {
+    height: 1px;
+    margin: 8px 0;
+    overflow: hidden;
+    background-color: #e5e5e5;
+}

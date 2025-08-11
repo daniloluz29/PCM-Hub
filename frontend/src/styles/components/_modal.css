@@ -1,0 +1,142 @@
+/* ==========================================================================
+   Arquivo: styles/components/_modal.css
+   --------------------------------------------------------------------------
+   Estilos para o componente de modal (janela pop-up), incluindo o fundo
+   escurecido (overlay) e o container de conteúdo.
+   ========================================================================== */
+
+/* O fundo escurecido (overlay) que cobre a tela inteira */
+.modal-overlay {
+    position: fixed; /* Cobre toda a janela de visualização */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6); /* Cor preta com 60% de opacidade */
+    display: flex;
+    justify-content: center; /* Centraliza o modal horizontalmente */
+    align-items: center; /* Centraliza o modal verticalmente */
+    z-index: 2000; /* Garante que fique acima da maioria dos outros conteúdos */
+}
+
+/* O container de conteúdo do modal */
+.modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    width: 100%;
+    /* SUGESTÃO: Remover a linha abaixo e usar as classes modificadoras */
+    position: relative;
+}
+
+.modal-small-content {
+    max-width: 500px;
+}
+
+/* Cabeçalho do modal */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 20px;
+}
+
+/* Botão de fechar (X) no cabeçalho */
+.modal-close-btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #888;
+}
+
+/* Corpo do modal, onde o conteúdo principal é exibido */
+.modal-body {
+    padding: 20px 25px;
+    overflow-y: auto; /* Adiciona barra de rolagem se o conteúdo for muito alto */
+    flex-grow: 1;
+}
+
+/* Rodapé do modal, geralmente para botões de ação */
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 25px;
+    border-top: 1px solid #eee;
+    background-color: #f9f9f9;
+}
+
+/* Botão genérico para uso dentro do rodapé do modal */
+.modal-button {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.modal-button:hover {
+    opacity: 0.8;
+}
+
+/* Modificador para o botão de cancelar */
+.modal-button.cancel {
+    background-color: #808080;
+    color: white;
+    margin-right: 10px;
+}
+
+/* Modificador para o botão de confirmar (geralmente uma ação destrutiva) */
+.modal-button.confirm {
+    background-color: #c0392b;
+    color: white;
+}
+
+/* Estilo para botões desabilitados */
+.modal-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* --- Modificadores de Tamanho para o Modal --- */
+
+/* Tamanho padrão do modal */
+.modal-content-default {
+    max-width: 500px;
+}
+
+/* Tamanho grande do modal */
+.modal-content-large {
+    max-width: 1000px;
+}
+
+/* Tamanho extra-grande do modal */
+.modal-content-xl {
+    max-width: 1400px;
+}
+
+/* --- NOVO: Grid para Filtros Gerais --- */
+.filtros-gerais-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.filtro-coluna {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}

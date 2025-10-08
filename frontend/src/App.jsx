@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Menu from './components/Menu.jsx';
+import StatusBar from './components/StatusBar.jsx';
 import PaginaLogin from './pages/Login.jsx';
 import PaginaSolicitacaoCadastro from './pages/SolicitacaoCadastro.jsx';
 import PaginaOrdensPreventivas from './pages/Preventivas.jsx';
+import PaginaControlePneus from './pages/ControlePneus.jsx'; 
 import PaginaDiagTelemetria from './pages/Telemetria.jsx';
 import PaginaFAQ from './pages/FAQ.jsx';
 import PaginaCadastros from './pages/Cadastros.jsx';
@@ -10,11 +12,16 @@ import PaginaDocumentacao from './pages/Documentacao.jsx';
 import PaginaComunidade from './pages/Comunidade.jsx';
 import PaginaPortalChamados from './pages/PortalChamados.jsx';
 import PaginaGestaoAcoes from './pages/GestaoAcoes.jsx';
+import AttBackupBD from './pages/AttBackupBD.jsx';
+import PaginaPerfil from './pages/Perfil.jsx';
+import PaginaAssistente from './pages/AssistentePCM.jsx'; 
+import PaginaBI from './pages/BI.jsx';
+import PaginaFluxograma from './pages/Fluxograma.jsx';
 import './styles/app.css';
+
 
 import ModalConfirmacao from './components/ModalConfirmacao.jsx';
 import FloatingUserInfo from './components/FloatingUserInfo.jsx';
-import PaginaPerfil from './pages/Perfil.jsx';
 import FloatingFilters from './components/FloatingFilters.jsx';
 
 // --- COMPONENTES DE PÁGINA (PLACEHOLDERS) ---
@@ -25,7 +32,6 @@ function PaginaKpiDisponibilidade() { return(<div className="page-container"><ma
 function PaginaKpiMtbf() { return(<div className="page-container"><main className="content-area"><div className="card"><h1>KPI: MTBF (Tempo Médio Entre Falhas)</h1></div></main></div>) }
 function PaginaKpiMttr() { return(<div className="page-container"><main className="content-area"><div className="card"><h1>KPI: MTTR (Tempo Médio Para Reparo)</h1></div></main></div>) }
 function PaginaDiagOleo() { return(<div className="page-container"><main className="content-area"><div className="card"><h1>Diagnósticos: Análise de Óleo</h1></div></main></div>) }
-function PaginaControlePneus() { return(<div className="page-container"><main className="content-area"><div className="card"><h1>Controle de Pneus</h1></div></main></div>) }
 function PaginaCustoGerencial() { return(<div className="page-container"><main className="content-area"><div className="card"><h1>Custos: Análise Gerencial</h1></div></main></div>) }
 function PaginaCustoContabil() { return(<div className="page-container"><main className="content-area"><div className="card"><h1>Custos: Análise Contábil</h1></div></main></div>) }
 function PaginaCustoRealocacao() { return(<div className="page-container"><main className="content-area"><div className="card"><h1>Custos: Extrato de Realocação Orçamentária</h1></div></main></div>) }
@@ -34,7 +40,6 @@ function PaginaProcAtendimento() { return(<div className="page-container"><main 
 function PaginaProcMapeamento() { return(<div className="page-container"><main className="content-area"><div className="card"><h1>Processos: Mapeamento</h1></div></main></div>) }
 function PaginaEquipView() { return(<div className="page-container"><main className="content-area"><div className="card"><h1>EquipView</h1></div></main></div>) }
 function PaginaPainelGerencial() { return(<div className="page-container"><main className="content-area"><div className="card"><h1>Painel Gerencial (D-7)</h1></div></main></div>) }
-function PaginaAssistente() { return(<div className="page-container"><main className="content-area"><div className="card"><h1>Assistente PCM (IA)</h1></div></main></div>) }
 function PaginaIQD() { return(<div className="page-container"><main className="content-area"><div className="card"><h1>IQD - Pesquisa de Satisfação</h1></div></main></div>) }
 function PaginaAcessoNegado() { return(<div className="page-container"><main className="content-area"><div className="card"><h1>Acesso Negado</h1><p>Você não tem permissão para visualizar esta página.</p></div></main></div>) }
 
@@ -118,12 +123,15 @@ function App() {
             'proc_atendimento': 'proc_atendimento', 'proc_mapeamento': 'proc_mapeamento', 'equipview': 'equipview', 'painel_gerencial': 'painel_gerencial',
             'gestao_acoes': 'gestao_acoes_acesso', 'assistente_pcm': 'assistente_pcm_acesso', 'comunidade': 'comunidade_acesso',
             'documentacao': 'documentacao_acesso', 'portal_chamados': 'chamados_acesso', 'cadastros': 'cadastros_acesso',
-            'faq': 'faq_acesso', 'iQD': 'iqd_acesso'
+            'faq': 'faq_acesso', 'iQD': 'iqd_acesso', 'perfil': 'perfil_acesso', 
+            'att_backup': 'att_backup_acesso',
+            'bi_paineis': 'bi_acesso',
+            'fluxograma': 'fluxograma_acesso'
         };
 
         const requiredAccess = pageAccessMapping[paginaAtual];
         const isPanelPage = paginasDePainel.includes(paginaAtual);
-        const canViewPage = requiredAccess ? (isPanelPage ? hasAccess(requiredAccess) : hasPermission(requiredAccess)) : true;
+        const canViewPage = paginaAtual === 'perfil' ? true : (requiredAccess ? (isPanelPage ? hasAccess(requiredAccess) : hasPermission(requiredAccess)) : true);
 
         if (!canViewPage) {
             return <PaginaAcessoNegado />;
@@ -138,7 +146,7 @@ function App() {
             'kpi_mttr': <PaginaKpiMttr globalFilters={globalFilters} currentUser={currentUser} />,
             'diag_oleo': <PaginaDiagOleo globalFilters={globalFilters} currentUser={currentUser} />,
             'diag_telemetria': <PaginaDiagTelemetria globalFilters={globalFilters} currentUser={currentUser} />,
-            'controle_pneus': <PaginaControlePneus globalFilters={globalFilters} currentUser={currentUser} />,
+            'controle_pneus': <PaginaControlePneus currentUser={currentUser} />, // ATUALIZADO
             'custo_gerencial': <PaginaCustoGerencial globalFilters={globalFilters} currentUser={currentUser} />,
             'custo_contabil': <PaginaCustoContabil globalFilters={globalFilters} currentUser={currentUser} />,
             'custo_realocacao': <PaginaCustoRealocacao globalFilters={globalFilters} currentUser={currentUser} />,
@@ -148,14 +156,17 @@ function App() {
             'equipview': <PaginaEquipView globalFilters={globalFilters} currentUser={currentUser} />,
             'painel_gerencial': <PaginaPainelGerencial globalFilters={globalFilters} currentUser={currentUser} />,
             'gestao_acoes': <PaginaGestaoAcoes currentUser={currentUser} />,
-            'assistente_pcm': <PaginaAssistente />,
+            'assistente_pcm': <PaginaAssistente currentUser={currentUser} />,
             'comunidade': <PaginaComunidade currentUser={currentUser} />,
             'documentacao': <PaginaDocumentacao />,
             'portal_chamados': <PaginaPortalChamados currentUser={currentUser} />,
             'cadastros': <PaginaCadastros currentUser={currentUser} />,
             'faq': <PaginaFAQ currentUser={currentUser} />,
             'iQD': <PaginaIQD />,
-            'perfil': <PaginaPerfil currentUser={currentUser} />
+            'perfil': <PaginaPerfil currentUser={currentUser} />,
+            'att_backup': <AttBackupBD currentUser={currentUser} />,
+            'bi_paineis': <PaginaBI currentUser={currentUser} />,
+            'fluxograma': <PaginaFluxograma currentUser={currentUser} />
         };
         return paginas[paginaAtual] || <PaginaVisaoGeral />;
     };
@@ -171,37 +182,39 @@ function App() {
     }
 
     return (
-        <div className="main-content-wrapper">
-            <Menu 
-                currentUser={currentUser}
-                onNavigate={setPaginaAtual} 
-                paginaAtual={paginaAtual}
-                onLogout={() => setModalSairAberto(true)}
-            />
-            {renderCurrentDashboardPage()}
+        <>
+            <div className="main-content-wrapper">
+                <Menu 
+                    currentUser={currentUser}
+                    onNavigate={setPaginaAtual} 
+                    paginaAtual={paginaAtual}
+                    onLogout={() => setModalSairAberto(true)}
+                />
+                {renderCurrentDashboardPage()}
 
-            <FloatingUserInfo currentUser={currentUser} />
-            
-            {/* CORREÇÃO: Renderiza o FloatingFilters com base na permissão, mas controla a visibilidade com classe CSS */}
-            {podeVerPaineis && (
-                <div className={isPaginaDePainel ? 'floating-filters-container visible' : 'floating-filters-container hidden'}>
-                    <FloatingFilters 
-                        onFiltersApply={handleFiltersApply} 
-                        currentUser={currentUser}
-                        globalFilters={globalFilters} 
-                    />
-                </div>
-            )}
+                <FloatingUserInfo currentUser={currentUser} />
+                
+                {podeVerPaineis && (
+                    <div className={isPaginaDePainel ? 'floating-filters-container visible' : 'floating-filters-container hidden'}>
+                        <FloatingFilters 
+                            onFiltersApply={handleFiltersApply} 
+                            currentUser={currentUser}
+                            globalFilters={globalFilters} 
+                        />
+                    </div>
+                )}
 
-            <ModalConfirmacao
-                isOpen={modalSairAberto}
-                onClose={() => setModalSairAberto(false)}
-                onConfirm={handleLogoutConfirm}
-                title="Confirmar Saída"
-            >
-                <p>Você tem certeza que deseja sair do portal?</p>
-            </ModalConfirmacao>
-        </div>
+                <ModalConfirmacao
+                    isOpen={modalSairAberto}
+                    onClose={() => setModalSairAberto(false)}
+                    onConfirm={handleLogoutConfirm}
+                    title="Confirmar Saída"
+                >
+                    <p>Você tem certeza que deseja sair do portal?</p>
+                </ModalConfirmacao>
+            </div>
+            <StatusBar />
+        </>
     );
 }
 

@@ -1,0 +1,211 @@
+/* ==========================================================================
+   COMPONENT: CALCULADORA
+   --------------------------------------------------------------------------
+   Estilos para o modal da calculadora flutuante e arrastável.
+   ========================================================================== */
+
+/* O container principal que engloba a calculadora e o histórico */
+.calculator-wrapper {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  z-index: 2000;
+  user-select: none;
+  border-radius: 12px;
+  /* Sombra aplicada no wrapper para englobar o histórico */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  overflow: hidden; /* Garante que os filhos com cantos arredondados funcionem */
+}
+
+/* Remove a borda de foco azul padrão do navegador */
+.calculator-wrapper:focus {
+    outline: none;
+}
+
+/* A calculadora em si */
+.calculator-modal {
+    /* REMOVIDO: position: fixed; -> ESTE ERA O ERRO */
+    background-color: #f1f3f5;
+    width: 300px;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.calculator-header {
+    background-color: #dee2e6;
+    padding: 8px 12px;
+    cursor: grab;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    color: #495057;
+}
+
+.calculator-header:active {
+    cursor: grabbing;
+}
+
+.calculator-header-buttons {
+    display: flex;
+    gap: 6px;
+}
+
+.calculator-header .history-btn,
+.calculator-header .close-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #495057;
+    padding: 4px;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calculator-header .history-btn:hover {
+    background-color: #ced4da;
+}
+
+.calculator-header .close-btn {
+    font-size: 24px;
+}
+
+.calculator-header .close-btn:hover {
+    background-color: #fa5252;
+    color: white;
+}
+
+
+.calculator-expression {
+    background-color: #495057;
+    color: #adb5bd;
+    font-size: 1rem;
+    padding: 6px 20px;
+    text-align: right;
+    font-family: 'Courier New', Courier, monospace;
+    min-height: 28px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.5;
+}
+
+.calculator-display {
+    background-color: #495057;
+    color: white;
+    font-size: 2.5rem;
+    padding: 10px 20px 20px 20px;
+    text-align: right;
+    font-family: 'Courier New', Courier, monospace;
+    word-wrap: break-word;
+    min-height: 64px;
+}
+
+.calculator-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(60px, auto);
+    gap: 1px;
+    background-color: #ced4da;
+}
+
+.calculator-buttons button {
+    background-color: #e9ecef;
+    border: none;
+    padding: 20px 0;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    min-width: 0;
+}
+
+.calculator-buttons button:hover {
+    background-color: #dee2e6;
+}
+.calculator-buttons button:active {
+    background-color: #ced4da;
+}
+
+
+.calculator-buttons button.operator {
+    background-color: #E87722;
+    color: white;
+}
+.calculator-buttons button.operator:hover {
+    background-color: #d96d1c;
+}
+.calculator-buttons button.operator:active {
+    background-color: #b85a16;
+}
+
+
+.calculator-buttons button.zero {
+    grid-column: span 2;
+}
+.calculator-buttons button.limp {
+    grid-column: span 2;
+    background-color: #e03131;
+    color: white;
+}
+.calculator-buttons button.limp:hover {
+    background-color: #c92a2a;
+}
+.calculator-buttons button.limp:active {
+    background-color: #b02525;
+}
+
+
+/* Painel de Histórico */
+.calculator-history {
+  background-color: #f8f9fa;
+  border-left: 1px solid #dee2e6;
+  width: 220px;
+  max-height: 100%;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.calculator-history h4 {
+  margin: 0;
+  padding: 12px;
+  font-size: 1rem;
+  color: #495057;
+  border-bottom: 1px solid #dee2e6;
+  flex-shrink: 0;
+}
+
+.calculator-history ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.calculator-history li {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #e9ecef;
+  transition: background-color 0.2s;
+  text-align: right;
+}
+
+.calculator-history li:hover {
+  background-color: #e9ecef;
+}
+
+.history-empty {
+    padding: 12px;
+    color: #868e96;
+    text-align: center;
+    font-style: italic;
+}
+

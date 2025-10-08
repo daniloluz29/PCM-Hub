@@ -4,18 +4,82 @@ import Modal from '../../components/Modal.jsx';
 import ModalConfirmacao from '../../components/ModalConfirmacao.jsx';
 import ModalAlerta from '../../components/ModalAlerta.jsx';
 
+// --- NOVO COMPONENTE: Modal para criar um novo grupo de faixas ---
+const ModalNovoGrupo = ({ isOpen, onClose, onSave }) => {
+    const [formState, setFormState] = useState({
+        id: '',
+        nome_grupo: '',
+        nome_exibicao: ''
+    });
+    const [formErrors, setFormErrors] = useState({});
+
+    const handleFormChange = (e) => {
+        const { name, value } = e.target;
+        setFormState(prev => ({ ...prev, [name]: value }));
+    };
+
+    const validateForm = () => {
+        const errors = {};
+        if (!formState.id.trim()) errors.id = true;
+        if (!formState.nome_grupo.trim()) errors.nome_grupo = true;
+        if (!formState.nome_exibicao.trim()) errors.nome_exibicao = true;
+        setFormErrors(errors);
+        return Object.keys(errors).length === 0;
+    };
+
+    const handleSave = () => {
+        if (validateForm()) {
+            onSave(formState);
+        }
+    };
+
+    return (
+        <Modal isOpen={isOpen} onClose={onClose} title="Criar Nova Tabela de Faixas">
+            <form onSubmit={(e) => { e.preventDefault(); handleSave(); }}>
+                <div className="user-form-grid">
+                    <div className="filter-group">
+                        <label>ID da Tabela (Sistema):</label>
+                        <input name="id" value={formState.id} onChange={handleFormChange} className={formErrors.id ? 'input-error' : ''} placeholder="ex: faixa_risco_operacional"/>
+                    </div>
+                    <div className="filter-group">
+                        <label>Grupo (para o Select):</label>
+                        <input name="nome_grupo" value={formState.nome_grupo} onChange={handleFormChange} className={formErrors.nome_grupo ? 'input-error' : ''} placeholder="ex: Risco Operacional"/>
+                    </div>
+                </div>
+                <div className="filter-group" style={{marginTop: '15px'}}>
+                    <label>Nome de Exibição (Título):</label>
+                    <input name="nome_exibicao" value={formState.nome_exibicao} onChange={handleFormChange} className={formErrors.nome_exibicao ? 'input-error' : ''} placeholder="ex: Faixas de Risco Operacional"/>
+                </div>
+                <div className="modal-footer">
+                    <div>
+                        {Object.keys(formErrors).length > 0 && 
+                            <p className="error-message" style={{textAlign: 'left'}}>
+                                <i className="bi bi-exclamation-triangle-fill" style={{ marginRight: '6px' }}></i>
+                                Todos os campos são obrigatórios.
+                            </p>}
+                    </div>
+                    <div>
+                        <button type="button" className="modal-button cancel" onClick={onClose}>Cancelar</button>
+                        <button type="submit" className="modal-button confirm" style={{backgroundColor: '#27ae60'}}>Salvar</button>
+                    </div>
+                </div>
+            </form>
+        </Modal>
+    );
+};
+
+
 // --- Componente Principal ---
 const GerenciamentoFaixas = ({ currentUser }) => {
-    // Estados de dados e UI
     const [grupos, setGrupos] = useState([]);
     const [faixasPorGrupo, setFaixasPorGrupo] = useState({});
     const [grupoSelecionado, setGrupoSelecionado] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Estados para os modais
     const [modalFaixaAberto, setModalFaixaAberto] = useState(false);
     const [modalGrupoAberto, setModalGrupoAberto] = useState(false);
+    const [modalNovoGrupoAberto, setModalNovoGrupoAberto] = useState(false); // NOVO ESTADO
     const [faixaEmEdicao, setFaixaEmEdicao] = useState(null);
     const [grupoEmEdicao, setGrupoEmEdicao] = useState(null);
     const [faixaParaExcluir, setFaixaParaExcluir] = useState(null);
@@ -23,7 +87,6 @@ const GerenciamentoFaixas = ({ currentUser }) => {
     const [formErrors, setFormErrors] = useState({});
     const [alerta, setAlerta] = useState({ aberto: false, mensagem: '' });
 
-    // Função para buscar todos os dados iniciais
     const fetchData = async () => {
         try {
             setIsLoading(true);
@@ -33,7 +96,9 @@ const GerenciamentoFaixas = ({ currentUser }) => {
             setGrupos(gruposData);
 
             if (gruposData.length > 0) {
-                setGrupoSelecionado(gruposData[0].nome_grupo);
+                if (!grupoSelecionado) {
+                    setGrupoSelecionado(gruposData[0].nome_grupo);
+                }
                 
                 const faixasPromises = gruposData.map(g => 
                     fetch(`http://127.0.0.1:5000/api/faixas/${g.id}`).then(res => res.json())
@@ -97,11 +162,7 @@ const GerenciamentoFaixas = ({ currentUser }) => {
     const handleSaveFaixa = async () => {
         if (!validateForm()) return;
         
-        const payload = {
-            ...formState,
-            autor_id: currentUser.id
-        };
-
+        const payload = { ...formState, autor_id: currentUser.id };
         const url = faixaEmEdicao ? `http://127.0.0.1:5000/api/faixas_definicoes/${faixaEmEdicao.id}` : 'http://127.0.0.1:5000/api/faixas_definicoes';
         const method = faixaEmEdicao ? 'PUT' : 'POST';
         try {
@@ -133,6 +194,24 @@ const GerenciamentoFaixas = ({ currentUser }) => {
         setModalGrupoAberto(false);
     };
 
+    // NOVO: Função para salvar um novo grupo de faixas
+    const handleSaveNovoGrupo = async (novoGrupoData) => {
+        try {
+            const response = await fetch('http://127.0.0.1:5000/api/faixas_grupos', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(novoGrupoData)
+            });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.message);
+            setAlerta({ aberto: true, mensagem: result.message });
+            setModalNovoGrupoAberto(false);
+            fetchData(); // Atualiza a lista de grupos
+        } catch (err) {
+            setAlerta({ aberto: true, mensagem: `Erro: ${err.message}` });
+        }
+    };
+
     const handleDeleteFaixaConfirm = async () => {
         if (!faixaParaExcluir) return;
         try {
@@ -153,10 +232,14 @@ const GerenciamentoFaixas = ({ currentUser }) => {
     return (
         <div className="card">
             <div className="user-edit-header">
-                <div className="filter-group" style={{flexGrow: '0.05'}}>
+                <div className="filter-group" style={{flexGrow: '0.5'}}>
                     <label htmlFor="group-select">Selecione um Grupo de Faixas:</label>
                     <Select id="group-select" options={optionsGrupo} value={optionsGrupo.find(opt => opt.value === grupoSelecionado)} onChange={(option) => setGrupoSelecionado(option.value)} isLoading={isLoading} placeholder="Selecione..." />
                 </div>
+                {/* NOVO: Botão para adicionar nova tabela de faixas */}
+                <button className="admin-button" onClick={() => setModalNovoGrupoAberto(true)}>
+                    <i className="bi bi-plus-lg"></i> Nova Tabela de Faixas
+                </button>
             </div>
             <div className="faixas-card-container">
                 {isLoading ? <p>Carregando...</p> : error ? <p style={{color: 'red'}}>{error}</p> : 
@@ -232,6 +315,13 @@ const GerenciamentoFaixas = ({ currentUser }) => {
                 <p>Você tem certeza que deseja excluir a faixa: <strong>{faixaParaExcluir?.nome_faixa}</strong></p>
             </ModalConfirmacao>
             <ModalAlerta isOpen={alerta.aberto} onClose={() => setAlerta({ aberto: false, mensagem: '' })} title="Operação Concluída"><p>{alerta.mensagem}</p></ModalAlerta>
+            
+            {/* NOVO: Renderiza o modal de criação de grupo */}
+            <ModalNovoGrupo 
+                isOpen={modalNovoGrupoAberto} 
+                onClose={() => setModalNovoGrupoAberto(false)} 
+                onSave={handleSaveNovoGrupo} 
+            />
         </div>
     );
 };

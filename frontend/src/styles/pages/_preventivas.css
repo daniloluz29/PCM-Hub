@@ -8,18 +8,21 @@
 /* --- Estilos para o Controle Segmentado (Sub-Abas) --- */
 
 .segmented-control-container {
-    display: inline-flex;
+    display: flex; /* Alterado para flex para distribuir o espaço */
     background-color: #e9ecef;
     border-radius: 8px;
     padding: 5px;
     margin-bottom: 25px;
     box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    width: 100%; /* Ocupa a largura total */
+    max-width: 800px; /* Define uma largura máxima */
 }
 
 .segmented-control-button {
+    flex: 1; /* Faz com que todos os botões tenham o mesmo tamanho */
     background: none;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 15px; /* Ajustado o padding */
     font-size: 15px;
     font-weight: 500;
     color: #5f6368;
@@ -28,7 +31,9 @@
     transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
     display: flex;
     align-items: center;
+    justify-content: center; /* Centraliza o conteúdo */
     gap: 8px;
+    white-space: nowrap; /* Impede que o texto quebre inesperadamente */
 }
 
 .segmented-control-button:hover:not(.active) {
@@ -43,8 +48,35 @@
 }
 
 .segmented-control-button .bi {
-    font-size: 1.1em;
+    font-size: 1.5em; /* Ícone um pouco maior */
 }
+
+/* --- Estilos para o texto em duas linhas --- */
+.button-text-container {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    line-height: 1.1;
+}
+
+.button-text-main {
+    font-size: 11px;
+    font-weight: 500;
+    color: #6c757d;
+}
+
+.button-text-highlight {
+    font-size: 14px;
+    font-weight: 600;
+    color: #5f6368;
+}
+
+/* --- Ajuste de cores para o botão ativo --- */
+.segmented-control-button.active .button-text-main,
+.segmented-control-button.active .button-text-highlight {
+    color: #E87722;
+}
+
 
 /* --- NOVOS ESTILOS PARA BLOCOS DE ANÁLISE --- */
 

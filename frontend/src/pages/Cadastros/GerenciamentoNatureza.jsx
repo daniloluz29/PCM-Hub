@@ -201,15 +201,14 @@ const GerenciamentoNaturezaFinanceira = ({ currentUser }) => {
                             />
                         </div>
                     </div>
-                    <div className="modal-footer">
-                        <div>
-                            {Object.keys(formErrors).length > 0 && <p className="error-message">Todos os campos são obrigatórios.</p>}
-                        </div>
+                    <div className="modal-footer"> 
+                        <div></div>
                         <div>
                             <button type="button" className="modal-button cancel" onClick={() => setModalAberto(false)}>Cancelar</button>
                             <button type="button" className="modal-button confirm" style={{backgroundColor: '#27ae60'}} onClick={handleSave}>Salvar</button>
                         </div>
                     </div>
+                    <div>{Object.keys(formErrors).length > 0 && <p className="error-message"><i className="bi bi-exclamation-triangle-fill" style={{ marginRight: '6px' }}></i>Itens obrigatórios não preenchidos</p>}</div>
                 </form>
             </Modal>
 

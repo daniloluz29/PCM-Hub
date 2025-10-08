@@ -1,0 +1,80 @@
+/* ==========================================================================
+   COMPONENT: TOAST NOTIFICATION
+   --------------------------------------------------------------------------
+   Estilos para o componente genérico de notificação (toast).
+   ========================================================================== */
+
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #fff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-left: 5px solid #6c757d; /* Cor padrão para 'info' */
+    min-width: 280px;
+    animation: slideInFromRight 0.3s ease-out forwards;
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(110%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.toast-icon {
+    font-size: 22px;
+}
+
+.toast-message {
+    font-size: 14px;
+    color: #343a40;
+    flex-grow: 1;
+}
+
+.toast-close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #adb5bd;
+    padding: 0;
+    line-height: 1;
+}
+
+.toast-close-btn:hover {
+    color: #495057;
+}
+
+/* --- Modificadores de Tipo --- */
+
+.toast-container.info .toast-icon {
+    color: #0d6efd; /* Azul */
+}
+.toast-container.info {
+    border-left-color: #0d6efd;
+}
+
+.toast-container.success .toast-icon {
+    color: #198754; /* Verde */
+}
+.toast-container.success {
+    border-left-color: #198754;
+}
+
+.toast-container.error .toast-icon {
+    color: #dc3545; /* Vermelho */
+}
+.toast-container.error {
+    border-left-color: #dc3545;
+}

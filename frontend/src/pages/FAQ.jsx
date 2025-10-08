@@ -161,7 +161,6 @@ function PaginaFAQ({ currentUser }) {
                     <div className="page-header">
                         <h1>Perguntas Frequentes</h1>
                     </div>
-
                     {canAdd && (
                          <div className="admin-actions-bar" style={{justifyContent: 'flex-start', marginBottom: '10px'}}>
                             <button className="admin-button" onClick={() => handleOpenModal()}>

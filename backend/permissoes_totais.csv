@@ -1,0 +1,79 @@
+﻿id;name;pai_id
+gestao_acoes;Gestão de Ações;
+gestao_acoes_acesso;Acesso à aba de gestão de ações;gestao_acoes
+gestao_acoes_ver_tudo;Visualização de todas as tarefas;gestao_acoes_acesso
+gestao_acoes_cadastrar;Cadastro de novas tarefas;gestao_acoes_acesso
+gestao_acoes_excluir;Exclusão de tarefas;gestao_acoes_acesso
+gestao_acoes_editar;Edição de tarefas;gestao_acoes_acesso
+gestao_acoes_chat_excluir;Excluir mensagens de chat;gestao_acoes_acesso
+gestao_acoes_anexos_excluir;Excluir arquivos anexados;gestao_acoes_acesso
+assistente_pcm;Assistente PCM;
+assistente_pcm_acesso;Acesso ao assistente PCM;assistente_pcm
+comunidade;Comunidade;
+comunidade_acesso;Acesso à aba de comunidade;comunidade
+comunidade_contatos;Acesso ao catálogo de contatos;comunidade_acesso
+comunidade_agenda;Acesso à agenda de eventos;comunidade_acesso
+comunidade_agenda_ver_tudo;Visualização de todos os eventos;comunidade_agenda
+comunidade_agenda_cadastrar;Cadastro de novos eventos;comunidade_agenda
+comunidade_agenda_excluir;Exclusão de eventos;comunidade_agenda
+comunidade_agenda_editar;Edição de eventos;comunidade_agenda
+comunidade_agenda_cancelar;Cancelamento de eventos;comunidade_agenda
+documentacao;Documentação;
+documentacao_acesso;Acesso às documentações;documentacao
+documentacao_incluir;Inclusão de nova documentação;documentacao_acesso
+documentacao_excluir;Exclusão de documentação;documentacao_acesso
+documentacao_editar;Edição de documentação;documentacao_acesso
+chamados;Portal de Chamados;
+chamados_acesso;Acesso ao portal de chamados;chamados
+chamados_ver_tudo;Visualização de todos os chamados;chamados_acesso
+chamados_abrir;Abertura de novos chamados;chamados_acesso
+chamados_excluir;Exclusão de chamados;chamados_acesso
+chamados_editar;Edição de chamados;chamados_acesso
+chamados_chat_excluir;Excluir mensagens de chat;chamados_acesso
+chamados_anexos_excluir;Excluir arquivos anexados;chamados_acesso
+cadastros;Cadastros;
+cadastros_acesso;Acesso à aba de cadastros;cadastros
+cadastros_usuarios;Acesso à aba de usuários;cadastros_acesso
+cadastros_usuarios_ativos;Acesso à aba de usuários ativos;cadastros_usuarios
+cadastros_usuarios_ativos_alterar;Alteração de dados de usuários;cadastros_usuarios_ativos
+cadastros_usuarios_ativos_excluir;Exclusão de usuários;cadastros_usuarios_ativos
+cadastros_usuarios_ativos_perfil;Alteração de perfil;cadastros_usuarios_ativos
+cadastros_usuarios_ativos_paineis;Alteração de permissões de paineis;cadastros_usuarios_ativos
+cadastros_usuarios_ativos_dados;Alteração de visibilidade de dados;cadastros_usuarios_ativos
+cadastros_usuarios_solicitacoes;Acesso à aba de solicitações pendentes;cadastros_usuarios
+cadastros_usuarios_solicitacoes_cadastrar;Cadastro de usuários;cadastros_usuarios_solicitacoes
+cadastros_usuarios_solicitacoes_negar;Negar cadastros;cadastros_usuarios_solicitacoes
+cadastros_ccs;Acesso à aba de centros de custo;cadastros_acesso
+cadastros_ccs_editar;Edição de centro de custo;cadastros_ccs
+cadastros_ccs_excluir;Exclusão de centro de custo;cadastros_ccs
+cadastros_ccs_cadastrar;Cadastro de novo centro de custo;cadastros_ccs
+cadastros_natureza;Acesso à aba de natureza financeira;cadastros_acesso
+cadastros_natureza_editar;Edição de natureza finaneira;cadastros_natureza
+cadastros_natureza_excluir;Exclusão de natureza financeira;cadastros_natureza
+cadastros_natureza_cadastrar;Cadastro;cadastros_natureza
+cadastros_faixas;Acesso à aba de faixas;cadastros_acesso
+cadastros_faixas_editar;Edição de faixas;cadastros_faixas
+cadastros_tabelas;Acesso à aba de tabelas;cadastros_acesso
+cadastros_tabelas_editar;Edição de tabelas;cadastros_tabelas
+cadastos_bd;Acesso à aba de bano de dados;cadastros_acesso
+cadastro_bd_tabcriticas;Edição da lista de tabelas críticas;cadastos_bd
+cadastro_bd_editar;Edição da query de tabelas;cadastos_bd
+cadastro_bd_excluir;Exlusão de tabelas;cadastos_bd
+cadastro_bd_importar;Importação de dados via CSV;cadastos_bd
+cadastro_bd_criar;Criação de novas tabelas;cadastos_bd
+cadastros_perfis;Acesso à aba de perfis;cadastros_acesso
+cadastros_perfis_cadastrar;Cadastro de novo perfil;cadastros_perfis
+cadastros_perfis_hierarquia;Alteração hierarquica;cadastros_perfis
+cadastros_perfis_editar;Edição de perfil;cadastros_perfis
+cadastros_perfis_excluir;Exclusão de perfil;cadastros_perfis
+faq;FAQ;
+faq_acesso;Acesso à aba de perguntas frequentes;faq
+faq_editar;Edição de perguntas;faq_acesso
+faq_excluir;Exclusão de perguntas;faq_acesso
+iqd;IQD;
+iqd_acesso;Acesso à aba de IQD;iqd
+attbackup;Atualização e backup;
+attbackup_acesso;Acesso à aba de atualização e backup;attbackup
+attbackup_atualizar;Atualizar dados do banco de dados;attbackup_acesso
+attbackup_backup;Realizar backup do banco de dados;attbackup_acesso
+attbackup_restaurar;Restaurar um backup armazenado;attbackup_acesso

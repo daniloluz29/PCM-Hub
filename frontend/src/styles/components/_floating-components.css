@@ -18,7 +18,7 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    opacity: 0.6;
+    opacity: 0.4;
 }
 
 .floating-widget:hover {
@@ -30,7 +30,7 @@
 /* --- Barra Flutuante de Informações do Usuário --- */
 .floating-user-info {
     position: fixed;
-    bottom: 10px;
+    bottom: 37px;
     left: 10px;
     background-color: rgba(44, 62, 80, 0.9); /* Cor escura semi-transparente */
     color: white;
@@ -52,7 +52,7 @@
 .floating-user-info.collapsed {
     width: 23px; /* Largura do avatar */
     gap: 0;
-    opacity: 0.6; /* Deixa o widget semi-transparente */
+    opacity: 0.4; /* Deixa o widget semi-transparente */
 }
 
 /* Efeito de hover APENAS quando estiver recolhido */
@@ -103,7 +103,7 @@
 /* --- Widget de Filtros (Direita) --- */
 .floating-filters {
     right: 10px;
-    bottom: 10px;
+    bottom: 40px;
     width: 40px;
     height: 40px;
 }

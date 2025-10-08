@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import FiltrosSidebar from '../components/FiltrosSidebar.jsx';
 import PageHeader from '../components/PageHeader.jsx';
-import SubAbaRealizadas from './Preventivas/SubAbaRealizadas.jsx';
-import SubAbaPendentes from './Preventivas/SubAbaPendentes.jsx';
+import SubAbaAderencia from './Preventivas/SubAbaAderencia.jsx';
+import SubAbaAntecipacao from './Preventivas/SubAbaAntecipacao.jsx';
+import SubAbaPendentesAtraso from './Preventivas/SubAbaPendentesAtraso.jsx';
+import SubAbaPendentesDia from './Preventivas/SubAbaPendentesDia.jsx';
 
 function PaginaOrdensPreventivas({ globalFilters, currentUser }) {
-    const [abaAtiva, setAbaAtiva] = useState('realizadas');
-    const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
+    const [abaAtiva, setAbaAtiva] = useState('aderencia');
+    const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
     const [sidebarContent, setSidebarContent] = useState(null);
     const [clearFiltersTrigger, setClearFiltersTrigger] = useState(0);
 
@@ -14,12 +16,35 @@ function PaginaOrdensPreventivas({ globalFilters, currentUser }) {
         setClearFiltersTrigger(c => c + 1);
     };
 
+    const abas = {
+        aderencia: {
+            label: 'Aderência',
+            icon: 'bi-check-circle-fill',
+            component: <SubAbaAderencia setSidebarContent={setSidebarContent} globalFilters={globalFilters} currentUser={currentUser} clearFiltersTrigger={clearFiltersTrigger} isActive={abaAtiva === 'aderencia'} />
+        },
+        antecipacao: {
+            label: 'Antecipação',
+            icon: 'bi-skip-end-circle-fill',
+            component: <SubAbaAntecipacao setSidebarContent={setSidebarContent} globalFilters={globalFilters} currentUser={currentUser} clearFiltersTrigger={clearFiltersTrigger} isActive={abaAtiva === 'antecipacao'} />
+        },
+        pendentes_atraso: {
+            label: 'Pendentes (Em atraso)',
+            icon: 'bi-exclamation-triangle-fill',
+            component: <SubAbaPendentesAtraso setSidebarContent={setSidebarContent} globalFilters={globalFilters} currentUser={currentUser} clearFiltersTrigger={clearFiltersTrigger} isActive={abaAtiva === 'pendentes_atraso'} />
+        },
+        pendentes_dia: {
+            label: 'Pendentes (Em dia)',
+            icon: 'bi-clock-history',
+            component: <SubAbaPendentesDia setSidebarContent={setSidebarContent} globalFilters={globalFilters} currentUser={currentUser} clearFiltersTrigger={clearFiltersTrigger} isActive={abaAtiva === 'pendentes_dia'} />
+        }
+    };
+
     return (
         <div className="page-container">
             <FiltrosSidebar 
                 isExpanded={isSidebarExpanded} 
                 onToggle={setIsSidebarExpanded}
-                onClearFilters={handleClearFilters} // CORREÇÃO: Passando a prop para o componente filho
+                onClearFilters={handleClearFilters}
             >
                 {sidebarContent}
             </FiltrosSidebar>
@@ -32,42 +57,42 @@ function PaginaOrdensPreventivas({ globalFilters, currentUser }) {
                 />
                 
                 <div className="segmented-control-container">
-                    <button 
-                        className={`segmented-control-button ${abaAtiva === 'realizadas' ? 'active' : ''}`}
-                        onClick={() => setAbaAtiva('realizadas')}
-                    >
-                        <i className="bi bi-check-circle-fill"></i>
-                        <span>Realizadas</span>
-                    </button>
-                    <button 
-                        className={`segmented-control-button ${abaAtiva === 'pendentes' ? 'active' : ''}`}
-                        onClick={() => setAbaAtiva('pendentes')}
-                    >
-                        <i className="bi bi-clock-history"></i>
-                        <span>Pendentes</span>
-                    </button>
+                    {Object.keys(abas).map(key => {
+                        const label = abas[key].label;
+                        const match = label.match(/(.+)\s\((.+)\)/);
+                        let buttonLabel;
+
+                        if (match) {
+                            buttonLabel = (
+                                <span className="button-text-container">
+                                    <span className="button-text-main">{match[1]}</span>
+                                    <span className="button-text-highlight">{match[2]}</span>
+                                </span>
+                            );
+                        } else {
+                            buttonLabel = <span>{label}</span>;
+                        }
+
+                        return (
+                            <button 
+                                key={key}
+                                className={`segmented-control-button ${abaAtiva === key ? 'active' : ''}`}
+                                onClick={() => setAbaAtiva(key)}
+                            >
+                                <i className={`bi ${abas[key].icon}`}></i>
+                                {buttonLabel}
+                            </button>
+                        );
+                    })}
                 </div>
 
+
                 <div className="sub-tab-content">
-                    {/* ATUALIZAÇÃO: Adicionada a prop 'isActive' para cada sub-aba */}
-                    <div style={{ display: abaAtiva === 'realizadas' ? 'block' : 'none' }}>
-                        <SubAbaRealizadas 
-                            setSidebarContent={setSidebarContent} 
-                            globalFilters={globalFilters} 
-                            currentUser={currentUser} 
-                            clearFiltersTrigger={clearFiltersTrigger} 
-                            isActive={abaAtiva === 'realizadas'}
-                        />
-                    </div>
-                    <div style={{ display: abaAtiva === 'pendentes' ? 'block' : 'none' }}>
-                        <SubAbaPendentes 
-                            setSidebarContent={setSidebarContent} 
-                            globalFilters={globalFilters} 
-                            currentUser={currentUser} 
-                            clearFiltersTrigger={clearFiltersTrigger} 
-                            isActive={abaAtiva === 'pendentes'}
-                        />
-                    </div>
+                    {Object.keys(abas).map(key => (
+                        <div key={key} style={{ display: abaAtiva === key ? 'block' : 'none' }}>
+                            {abas[key].component}
+                        </div>
+                    ))}
                 </div>
             </main>
         </div>
@@ -75,3 +100,4 @@ function PaginaOrdensPreventivas({ globalFilters, currentUser }) {
 }
 
 export default PaginaOrdensPreventivas;
+

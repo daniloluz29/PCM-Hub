@@ -38,25 +38,20 @@ function Menu({ currentUser, onNavigate, paginaAtual, onLogout }) {
         };
     }, [notificationRef]);
 
-    // --- CORREÇÃO PRINCIPAL ---
-    // Cria um Set com os acessos do usuário para checagens rápidas.
     const userAccessSet = useMemo(() => new Set(currentUser?.acessos?.split(',') || []), [currentUser]);
 
-    // Função para checar acesso a um painel específico.
     const hasAccess = (panelId) => {
         if (!currentUser) return false;
         if (currentUser.perfil_id === 'master_admin') return true;
         return userAccessSet.has(panelId);
     };
     
-    // Função para checar permissões de AÇÕES (criar, editar, etc.)
     const hasPermission = (perm) => {
         if (!currentUser) return false;
         if (currentUser.perfil_id === 'master_admin') return true;
         return currentUser.permissoes?.includes(perm);
     };
 
-    // --- CORREÇÃO: Lógica para exibir menus-pai apenas se houver acesso a algum filho ---
     const canSeeOsMenu = hasAccess('os_corretivas') || hasAccess('os_preventivas');
     const canSeeKpiMenu = hasAccess('kpi_disponibilidade') || hasAccess('kpi_mtbf') || hasAccess('kpi_mttr');
     const canSeeDiagMenu = hasAccess('diag_oleo') || hasAccess('diag_telemetria');
@@ -152,6 +147,12 @@ function Menu({ currentUser, onNavigate, paginaAtual, onLogout }) {
                     <div className="menu-item">
                         <a className="nav-link"><i className="bi bi-list" style={{fontSize: '24px'}}></i></a>
                         <div className="dropdown-content">
+                            {hasPermission('bi_acesso') && (
+                                <a className="nav-link" onClick={() => onNavigate('bi_paineis')}><i className="bi bi-bar-chart-line-fill"></i> BI & Análises</a>
+                            )}
+                            {hasPermission('fluxograma_acesso') && (
+                                <a className={getClassName('fluxograma')} onClick={() => onNavigate('fluxograma')}><i className="bi bi-bar-chart-steps"></i> Fluxograma</a>
+                            )}
                             {hasPermission('gestao_acoes_acesso') && (
                                 <a className="nav-link" onClick={() => onNavigate('gestao_acoes')}><i className="bi bi-kanban"></i> Gestão de Ações</a>
                             )}
@@ -186,6 +187,9 @@ function Menu({ currentUser, onNavigate, paginaAtual, onLogout }) {
                             <li className="menu-divider"></li>
                             <a className="nav-link" onClick={() => onNavigate('perfil')}>
                                 <i className="bi bi-person-circle"></i> Perfil
+                            </a>
+                            <a className="nav-link" onClick={() => onNavigate('att_backup')}>
+                                <i className="bi bi-cloud-arrow-up-fill"></i> Atualização e backup
                             </a>
                             <a className="nav-link" onClick={onLogout}>
                                 <i className="bi bi-box-arrow-right"></i> Sair

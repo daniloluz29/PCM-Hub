@@ -135,7 +135,6 @@ const CustomTooltip = ({ active, payload, label }) => {
     const data = payload[0].payload;
     const isAderencia = 'aderencia' in data;
     const isAtraso = 'atrasadas_count' in data;
-    const isAntecipacao = 'antecipadas_count' in data;
 
     return (
       <div className="custom-tooltip">
@@ -148,7 +147,6 @@ const CustomTooltip = ({ active, payload, label }) => {
           </>
         )}
         {isAtraso && <p className="desc" style={{ color: '#c0392b' }}>{`Em Atraso: ${data.atrasadas_count}`}</p>}
-        {isAntecipacao && <p className="desc" style={{ color: '#2c3e50' }}>{`Antecipadas: ${data.antecipadas_count}`}</p>}
       </div>
     );
   }
@@ -175,16 +173,12 @@ const CustomAxisTick = ({ x, y, payload }) => {
   );
 };
 
-const SubAbaRealizadas = ({ setSidebarContent, globalFilters, currentUser, clearFiltersTrigger, isActive }) => {
-    // Estados para os dados
+const SubAbaAderencia = ({ setSidebarContent, globalFilters, currentUser, clearFiltersTrigger, isActive }) => {
     const [aderenciaGrupoData, setAderenciaGrupoData] = useState([]);
     const [aderenciaMensalData, setAderenciaMensalData] = useState([]);
     const [atrasadasData, setAtrasadasData] = useState([]);
-    const [antecipadasData, setAntecipadasData] = useState([]);
     const [tabelaRealizadasData, setTabelaRealizadasData] = useState([]);
     const [kpis, setKpis] = useState({});
-
-    // Estados de controle
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [chartInModal, setChartInModal] = useState(null);
@@ -208,25 +202,13 @@ const SubAbaRealizadas = ({ setSidebarContent, globalFilters, currentUser, clear
 
     const [classificacaoOptions, setClassificacaoOptions] = useState([]);
     const tipoOptions = [{ value: 'Por tempo', label: 'Por tempo' }, { value: 'Marco', label: 'Marco' }];
-
     const visao = globalFilters?.visao?.label || 'Contrato';
 
     useEffect(() => {
-        const handleKeyDown = (event) => {
-            if (event.key === 'Control') {
-                setIsCtrlPressed(true);
-            }
-        };
-
-        const handleKeyUp = (event) => {
-            if (event.key === 'Control') {
-                setIsCtrlPressed(false);
-            }
-        };
-
+        const handleKeyDown = (event) => { if (event.key === 'Control') setIsCtrlPressed(true); };
+        const handleKeyUp = (event) => { if (event.key === 'Control') setIsCtrlPressed(false); };
         window.addEventListener('keydown', handleKeyDown);
         window.addEventListener('keyup', handleKeyUp);
-
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
             window.removeEventListener('keyup', handleKeyUp);
@@ -266,7 +248,7 @@ const SubAbaRealizadas = ({ setSidebarContent, globalFilters, currentUser, clear
 
     useEffect(() => {
         const fetchData = async () => {
-            if (!currentUser) {
+            if (!currentUser || !isActive) {
                 setIsLoading(false);
                 return;
             }
@@ -284,17 +266,12 @@ const SubAbaRealizadas = ({ setSidebarContent, globalFilters, currentUser, clear
                         baseParams.append(key, globalFilters[key].map(item => item.value).join(','));
                     }
                 });
-
                 if (sidebarFilters.dateRange.inicio && sidebarFilters.dateRange.fim) {
                     baseParams.append('data_inicio', sidebarFilters.dateRange.inicio);
                     baseParams.append('data_fim', sidebarFilters.dateRange.fim);
                 }
-                if (sidebarFilters.tipos.length > 0) {
-                    baseParams.append('tipos', sidebarFilters.tipos.map(t => t.value).join(','));
-                }
-                if (sidebarFilters.classificacoes.length > 0) {
-                    baseParams.append('classificacoes', sidebarFilters.classificacoes.map(c => c.value).join(','));
-                }
+                if (sidebarFilters.tipos.length > 0) baseParams.append('tipos', sidebarFilters.tipos.map(t => t.value).join(','));
+                if (sidebarFilters.classificacoes.length > 0) baseParams.append('classificacoes', sidebarFilters.classificacoes.map(c => c.value).join(','));
 
                 const realizadasParams = new URLSearchParams(baseParams);
                 const mensalParams = new URLSearchParams(baseParams);
@@ -304,7 +281,6 @@ const SubAbaRealizadas = ({ setSidebarContent, globalFilters, currentUser, clear
 
                 const grupoFilters = activeClick.filter(f => f.type === 'grupo');
                 const mesFilters = activeClick.filter(f => f.type === 'mes');
-                
                 const grupoValues = grupoFilters.map(f => f.value);
                 const mesValues = mesFilters.map(f => f.value);
                 const kpiStatus = (grupoFilters.length > 0 && grupoFilters[0].status) ? grupoFilters[0].status : null;
@@ -321,7 +297,6 @@ const SubAbaRealizadas = ({ setSidebarContent, globalFilters, currentUser, clear
                 if (mesValues.length > 0) {
                     const mesParamValue = mesValues.join(',');
                     realizadasParams.append('mes_ano', mesParamValue);
-                    mensalParams.append('mes_ano', mesParamValue);
                     kpisParams.append('mes_ano', mesParamValue);
                     detalhesParams.append('mes_ano', mesParamValue);
                     kpisGeraisParams.append('mes_ano', mesParamValue);
@@ -338,9 +313,7 @@ const SubAbaRealizadas = ({ setSidebarContent, globalFilters, currentUser, clear
                     fetch(`http://127.0.0.1:5000/api/preventivas/kpis-gerais?${kpisGeraisParams.toString()}`)
                 ]);
                 
-                if (!realizadasRes.ok || !mensalRes.ok || !kpisRes.ok || !detalhesRes.ok || !kpisGeraisRes.ok) {
-                    throw new Error(`Falha ao buscar dados do servidor.`);
-                }
+                if (!realizadasRes.ok || !mensalRes.ok || !kpisRes.ok || !detalhesRes.ok || !kpisGeraisRes.ok) throw new Error(`Falha ao buscar dados do servidor.`);
 
                 const realizadasResult = await realizadasRes.json();
                 const mensalResult = await mensalRes.json();
@@ -351,7 +324,6 @@ const SubAbaRealizadas = ({ setSidebarContent, globalFilters, currentUser, clear
                 setAderenciaGrupoData(realizadasResult.aderencia_por_grupo || []);
                 setAderenciaMensalData(mensalResult.aderencia_mensal || []);
                 setAtrasadasData(kpisResult.atrasadas || []);
-                setAntecipadasData(kpisResult.antecipadas || []);
                 setTabelaRealizadasData(detalhesResult || []);
                 setKpis(kpisGeraisResult);
                 setError(null);
@@ -361,47 +333,20 @@ const SubAbaRealizadas = ({ setSidebarContent, globalFilters, currentUser, clear
                 setIsLoading(false);
             }
         };
-        fetchData();
-    }, [globalFilters, currentUser, activeClick, sidebarFilters]);
+        if (isActive) fetchData();
+    }, [globalFilters, currentUser, activeClick, sidebarFilters, isActive]);
 
-    // ATUALIZAÇÃO: Este efeito agora só executa se a aba estiver ativa.
     useEffect(() => {
         if (isActive) {
             setSidebarContent(
                 <>
                     <div className="filter-group">
                         <label>Período de Conclusão</label>
-                        <input 
-                            type="date" 
-                            value={sidebarFilters.dateRange.inicio} 
-                            onChange={(e) => setSidebarFilters(prev => ({ ...prev, dateRange: { ...prev.dateRange, inicio: e.target.value }}))}
-                        />
-                        <input 
-                            type="date" 
-                            value={sidebarFilters.dateRange.fim}
-                            onChange={(e) => setSidebarFilters(prev => ({ ...prev, dateRange: { ...prev.dateRange, fim: e.target.value }}))}
-                        />
+                        <input type="date" value={sidebarFilters.dateRange.inicio} onChange={(e) => setSidebarFilters(prev => ({ ...prev, dateRange: { ...prev.dateRange, inicio: e.target.value }}))} />
+                        <input type="date" value={sidebarFilters.dateRange.fim} onChange={(e) => setSidebarFilters(prev => ({ ...prev, dateRange: { ...prev.dateRange, fim: e.target.value }}))} />
                     </div>
-                    <div className="filter-group">
-                        <label>Tipo de Preventiva</label>
-                        <Select 
-                            isMulti 
-                            options={tipoOptions}
-                            value={sidebarFilters.tipos}
-                            onChange={(selected) => setSidebarFilters(prev => ({ ...prev, tipos: selected || [] }))}
-                            placeholder="Todos"
-                        />
-                    </div>
-                    <div className="filter-group">
-                        <label>Classificação</label>
-                         <Select 
-                            isMulti 
-                            options={classificacaoOptions}
-                            value={sidebarFilters.classificacoes}
-                            onChange={(selected) => setSidebarFilters(prev => ({ ...prev, classificacoes: selected || [] }))}
-                            placeholder="Todas"
-                        />
-                    </div>
+                    <div className="filter-group"><label>Tipo de Preventiva</label><Select isMulti options={tipoOptions} value={sidebarFilters.tipos} onChange={(selected) => setSidebarFilters(prev => ({ ...prev, tipos: selected || [] }))} placeholder="Todos"/></div>
+                    <div className="filter-group"><label>Classificação</label><Select isMulti options={classificacaoOptions} value={sidebarFilters.classificacoes} onChange={(selected) => setSidebarFilters(prev => ({ ...prev, classificacoes: selected || [] }))} placeholder="Todas" /></div>
                 </>
             );
         }
@@ -411,47 +356,29 @@ const SubAbaRealizadas = ({ setSidebarContent, globalFilters, currentUser, clear
         if (!data) return;
         const value = type === 'grupo' ? data.nome_grupo : data.name;
         const newSelection = { type, value, status };
-        const isCtrlPressed = event.ctrlKey;
-
         let newActiveClick = [];
         let newFilterSourceChart = chartId;
-
         setActiveClick(prev => {
             const isAlreadySelected = prev.some(item => item.value === newSelection.value && item.type === newSelection.type);
             const prevStatus = (prev.length > 0 && prev[0].status) ? prev[0].status : null;
-
-            if (isCtrlPressed) {
-                if (isAlreadySelected) {
-                    newActiveClick = prev.filter(item => item.value !== newSelection.value);
-                } else {
-                    if (status && prevStatus && status !== prevStatus) {
-                        newActiveClick = [newSelection];
-                    } else {
-                        newActiveClick = [...prev, newSelection];
-                    }
+            if (event.ctrlKey) {
+                if (isAlreadySelected) newActiveClick = prev.filter(item => item.value !== newSelection.value);
+                else {
+                    if (status && prevStatus && status !== prevStatus) newActiveClick = [newSelection];
+                    else newActiveClick = [...prev, newSelection];
                 }
             } else {
-                if (isAlreadySelected && prev.length === 1) {
-                    newActiveClick = [];
-                } else {
-                    newActiveClick = [newSelection];
-                }
+                if (isAlreadySelected && prev.length === 1) newActiveClick = [];
+                else newActiveClick = [newSelection];
             }
-            
-            if (newActiveClick.length === 0) {
-                newFilterSourceChart = null;
-            }
-            
+            if (newActiveClick.length === 0) newFilterSourceChart = null;
             setFilterSourceChart(newFilterSourceChart);
             return newActiveClick;
         });
     };
     
     const toggleBlock = (blockName) => {
-        setCollapsedBlocks(prev => ({
-            ...prev,
-            [blockName]: !prev[blockName]
-        }));
+        setCollapsedBlocks(prev => ({ ...prev, [blockName]: !prev[blockName] }));
     };
 
     const tableColumns = useMemo(() => [
@@ -467,33 +394,19 @@ const SubAbaRealizadas = ({ setSidebarContent, globalFilters, currentUser, clear
 
     const GenericBarChart = ({ data, dataKey, xAxisKey, onClickHandler, chartId, filterType, kpiStatus, labelFormatter, showReferenceLine = false, useBackgroundLabel = false }) => (
         <ResponsiveContainer width="100%" height={250}>
-            <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 50 }}>
+            <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 50 }} isAnimationActive={false}>
                 <XAxis dataKey={xAxisKey} interval={0} height={100} tick={<CustomAxisTick />} />
                 <YAxis domain={showReferenceLine ? [0, 100] : undefined} tick={false} tickLine={false} axisLine={false} />
                 {!isCtrlPressed && <Tooltip content={<CustomTooltip />} />}
-                {showReferenceLine && (
-                    <ReferenceLine y={100} stroke="#09124F" strokeDasharray="3 3">
-                        <Label value="Meta" position='insideBottomRight' fill="#09124F" fontSize={12} />
-                    </ReferenceLine>
-                )}
-                <Bar dataKey={dataKey} onClick={(data, index, event) => onClickHandler(filterType, data, event, kpiStatus, chartId)}>
+                {showReferenceLine && (<ReferenceLine y={100} stroke="#09124F" strokeDasharray="3 3"><Label value="Meta" position='insideBottomRight' fill="#09124F" fontSize={12} /></ReferenceLine>)}
+                <Bar dataKey={dataKey} onClick={(data, index, event) => onClickHandler(filterType, data, event, kpiStatus, chartId)} isAnimationActive={false}>
                     {data.map((entry, index) => {
                         const relevantFilters = activeClick.filter(f => f.type === filterType);
                         const isAnyRelevantFilterActive = relevantFilters.length > 0;
                         const isFiltered = isAnyRelevantFilterActive && !relevantFilters.some(f => f.value === entry[xAxisKey]);
-
-                        return (
-                            <Cell 
-                                key={`cell-${index}`} 
-                                fill={isFiltered ? '#dcdcdc' : (dataKey === 'atrasadas_count' ? '#c0392b' : '#E87722')} 
-                                style={{ cursor: 'pointer' }}
-                            />
-                        );
+                        return (<Cell key={`cell-${index}`} fill={isFiltered ? '#dcdcdc' : (dataKey === 'atrasadas_count' ? '#e87722' : '#E87722')} style={{ cursor: 'pointer' }} />);
                     })}
-                    <LabelList 
-                        dataKey={dataKey} 
-                        content={<CustomBarLabel formatter={labelFormatter} useBackground={useBackgroundLabel} />}
-                    />
+                    <LabelList dataKey={dataKey} content={<CustomBarLabel formatter={labelFormatter} useBackground={useBackgroundLabel} />}/>
                 </Bar>
             </BarChart>
         </ResponsiveContainer>
@@ -506,9 +419,7 @@ const SubAbaRealizadas = ({ setSidebarContent, globalFilters, currentUser, clear
             <div className="analysis-block">
                 <div className="analysis-block-title" onClick={() => toggleBlock('aderencia')}>
                     <h2>Aderência de Preventivas</h2>
-                    <button className={`collapse-button ${collapsedBlocks.aderencia ? 'collapsed' : ''}`}>
-                        <i className="bi bi-chevron-down"></i>
-                    </button>
+                    <button className={`collapse-button ${collapsedBlocks.aderencia ? 'collapsed' : ''}`}><i className="bi bi-chevron-down"></i></button>
                 </div>
                 <div className={`analysis-block-content ${collapsedBlocks.aderencia ? 'collapsed' : ''}`}>
                     <div className="dashboard-grid full-width-grid">
@@ -530,9 +441,7 @@ const SubAbaRealizadas = ({ setSidebarContent, globalFilters, currentUser, clear
                             title={`Aderência Mensal ${activeClick.filter(f=>f.type==='grupo').length > 0 ? '(Filtrado)' : ''}`}
                             onPhotoModeClick={() => setChartInModal({ title: "Aderência Mensal", chart: <GenericBarChart data={aderenciaMensalData} dataKey="aderencia" xAxisKey="name" onClickHandler={handleChartClick} filterType="mes" chartId="aderenciaMensal" labelFormatter={percentFormatter} showReferenceLine useBackgroundLabel /> })}
                             isFilterSource={filterSourceChart === 'aderenciaMensal'}
-                            kpiCards={[
-                                { title: 'Aderência Média', value: `${kpis.aderencia_media || 0}%` }
-                            ]}
+                            kpiCards={[{ title: 'Aderência Média', value: `${kpis.aderencia_media || 0}%` }]}
                         >
                             {isLoading ? <p>Carregando...</p> : <GenericBarChart data={aderenciaMensalData} dataKey="aderencia" xAxisKey="name" onClickHandler={handleChartClick} filterType="mes" chartId="aderenciaMensal" labelFormatter={percentFormatter} showReferenceLine useBackgroundLabel />}
                         </ChartWrapper>
@@ -540,9 +449,7 @@ const SubAbaRealizadas = ({ setSidebarContent, globalFilters, currentUser, clear
                             title={`Preventivas em Atraso por ${visao} ${activeClick.filter(f=>f.type==='mes').length > 0 ? '(Filtrado)' : ''}`}
                             onPhotoModeClick={() => setChartInModal({ title: `Preventivas em Atraso por ${visao}`, chart: <GenericBarChart data={atrasadasData} dataKey="atrasadas_count" xAxisKey="nome_grupo" onClickHandler={handleChartClick} kpiStatus="Atrasada" filterType="grupo" chartId="atrasadasGrupo" /> })}
                             isFilterSource={filterSourceChart === 'atrasadasGrupo'}
-                            kpiCards={[
-                                { title: 'Total Atrasadas', value: kpis.total_atrasadas || 0 }
-                            ]}
+                            kpiCards={[{ title: 'Total Atrasadas', value: kpis.total_atrasadas || 0 }]}
                         >
                             {isLoading ? <p>Carregando...</p> : <GenericBarChart data={atrasadasData} dataKey="atrasadas_count" xAxisKey="nome_grupo" onClickHandler={handleChartClick} kpiStatus="Atrasada" filterType="grupo" chartId="atrasadasGrupo" />}
                         </ChartWrapper>
@@ -551,40 +458,12 @@ const SubAbaRealizadas = ({ setSidebarContent, globalFilters, currentUser, clear
             </div>
 
             <div className="analysis-block">
-                <div className="analysis-block-title" onClick={() => toggleBlock('antecipacao')}>
-                    <h2>Antecipação de Preventivas</h2>
-                    <button className={`collapse-button ${collapsedBlocks.antecipacao ? 'collapsed' : ''}`}>
-                        <i className="bi bi-chevron-down"></i>
-                    </button>
-                </div>
-                <div className={`analysis-block-content ${collapsedBlocks.antecipacao ? 'collapsed' : ''}`}>
-                    <div className="dashboard-grid full-width-grid">
-                         <ChartWrapper 
-                            title={`Preventivas por Antecipação (>90h) por ${visao} ${activeClick.filter(f=>f.type==='mes').length > 0 ? '(Filtrado)' : ''}`}
-                            onPhotoModeClick={() => setChartInModal({ title: `Preventivas por Antecipação (>90h) por ${visao}`, chart: <GenericBarChart data={antecipadasData} dataKey="antecipadas_count" xAxisKey="nome_grupo" onClickHandler={handleChartClick} kpiStatus="Antecipada" filterType="grupo" chartId="antecipadasGrupo" /> })}
-                            isFilterSource={filterSourceChart === 'antecipadasGrupo'}
-                            kpiCards={[
-                                { title: 'Total Antecipadas', value: kpis.total_antecipadas || 0 }
-                            ]}
-                        >
-                            {isLoading ? <p>Carregando...</p> : <GenericBarChart data={antecipadasData} dataKey="antecipadas_count" xAxisKey="nome_grupo" onClickHandler={handleChartClick} kpiStatus="Antecipada" filterType="grupo" chartId="antecipadasGrupo" />}
-                        </ChartWrapper>
-                    </div>
-                </div>
-            </div>
-
-            <div className="analysis-block">
                 <div className="analysis-block-title" onClick={() => toggleBlock('detalhamento')}>
                     <h2>Detalhamento das Preventivas Realizadas</h2>
-                    <button className={`collapse-button ${collapsedBlocks.detalhamento ? 'collapsed' : ''}`}>
-                        <i className="bi bi-chevron-down"></i>
-                    </button>
+                    <button className={`collapse-button ${collapsedBlocks.detalhamento ? 'collapsed' : ''}`}><i className="bi bi-chevron-down"></i></button>
                 </div>
                 <div className={`analysis-block-content ${collapsedBlocks.detalhamento ? 'collapsed' : ''}`}>
-                    <TableWrapper
-                        title=""
-                        onExpandClick={() => setIsTableModalOpen(true)}
-                    >
+                    <TableWrapper title="" onExpandClick={() => setIsTableModalOpen(true)}>
                         {isLoading ? <p>Carregando detalhes...</p> : <DetalhesRealizadasTable data={tabelaRealizadasData} />}
                     </TableWrapper>
                 </div>
@@ -594,15 +473,9 @@ const SubAbaRealizadas = ({ setSidebarContent, globalFilters, currentUser, clear
                 {chartInModal?.chart}
             </ChartModal>
 
-            <TableModal 
-                isOpen={isTableModalOpen}
-                onClose={() => setIsTableModalOpen(false)}
-                title="Detalhamento Avançado das Preventivas Realizadas"
-                columns={tableColumns}
-                rows={tabelaRealizadasData}
-            />
+            <TableModal isOpen={isTableModalOpen} onClose={() => setIsTableModalOpen(false)} title="Detalhamento Avançado das Preventivas Realizadas" columns={tableColumns} rows={tabelaRealizadasData} />
         </>
     );
 };
 
-export default SubAbaRealizadas;
+export default SubAbaAderencia;

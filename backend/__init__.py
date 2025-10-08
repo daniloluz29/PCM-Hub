@@ -13,7 +13,8 @@ def create_app():
     from .Rotas import (
         centros_custo, natureza_financeira, faixas, comunidade, chamados,
         gestao_acoes, usuarios, solicitacoes, cadastros_basicos, hierarquias,
-        auth, permissoes, faq, notificacoes, tabelas, filtros, preventivas
+        auth, permissoes, faq, notificacoes, tabelas, filtros, preventivas, 
+        atualizacao_backup, assistente_pcm, bi, pneus
     )
 
     # Registra cada blueprint na aplicação.
@@ -35,5 +36,9 @@ def create_app():
     app.register_blueprint(tabelas.bp)
     app.register_blueprint(filtros.bp)
     app.register_blueprint(preventivas.bp)
+    app.register_blueprint(atualizacao_backup.bp)
+    app.register_blueprint(assistente_pcm.bp)
+    app.register_blueprint(bi.bp)
+    app.register_blueprint(pneus.bp)
 
     return app

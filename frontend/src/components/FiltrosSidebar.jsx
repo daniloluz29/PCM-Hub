@@ -8,7 +8,7 @@ import React, { useState } from 'react';
  * @param {function} props.onClearFilters - Função para limpar os filtros.
  */
 const FiltrosSidebar = ({ onToggle, children, onClearFilters }) => { // CORREÇÃO: Recebendo a nova prop
-    const [isExpanded, setIsExpanded] = useState(true);
+    const [isExpanded, setIsExpanded] = useState(false);
 
     const handleToggle = () => {
         const newState = !isExpanded;

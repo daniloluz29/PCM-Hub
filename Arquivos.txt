@@ -1,0 +1,253 @@
+PCM-Hub/run.py - Ponto de entrada para iniciar a aplicação Flask.
+
+PCM-Hub/package.json - Dependências e scripts do projeto geral.
+
+PCM-Hub/backend/db.py - Funções de conexão e utilitários do banco de dados.
+
+PCM-Hub/backend/init.py - Factory da aplicação Flask, registra as rotas (blueprints).
+
+PCM-Hub/backend/Rotas/preventivas.py - Rotas da API para dados de manutenção preventiva.
+
+PCM-Hub/backend/Rotas/filtros.py - Rotas da API para obter opções de filtros dinâmicos.
+
+PCM-Hub/backend/Rotas/bi.py - Rotas da API para a funcionalidade de Business Intelligence.
+
+PCM-Hub/backend/Rotas/tabelas.py - Rotas da API para gerenciar tabelas de apoio do sistema.
+
+PCM-Hub/backend/Rotas/assistente_pcm.py - Rota da API para o chat com a IA.
+
+PCM-Hub/backend/Rotas/faixas.py - Rotas da API para gerenciar faixas de valores (ex: risco).
+
+PCM-Hub/backend/Rotas/atualizacao_backup.py - Rotas da API para status e execução de atualizações/backups.
+
+PCM-Hub/backend/Rotas/atualizacaodb.py - Lógica para atualizar o banco de dados a partir de arquivos.
+
+PCM-Hub/backend/Rotas/backup.py - Lógica para criar backups do banco de dados.
+
+PCM-Hub/backend/Rotas/restaurarbackup.py - Lógica para restaurar backups do banco de dados.
+
+PCM-Hub/backend/Rotas/permissoes.py - Rotas da API para gerenciar perfis e permissões de acesso.
+
+PCM-Hub/backend/Rotas/natureza_financeira.py - Rotas da API para o CRUD de naturezas financeiras.
+
+PCM-Hub/backend/Rotas/notificacoes.py - Rotas da API para o sistema de notificações.
+
+PCM-Hub/backend/Rotas/centros_custo.py - Rotas da API para o CRUD de centros de custo.
+
+PCM-Hub/backend/Rotas/faq.py - Rotas da API para o CRUD da página de FAQ.
+
+PCM-Hub/backend/Rotas/gestao_acoes.py - Rotas da API para a Gestão de Ações (Kanban).
+
+PCM-Hub/backend/Rotas/chamados.py - Rotas da API para o portal de chamados.
+
+PCM-Hub/backend/Rotas/cadastros_basicos.py - Rotas da API para dados básicos (perfis, funções).
+
+PCM-Hub/backend/Rotas/usuarios.py - Rotas da API para gerenciamento de usuários.
+
+PCM-Hub/backend/Rotas/auth.py - Rota da API para autenticação e login.
+
+PCM-Hub/backend/Rotas/solicitacoes.py - Rotas da API para solicitações de cadastro.
+
+PCM-Hub/backend/Rotas/hierarquias.py - Rotas da API para obter estruturas de hierarquia.
+
+PCM-Hub/backend/Rotas/comunidade.py - Rotas da API para a página de comunidade (contatos, eventos).
+
+PCM-Hub/frontend/index.html - Ponto de entrada HTML do frontend React.
+
+PCM-Hub/frontend/package.json - Dependências e scripts do frontend.
+
+PCM-Hub/frontend/public/manifest.json - Manifesto do PWA.
+
+PCM-Hub/frontend/public/sw.js - Service Worker para PWA.
+
+PCM-Hub/frontend/src/App.jsx - Componente principal do React, gerencia o roteamento.
+
+PCM-Hub/frontend/src/main.jsx - Ponto de entrada do React, renderiza o componente App.
+
+PCM-Hub/frontend/src/components/TableModal.jsx - Componente de modal para tabelas avançadas.
+
+PCM-Hub/frontend/src/components/AdvancedSortModal.jsx - Componente de modal para ordenação avançada.
+
+PCM-Hub/frontend/src/components/FiltrosDash.jsx - Componente de filtro individual para dashboards de BI.
+
+PCM-Hub/frontend/src/components/DataPanelPopover.jsx - Popover para configurar os dados de um visual de BI.
+
+PCM-Hub/frontend/src/components/LayoutPanelPopover.jsx - Popover para configurar a formatação de um visual de BI.
+
+PCM-Hub/frontend/src/components/Toast.jsx - Componente de notificação flutuante (toast).
+
+PCM-Hub/frontend/src/components/MenuBI.jsx - Componente do menu superior (ribbon) da página de BI.
+
+PCM-Hub/frontend/src/components/Menu.jsx - Componente do menu de navegação principal.
+
+PCM-Hub/frontend/src/components/FloatingFilters.jsx - Componente do botão flutuante de filtros globais.
+
+PCM-Hub/frontend/src/components/FiltrosSidebar.jsx - Componente da barra lateral de filtros das páginas de análise.
+
+PCM-Hub/frontend/src/components/ChartModal.jsx - Componente de modal para visualização "Modo Foto" de gráficos.
+
+PCM-Hub/frontend/src/components/PageHeader.jsx - Componente de cabeçalho padrão para as páginas.
+
+PCM-Hub/frontend/src/components/ModalNotificacoesControle.jsx - Modal para administradores configurarem notificações.
+
+PCM-Hub/frontend/src/components/Notificacoes.jsx - Componente do painel de notificações.
+
+PCM-Hub/frontend/src/components/FloatingUserInfo.jsx - Componente do widget flutuante de informações do usuário.
+
+PCM-Hub/frontend/src/components/ModalAlerta.jsx - Componente de modal de alerta simples.
+
+PCM-Hub/frontend/src/components/ModalConfirmacao.jsx - Componente de modal de confirmação (Sim/Não).
+
+PCM-Hub/frontend/src/components/TableWrapper.jsx - Componente que envolve tabelas, adicionando título e botão de expandir.
+
+PCM-Hub/frontend/src/components/Modal.jsx - Componente de modal genérico e reutilizável.
+
+PCM-Hub/frontend/src/components/ChartWrapper.jsx - Componente que envolve gráficos, adicionando título e KPIs.
+
+PCM-Hub/frontend/src/pages/GestaoAcoes.jsx - Página principal de Gestão de Ações (Kanban).
+
+PCM-Hub/frontend/src/pages/Login.jsx - Página de login da aplicação.
+
+PCM-Hub/frontend/src/pages/Perfil.jsx - Página de perfil do usuário.
+
+PCM-Hub/frontend/src/pages/AssistentePCM.jsx - Página do chat com a IA.
+
+PCM-Hub/frontend/src/pages/AttBackupBD.jsx - Página para gerenciar atualizações e backups.
+
+PCM-Hub/frontend/src/pages/BI.jsx - Página principal de Business Intelligence.
+
+PCM-Hub/frontend/src/pages/Cadastros.jsx - Página principal de gerenciamento de cadastros.
+
+PCM-Hub/frontend/src/pages/Comunidade.jsx - Página da comunidade (contatos e agenda).
+
+PCM-Hub/frontend/src/pages/Documentacao.jsx - Página da base de conhecimento/documentação.
+
+PCM-Hub/frontend/src/pages/FAQ.jsx - Página de perguntas frequentes.
+
+PCM-Hub/frontend/src/pages/PortalChamados.jsx - Página do portal de chamados.
+
+PCM-Hub/frontend/src/pages/Preventivas.jsx - Página de análise de manutenções preventivas.
+
+PCM-Hub/frontend/src/pages/SolicitacaoCadastro.jsx - Página para solicitar cadastro de novo usuário.
+
+PCM-Hub/frontend/src/pages/Telemetria.jsx - Página de análise de telemetria.
+
+PCM-Hub/frontend/src/pages/BI/RelacionamentosBI.jsx - Sub-página de BI para gerenciar relacionamentos entre tabelas.
+
+PCM-Hub/frontend/src/pages/BI/TabelasBI.jsx - Sub-página de BI para gerenciar as tabelas do modelo de dados.
+
+PCM-Hub/frontend/src/pages/BI/VisualRenderer.jsx - Componente que renderiza os diferentes tipos de gráficos do BI.
+
+PCM-Hub/frontend/src/pages/BI/Reception.jsx - Página de recepção/inicial do módulo de BI.
+
+PCM-Hub/frontend/src/pages/Cadastros/GerenciamentoUsuarios.jsx - Módulo de gerenciamento de usuários na página de Cadastros.
+
+PCM-Hub/frontend/src/pages/Cadastros/TabAtivos.jsx - Aba de usuários ativos no gerenciamento de usuários.
+
+PCM-Hub/frontend/src/pages/Cadastros/TabSolicitacoes.jsx - Aba de solicitações de cadastro no gerenciamento de usuários.
+
+PCM-Hub/frontend/src/pages/Cadastros/GerenciamentoCC.jsx - Módulo de gerenciamento de Centros de Custo.
+
+PCM-Hub/frontend/src/pages/Cadastros/GerenciamentoDB.jsx - Módulo de gerenciamento do Banco de Dados.
+
+PCM-Hub/frontend/src/pages/Cadastros/GerenciamentoFaixas.jsx - Módulo de gerenciamento de Faixas de valores.
+
+PCM-Hub/frontend/src/pages/Cadastros/GerenciamentoNatureza.jsx - Módulo de gerenciamento de Naturezas Financeiras.
+
+PCM-Hub/frontend/src/pages/Cadastros/GerenciamentoPerfis.jsx - Módulo de gerenciamento de Perfis de Acesso.
+
+PCM-Hub/frontend/src/pages/Cadastros/GerenciamentoTabelas.jsx - Módulo de gerenciamento de Tabelas de Apoio.
+
+PCM-Hub/frontend/src/pages/Chamados/DetalheChamado.jsx - Modal com os detalhes de um chamado.
+
+PCM-Hub/frontend/src/pages/Comunidade/TabAgenda.jsx - Aba da Agenda de Eventos na página Comunidade.
+
+PCM-Hub/frontend/src/pages/Comunidade/TabCatalogo.jsx - Aba do Catálogo de Contatos na página Comunidade.
+
+PCM-Hub/frontend/src/pages/GestaoAcoes/PlanoDeAcao.jsx - Modal para criação de Planos de Ação.
+
+PCM-Hub/frontend/src/pages/GestaoAcoes/Tarefa.jsx - Modal para criação de Tarefas.
+
+PCM-Hub/frontend/src/pages/GestaoAcoes/DetPlanoDeAcao.jsx - Modal com os detalhes de um Plano de Ação.
+
+PCM-Hub/frontend/src/pages/GestaoAcoes/DetTarefas.jsx - Modal com os detalhes de uma Tarefa.
+
+PCM-Hub/frontend/src/pages/GestaoAcoes/PainelInsights.jsx - Sub-página de Insights na Gestão de Ações.
+
+PCM-Hub/frontend/src/pages/Preventivas/SubAbaPendentes.jsx - Aba de preventivas pendentes na página de Preventivas.
+
+PCM-Hub/frontend/src/pages/Preventivas/SubAbaRealizadas.jsx - Aba de preventivas realizadas na página de Preventivas.
+
+PCM-Hub/frontend/src/styles/App.css - Arquivo principal que importa todos os outros CSS.
+
+PCM-Hub/frontend/src/styles/base/_overrides.css - Estilos para sobrescrever padrões de navegadores.
+
+PCM-Hub/frontend/src/styles/base/_reset.css - Reseta estilos padrão do navegador.
+
+PCM-Hub/frontend/src/styles/base/_theme.css - Tema e variáveis de cor da aplicação.
+
+PCM-Hub/frontend/src/styles/base/_typography.css - Estilos base de tipografia (h1, p, etc.).
+
+PCM-Hub/frontend/src/styles/components/_relacionamentos_bi.css - Estilos para a tela de relacionamentos do BI.
+
+PCM-Hub/frontend/src/styles/components/_toast.css - Estilos para as notificações flutuantes (toast).
+
+PCM-Hub/frontend/src/styles/components/_menu_bi.css - Estilos para o menu superior (ribbon) do BI.
+
+PCM-Hub/frontend/src/styles/components/_modal.css - Estilos base para janelas modais.
+
+PCM-Hub/frontend/src/styles/components/_tabelas_bi.css - Estilos para a tela de gerenciamento de tabelas do BI.
+
+PCM-Hub/frontend/src/styles/components/_floating-components.css - Estilos para os componentes flutuantes (filtros, info do usuário).
+
+PCM-Hub/frontend/src/styles/components/_table.css - Estilos para tabelas de dados e seus componentes (filtros, ordenação).
+
+PCM-Hub/frontend/src/styles/components/_graficos.css - Estilos para os containers de gráficos e modo foto.
+
+PCM-Hub/frontend/src/styles/components/_filtros.css - Estilos para os componentes de filtros.
+
+PCM-Hub/frontend/src/styles/components/_profile.css - Estilos para a página de perfil do usuário.
+
+PCM-Hub/frontend/src/styles/components/_page-header.css - Estilos para o cabeçalho padrão das páginas.
+
+PCM-Hub/frontend/src/styles/components/_notification.css - Estilos para o sistema de notificações (sino e painel).
+
+PCM-Hub/frontend/src/styles/components/_accordion.css - Estilos para o componente "sanfona" (accordion).
+
+PCM-Hub/frontend/src/styles/components/_login.css - Estilos para a página de login.
+
+PCM-Hub/frontend/src/styles/components/_treeview.css - Estilos para a visualização em árvore.
+
+PCM-Hub/frontend/src/styles/components/_tooltip.css - Estilos para balões de dica (tooltips).
+
+PCM-Hub/frontend/src/styles/components/_tabs.css - Estilos para a navegação por abas.
+
+PCM-Hub/frontend/src/styles/components/_context.css - Estilos para o menu de contexto (clique direito).
+
+PCM-Hub/frontend/src/styles/components/_card.css - Estilos para cards de KPI e de conteúdo geral.
+
+PCM-Hub/frontend/src/styles/layout/_navigation.css - Estilos da barra de navegação principal.
+
+PCM-Hub/frontend/src/styles/layout/_sidebar.css - Estilos das barras laterais (admin e filtros).
+
+PCM-Hub/frontend/src/styles/layout/_grid.css - Estilos de layout em grid.
+
+PCM-Hub/frontend/src/styles/pages/_gestao-acoes.css - Estilos específicos da página de Gestão de Ações.
+
+PCM-Hub/frontend/src/styles/pages/_tickets.css - Estilos da página de Chamados.
+
+PCM-Hub/frontend/src/styles/pages/_documentation.css - Estilos da página de Documentação.
+
+PCM-Hub/frontend/src/styles/pages/_bi.css - Estilos da página de Business Intelligence.
+
+PCM-Hub/frontend/src/styles/pages/_cadastros.css - Estilos da página de Cadastros.
+
+PCM-Hub/frontend/src/styles/pages/_assistente-pcm.css - Estilos do chat do Assistente PCM.
+
+PCM-Hub/frontend/src/styles/pages/_att_backup.css - Estilos da página de Atualização e Backup.
+
+PCM-Hub/frontend/src/styles/pages/_community.css - Estilos da página Comunidade.
+
+PCM-Hub/frontend/src/styles/pages/_preventivas.css - Estilos da página de Preventivas.
+
+PCM-Hub/frontend/src/styles/pages/_dashboard.css - Estilos dos dashboards de análise.

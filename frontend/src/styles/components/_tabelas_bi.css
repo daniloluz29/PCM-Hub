@@ -1,0 +1,134 @@
+/* ==========================================================================
+   COMPONENT: Gerenciador de Tabelas BI
+   --------------------------------------------------------------------------
+   Estilos para a visualização de gerenciamento de tabelas do modelo de dados.
+   ========================================================================== */
+
+.tabelas-bi-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    background-color: #f0f2f5;
+    box-sizing: border-box;
+}
+
+.tabelas-list-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #dcdcdc;
+    border-radius: 6px;
+    background-color: #f8f9fa;
+    transition: background-color 0.2s, border-color 0.2s;
+    overflow: hidden; /* Garante que o conteúdo não ultrapasse as bordas arredondadas */
+}
+
+/* --- Estilo para feedback de drag-and-drop --- */
+.tabelas-list-container.drag-over {
+    background-color: #e7f3ff;
+    border-color: #007bff;
+}
+
+.tabelas-list-container h6 {
+    padding: 12px 15px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    border-bottom: 1px solid #dcdcdc;
+    background-color: #f1f3f5;
+    border-radius: 6px 6px 0 0;
+    color: #343a40;
+    flex-shrink: 0; /* Impede que o header encolha */
+}
+
+.tabelas-list {
+    padding: 10px;
+    overflow-y: auto;
+    flex-grow: 1; /* Faz a lista ocupar todo o espaço vertical disponível */
+}
+
+.tabela-item {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    cursor: grab;
+    transition: opacity 0.2s;
+}
+
+/* --- Estilo para o item sendo arrastado --- */
+.tabela-item.dragging {
+    opacity: 0.5;
+    background-color: #f0f8ff;
+}
+
+.tabela-item:active {
+    cursor: grabbing;
+}
+
+.tabela-item-header {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    cursor: default; 
+}
+
+.tabela-name {
+    flex-grow: 1;
+    font-size: 14px;
+    padding: 0 8px;
+    font-weight: 500;
+}
+
+.expand-btn, .move-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #5f6368;
+    font-size: 16px;
+    padding: 4px;
+    border-radius: 4px;
+    line-height: 1;
+    transition: background-color 0.2s;
+}
+
+.expand-btn:hover, .move-btn:hover {
+    background-color: #e9ecef;
+}
+
+.expand-btn:disabled {
+    color: #ced4da;
+    cursor: not-allowed;
+    background-color: transparent;
+}
+
+.tabela-columns-list {
+    border-top: 1px solid #f0f0f0;
+    padding: 8px 15px 8px 40px;
+    background-color: #fafcfe;
+}
+
+.column-item {
+    font-size: 13px;
+    color: #495057;
+    padding: 4px 0;
+}
+.column-item-empty {
+    font-size: 12px;
+    color: #868e96;
+    font-style: italic;
+    padding: 4px 0;
+}
+
+.loading-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: #6c757d;
+}

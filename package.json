@@ -8,10 +8,24 @@
   "dependencies": {
     "@ag-grid-community/client-side-row-model": "^32.3.5",
     "@ag-grid-community/core": "^32.3.5",
+    "@fullcalendar/interaction": "^6.1.19",
+    "@fullcalendar/rrule": "^6.1.19",
+    "chartjs-plugin-datalabels": "^2.2.0",
+    "dompurify": "^3.2.6",
+    "flask": "^0.2.10",
+    "html-to-image": "^1.11.13",
+    "jspdf": "^3.0.2",
+    "pandas": "^0.0.3",
+    "react-chartjs-2": "^5.3.0",
     "react-data-grid": "^7.0.0-beta.56",
     "react-easy-panzoom": "^0.4.4",
+    "react-image-crop": "^11.0.10",
     "react-select": "^5.10.2",
-    "xlsx": "^0.18.5"
+    "react-zoom-pan-pinch": "^3.7.0",
+    "reactflow": "^11.11.4",
+    "use-debounce": "^10.0.5",
+    "xlsx": "^0.18.5",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

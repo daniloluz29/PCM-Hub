@@ -16,26 +16,37 @@
 
 /* 3. Components */
 @import url('./components/_accordion.css');
+@import url('./components/_calculadora.css');
 @import url('./components/_card.css');
 @import url('./components/_context.css');
 @import url('./components/_filtros.css');
+@import url('./components/_floating-components.css');
 @import url('./components/_graficos.css');
 @import url('./components/_login.css');
+@import url('./components/_menu_bi.css');
 @import url('./components/_modal.css');
 @import url('./components/_notification.css');
+@import url('./components/_page-header.css');
 @import url('./components/_profile.css');
+@import url('./components/_relacionamentos_bi.css');
+@import url('./components/_statusBar.css');
+@import url('./components/_tabelas_bi.css');
 @import url('./components/_table.css');
 @import url('./components/_tabs.css');
+@import url('./components/_toast.css');
 @import url('./components/_tooltip.css');
 @import url('./components/_treeview.css');
-@import url('./components/_page-header.css');
-@import url('./components/_floating-components.css');
 
 /* 4. Pages */
+@import url('./pages/_assistente-pcm.css');
+@import url('./pages/_att_backup.css');
+@import url('./pages/_bi.css');
 @import url('./pages/_cadastros.css');
 @import url('./pages/_community.css');
 @import url('./pages/_dashboard.css');
 @import url('./pages/_documentation.css');
+@import url('./pages/_fluxograma.css');
 @import url('./pages/_gestao-acoes.css');
-@import url('./pages/_tickets.css');
+@import url('./pages/_pneus.css');
 @import url('./pages/_preventivas.css');
+@import url('./pages/_tickets.css');

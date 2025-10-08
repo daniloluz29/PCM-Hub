@@ -21,6 +21,7 @@
 /* A sidebar de navegação da área de admin */
 .admin-layout-sidebar {
     width: 70px; /* Largura inicial (recolhida) */
+    min-width: 70px;
     border-right: 1px solid #e0e0e0;
     background-color: #f9fafb;
     transition: width 0.3s ease; /* Anima a mudança de largura */
@@ -114,7 +115,7 @@
     position: fixed;
     left: 0;
     top: 56px; /* Abaixo do menu principal */
-    height: calc(100vh - 56px);
+    height: 100%;
     background-color: #ffffff;
     box-shadow: 2px 0 5px rgba(0,0,0,0.05);
     border-right: 1px solid #e0e0e0;
@@ -138,7 +139,6 @@
 
 /* A área de conteúdo que se ajusta à sidebar de filtros */
 .content-area {
-    transition: margin-left 0.3s ease;
     flex-grow: 1;
     padding: 20px;
 }

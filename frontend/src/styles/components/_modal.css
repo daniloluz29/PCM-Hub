@@ -74,6 +74,7 @@
     padding: 20px 25px;
     border-top: 1px solid #eee;
     background-color: #f9f9f9;
+    border-radius: 0 0 8px 8px; /* arredonda só a parte de baixo */
 }
 
 /* Botão genérico para uso dentro do rodapé do modal */
@@ -119,6 +120,16 @@
 }
 
 /* Tamanho grande do modal */
+.modal-content-small {
+    max-width: 600px;
+
+}
+/* Tamanho grande do modal */
+.modal-content-medium {
+    max-width: 700px;
+
+}
+/* Tamanho grande do modal */
 .modal-content-large {
     max-width: 1000px;
 }
@@ -126,6 +137,11 @@
 /* Tamanho extra-grande do modal */
 .modal-content-xl {
     max-width: 1400px;
+}
+
+.modal-content-xlplus {
+    max-width: 1400px;
+    max-height: 700px;
 }
 
 /* --- NOVO: Grid para Filtros Gerais --- */

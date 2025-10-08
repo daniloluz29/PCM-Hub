@@ -103,7 +103,7 @@ def build_query_and_params(args, conn, initial_where_clause, date_column_name=No
     data_fim = args.get('data_fim')
     if data_inicio and data_fim and date_column_name:
         if date_column_name == 'datavencimento':
-            where_clauses.append(f"(SUBSTR(p.datavencimento, 7, 4) || '-' || SUBSTR(p.datavencimento, 4, 2) || '-' || SUBSTR(p.datavencimento, 1, 2)) BETWEEN ? AND ?")
+            where_clauses.append(f"DATE(p.datavencimento) BETWEEN ? AND ?")
         else: 
             where_clauses.append(f"DATE(p.{date_column_name}) BETWEEN ? AND ?")
         params.extend([data_inicio, data_fim])
@@ -604,7 +604,7 @@ def get_pendentes_detalhes_data():
         if where_string is None:
             return jsonify([])
 
-        where_string += " AND ((LOWER(p.tipo) LIKE '%tempo%' AND DATE('now', 'localtime') > (SUBSTR(p.datavencimento, 7, 4) || '-' || SUBSTR(p.datavencimento, 4, 2) || '-' || SUBSTR(p.datavencimento, 1, 2))) OR (LOWER(p.tipo) LIKE '%marco%' AND p.hor_atual > p.hor_vencimento))"
+        where_string += " AND ((LOWER(p.tipo) LIKE '%tempo%' AND DATE('now', 'localtime') > DATE(p.datavencimento)) OR (LOWER(p.tipo) LIKE '%marco%' AND p.hor_atual > p.hor_vencimento))"
 
         query = f"""
             SELECT
@@ -612,7 +612,11 @@ def get_pendentes_detalhes_data():
                 p.equipamento AS "Equipamento",
                 p.numos AS "Nº OS",
                 p.sl_fluig AS "SL Fluig",
-                p.datavencimento AS "Data Vencimento",
+                CASE
+                    WHEN p.datavencimento IS NOT NULL AND p.datavencimento != ''
+                    THEN strftime('%d/%m/%Y', p.datavencimento)
+                    ELSE NULL
+                END AS "Data Vencimento",
                 p.hor_vencimento AS "Horimetro Vencimento",
                 p.hor_atual AS "Horimetro Atual"
             FROM preventivas p
@@ -620,7 +624,7 @@ def get_pendentes_detalhes_data():
             LEFT JOIN centros_custo nucleo ON contrato.pai_id = nucleo.cod_cc
             LEFT JOIN centros_custo super ON nucleo.pai_id = super.cod_cc
             WHERE {where_string}
-            ORDER BY (SUBSTR(p.datavencimento, 7, 4) || '-' || SUBSTR(p.datavencimento, 4, 2) || '-' || SUBSTR(p.datavencimento, 1, 2)) ASC
+            ORDER BY DATE(p.datavencimento) ASC
         """
         
         detalhes = conn.execute(query, params).fetchall()
@@ -642,7 +646,7 @@ def get_pendentes_em_dia_detalhes_data():
         if where_string is None:
             return jsonify([])
 
-        where_string += " AND NOT ((LOWER(p.tipo) LIKE '%tempo%' AND DATE('now', 'localtime') > (SUBSTR(p.datavencimento, 7, 4) || '-' || SUBSTR(p.datavencimento, 4, 2) || '-' || SUBSTR(p.datavencimento, 1, 2))) OR (LOWER(p.tipo) LIKE '%marco%' AND p.hor_atual > p.hor_vencimento))"
+        where_string += " AND NOT ((LOWER(p.tipo) LIKE '%tempo%' AND DATE('now', 'localtime') > DATE(p.datavencimento)) OR (LOWER(p.tipo) LIKE '%marco%' AND p.hor_atual > p.hor_vencimento))"
 
         query = f"""
             SELECT
@@ -650,7 +654,11 @@ def get_pendentes_em_dia_detalhes_data():
                 p.equipamento AS "Equipamento",
                 p.numos AS "Nº OS",
                 p.sl_fluig AS "SL Fluig",
-                p.datavencimento AS "Data Vencimento",
+                CASE
+                    WHEN p.datavencimento IS NOT NULL AND p.datavencimento != ''
+                    THEN strftime('%d/%m/%Y', p.datavencimento)
+                    ELSE NULL
+                END AS "Data Vencimento",
                 p.hor_vencimento AS "Horimetro Vencimento",
                 p.hor_atual AS "Horimetro Atual"
             FROM preventivas p
@@ -658,7 +666,7 @@ def get_pendentes_em_dia_detalhes_data():
             LEFT JOIN centros_custo nucleo ON contrato.pai_id = nucleo.cod_cc
             LEFT JOIN centros_custo super ON nucleo.pai_id = super.cod_cc
             WHERE {where_string}
-            ORDER BY (SUBSTR(p.datavencimento, 7, 4) || '-' || SUBSTR(p.datavencimento, 4, 2) || '-' || SUBSTR(p.datavencimento, 1, 2)) ASC
+            ORDER BY DATE(p.datavencimento) ASC
         """
         
         detalhes = conn.execute(query, params).fetchall()
@@ -706,7 +714,7 @@ def get_realizadas_detalhes_data():
         status_filter = args.get('status_filter')
         if status_filter:
             if status_filter == 'Atrasada':
-                where_string += " AND ((LOWER(p.tipo) LIKE '%tempo%' AND DATE(p.datatermino) > (SUBSTR(p.datavencimento, 7, 4) || '-' || SUBSTR(p.datavencimento, 4, 2) || '-' || SUBSTR(p.datavencimento, 1, 2))) OR (LOWER(p.tipo) LIKE '%marco%' AND p.hor_termino > p.hor_vencimento))"
+                where_string += " AND ((LOWER(p.tipo) LIKE '%tempo%' AND DATE(p.datatermino) > DATE(p.datavencimento)) OR (LOWER(p.tipo) LIKE '%marco%' AND p.hor_termino > p.hor_vencimento))"
             elif status_filter == 'Antecipada':
                 where_string += " AND (LOWER(p.tipo) LIKE '%marco%' AND p.hor_termino IS NOT NULL AND p.hor_vencimento IS NOT NULL AND (p.hor_vencimento - p.hor_termino) > 90)"
 
@@ -719,7 +727,11 @@ def get_realizadas_detalhes_data():
                 p.numos AS "Nº OS",
                 p.sl_fluig AS "SL Fluig",
                 CASE
-                    WHEN LOWER(p.tipo) LIKE '%tempo%' THEN p.datavencimento
+                    WHEN LOWER(p.tipo) LIKE '%tempo%' THEN
+                        CASE
+                            WHEN p.datavencimento IS NOT NULL AND p.datavencimento != '' THEN strftime('%d/%m/%Y', p.datavencimento)
+                            ELSE NULL
+                        END
                     ELSE p.hor_vencimento
                 END AS "Vencimento",
                 CASE
@@ -727,7 +739,7 @@ def get_realizadas_detalhes_data():
                     ELSE p.hor_termino
                 END AS "Término",
                 CASE
-                    WHEN (LOWER(p.tipo) LIKE '%tempo%' AND DATE(p.datatermino) > (SUBSTR(p.datavencimento, 7, 4) || '-' || SUBSTR(p.datavencimento, 4, 2) || '-' || SUBSTR(p.datavencimento, 1, 2))) OR (LOWER(p.tipo) LIKE '%marco%' AND p.hor_termino > p.hor_vencimento) THEN 'Atrasada'
+                    WHEN (LOWER(p.tipo) LIKE '%tempo%' AND DATE(p.datatermino) > DATE(p.datavencimento)) OR (LOWER(p.tipo) LIKE '%marco%' AND p.hor_termino > p.hor_vencimento) THEN 'Atrasada'
                     WHEN LOWER(p.tipo) LIKE '%marco%' AND p.hor_termino IS NOT NULL AND p.hor_vencimento IS NOT NULL AND (p.hor_vencimento - p.hor_termino) > 90 THEN 'Antecipada'
                     ELSE 'No Prazo'
                 END AS "Status"
@@ -747,3 +759,4 @@ def get_realizadas_detalhes_data():
         return jsonify({"error": str(e)}), 500
     finally:
         if conn: conn.close()
+

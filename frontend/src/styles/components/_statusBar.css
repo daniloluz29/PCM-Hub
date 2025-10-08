@@ -1,0 +1,66 @@
+/* ==========================================================================
+   COMPONENT: STATUS BAR
+   --------------------------------------------------------------------------
+   Barra inferior com controles de zoom e tela cheia.
+   ========================================================================== */
+
+.status-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 23px; 
+    background-color: #f5f5f5;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    box-sizing: border-box;
+    z-index: 9999;
+    color: #333;
+    font-size: 12px;
+}
+
+/* Adiciona um preenchimento na parte inferior do conteúdo principal
+   para garantir que a barra de status fixa não o sobreponha. */
+.main-content-wrapper {
+    padding-bottom: 30px; /* Deve ser igual à altura da .status-bar */
+}
+
+.status-bar-info {
+    flex-grow: 1;
+}
+
+.status-bar-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-bar-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #555;
+    font-size: 12px;
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.status-bar-button:hover {
+    background-color: #e0e0e0;
+    color: #000;
+}
+
+.zoom-display {
+    min-width: 50px;
+    text-align: center;
+    font-weight: 500;
+    user-select: none;
+}
+

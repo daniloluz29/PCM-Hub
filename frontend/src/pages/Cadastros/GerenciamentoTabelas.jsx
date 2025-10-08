@@ -4,7 +4,7 @@ import Modal from '../../components/Modal.jsx';
 import ModalAlerta from '../../components/ModalAlerta.jsx';
 import ModalConfirmacao from '../../components/ModalConfirmacao.jsx';
 
-// --- NOVO COMPONENTE: Modal para Geração do Calendário ---
+// --- COMPONENTE: Modal para Geração do Calendário ---
 const ModalGerarCalendario = ({ isOpen, onClose, onSucesso }) => {
     const [dataInicio, setDataInicio] = useState('');
     const [dataFim, setDataFim] = useState('');
@@ -31,7 +31,7 @@ const ModalGerarCalendario = ({ isOpen, onClose, onSucesso }) => {
             });
             const result = await response.json();
             if (!response.ok) throw new Error(result.message);
-            onSucesso(result.message); // Passa a mensagem de sucesso para o pai
+            onSucesso(result.message);
         } catch (err) {
             setError(`Erro ao gerar calendário: ${err.message}`);
         } finally {
@@ -58,7 +58,7 @@ const ModalGerarCalendario = ({ isOpen, onClose, onSucesso }) => {
                 <div>
                     <button type="button" className="modal-button cancel" onClick={onClose}>Cancelar</button>
                     <button type="button" className="modal-button confirm" onClick={handleGerar} disabled={isLoading} style={{backgroundColor: '#27ae60'}}>
-                        {isLoading ? 'A gerar...' : 'Gerar Calendário'}
+                        {isLoading ? 'Gerando...' : 'Gerar Calendário'}
                     </button>
                 </div>
             </div>
@@ -66,51 +66,186 @@ const ModalGerarCalendario = ({ isOpen, onClose, onSucesso }) => {
     );
 };
 
+// --- NOVO COMPONENTE: Modal para Gerenciar a Lista de Tabelas de Apoio ---
+const ModalGerenciarTabelasApoio = ({ isOpen, onClose, onSave }) => {
+    const [linhas, setLinhas] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [editingCell, setEditingCell] = useState({ rowIndex: null, colKey: null });
+    const [hoveredRow, setHoveredRow] = useState(null);
+    const [showInsertPreview, setShowInsertPreview] = useState(false);
+    const [modalConfirmarAberto, setModalConfirmarAberto] = useState(false);
 
-// --- Componente principal para a aba de Tabelas de Apoio ---
+    const colunas = [
+        { key: 'id', name: 'ID da Tabela (Sistema)' },
+        { key: 'tabela', name: 'Nome de Exibição (Menu)' }
+    ];
+
+    useEffect(() => {
+        if (isOpen) {
+            const fetchData = async () => {
+                setIsLoading(true);
+                try {
+                    const response = await fetch('http://127.0.0.1:5000/api/tabelas/tabelas');
+                    const data = await response.json();
+                    setLinhas(data.rows || []);
+                } catch (error) {
+                    console.error("Erro ao buscar a lista de tabelas de apoio:", error);
+                } finally {
+                    setIsLoading(false);
+                }
+            };
+            fetchData();
+        }
+    }, [isOpen]);
+
+    const handleCellChange = (e, rowIndex, colKey) => {
+        const novasLinhas = [...linhas];
+        novasLinhas[rowIndex][colKey] = e.target.value;
+        setLinhas(novasLinhas);
+    };
+
+    const handleAdicionarLinha = () => {
+        setLinhas([...linhas, { id: '', tabela: '' }]);
+    };
+
+    const handleExcluirLinha = (rowIndex) => {
+        setLinhas(linhas.filter((_, index) => index !== rowIndex));
+    };
+
+    const handleSalvar = () => {
+        onSave(linhas);
+        setModalConfirmarAberto(false);
+    };
+
+    return (
+        <>
+            <Modal isOpen={isOpen} onClose={onClose} title="Gerenciar Tabelas de Apoio" size="large">
+                <div className="table-container editable-container" style={{ height: '60vh' }}>
+                    {isLoading ? <p>Carregando...</p> : (
+                        <table className="simple-data-table editable">
+                            <thead>
+                                <tr>
+                                    {colunas.map(col => <th key={col.key}>{col.name}</th>)}
+                                    <th className="action-column"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {linhas.map((row, rowIndex) => (
+                                    <tr 
+                                        key={rowIndex}
+                                        onMouseEnter={() => setHoveredRow(rowIndex)}
+                                        onMouseLeave={() => setHoveredRow(null)}
+                                    >
+                                        {colunas.map(col => (
+                                            <td key={col.key} onClick={() => setEditingCell({ rowIndex, colKey: col.key })}>
+                                                {editingCell.rowIndex === rowIndex && editingCell.colKey === col.key ? (
+                                                    <input
+                                                        type="text"
+                                                        value={String(row[col.key] ?? '')}
+                                                        onChange={(e) => handleCellChange(e, rowIndex, col.key)}
+                                                        onBlur={() => setEditingCell({ rowIndex: null, colKey: null })}
+                                                        autoFocus
+                                                    />
+                                                ) : (
+                                                    String(row[col.key] ?? '')
+                                                )}
+                                            </td>
+                                        ))}
+                                        <td className="action-column">
+                                            {hoveredRow === rowIndex && (
+                                                <button className="delete-row-btn" onClick={() => handleExcluirLinha(rowIndex)}>
+                                                    <i className="bi bi-trash"></i>
+                                                </button>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                                {showInsertPreview && <tr className="insert-preview-row"><td colSpan={colunas.length + 1}></td></tr>}
+                            </tbody>
+                        </table>
+                    )}
+                    <button 
+                        className="add-row-btn" 
+                        onClick={handleAdicionarLinha}
+                        onMouseEnter={() => setShowInsertPreview(true)}
+                        onMouseLeave={() => setShowInsertPreview(false)}
+                    >+</button>
+                </div>
+                <div className="modal-footer">
+                    <div></div>
+                    <div>
+                        <button type="button" className="modal-button cancel" onClick={onClose}>Cancelar</button>
+                        <button type="button" className="modal-button confirm" style={{ backgroundColor: '#27ae60' }} onClick={() => setModalConfirmarAberto(true)}>Salvar Alterações</button>
+                    </div>
+                </div>
+            </Modal>
+            <ModalConfirmacao
+                isOpen={modalConfirmarAberto}
+                onClose={() => setModalConfirmarAberto(false)}
+                onConfirm={handleSalvar}
+                title="Confirmar Alterações"
+            >
+                <p>Você tem certeza que deseja salvar as alterações na lista de tabelas de apoio?</p>
+            </ModalConfirmacao>
+        </>
+    );
+};
+
+
+// --- Componente principal ---
 const GerenciamentoTabelas = ({ currentUser }) => {
     const [listaTabelas, setListaTabelas] = useState([]);
     const [tabelaSelecionada, setTabelaSelecionada] = useState(null);
     const [colunas, setColunas] = useState([]);
     const [linhas, setLinhas] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    
-    // **NOVO ESTADO: Armazena a informação da chave primária**
     const [pkInfo, setPkInfo] = useState(null);
-
     const [isModalEdicaoAberto, setIsModalEdicaoAberto] = useState(false);
     const [isModalCalendarioAberto, setIsModalCalendarioAberto] = useState(false);
-    
+    const [isModalTabelasApoioAberto, setIsModalTabelasApoioAberto] = useState(false); // NOVO ESTADO
     const [linhasEditadas, setLinhasEditadas] = useState([]);
     const [editingCell, setEditingCell] = useState({ rowIndex: null, colKey: null });
     const [hoveredRow, setHoveredRow] = useState(null);
     const [showInsertPreview, setShowInsertPreview] = useState(false);
-
     const [alerta, setAlerta] = useState({ isOpen: false, message: '' });
     const [modalSalvarAberto, setModalSalvarAberto] = useState(false);
 
     const canEdit = hasPermission(currentUser, 'cadastros_tabelas_editar');
     const selectStyles = { menu: (provided) => ({ ...provided, zIndex: 9999 }) };
 
+    const fetchListaTabelas = async () => {
+        try {
+            const response = await fetch('http://127.0.0.1:5000/api/tabelas');
+            const data = await response.json();
+            const options = data.map(t => ({ value: t.id, label: t.tabela }));
+            setListaTabelas(options);
+            if (options.length > 0 && !tabelaSelecionada) {
+                setTabelaSelecionada(options[0]);
+            } else if (options.length === 0) {
+                setTabelaSelecionada(null);
+            }
+        } catch (error) {
+            console.error("Erro ao buscar lista de tabelas:", error);
+        }
+    };
+
     const fetchDataTabela = async (tabela) => {
-        if (!tabela) return;
+        if (!tabela) {
+            setColunas([]);
+            setLinhas([]);
+            setIsLoading(false);
+            return;
+        };
         setIsLoading(true);
         try {
             const response = await fetch(`http://127.0.0.1:5000/api/tabelas/${tabela.value}`);
             if (!response.ok) throw new Error(`Falha ao carregar dados: ${response.statusText}`);
             const data = await response.json();
-            
-            // **ATUALIZAÇÃO: Captura a informação da chave primária da API**
             const { columns: columnNames, rows: rowData, pk_info } = data;
             setLinhas(rowData || []);
-            setPkInfo(pk_info); // Armazena a info da PK no estado
-
+            setPkInfo(pk_info);
             if (columnNames && columnNames.length > 0) {
-                const colunasDefinidas = columnNames.map(key => ({
-                    key: key,
-                    name: key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-                }));
-                setColunas(colunasDefinidas);
+                setColunas(columnNames.map(key => ({ key, name: key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) })));
             } else {
                 setColunas([]);
             }
@@ -123,30 +258,12 @@ const GerenciamentoTabelas = ({ currentUser }) => {
     };
 
     useEffect(() => {
-        const fetchListaTabelas = async () => {
-            try {
-                const response = await fetch('http://127.0.0.1:5000/api/tabelas');
-                const data = await response.json();
-                const options = data.map(t => ({ value: t.id, label: t.tabela }));
-                setListaTabelas(options);
-                if (options.length > 0) {
-                    setTabelaSelecionada(options[0]);
-                    fetchDataTabela(options[0]);
-                } else {
-                    setIsLoading(false);
-                }
-            } catch (error) {
-                console.error("Erro ao buscar lista de tabelas:", error);
-                setIsLoading(false);
-            }
-        };
         fetchListaTabelas();
     }, []);
 
-    const handleTabelaSelectChange = (tabela) => {
-        setTabelaSelecionada(tabela);
-        fetchDataTabela(tabela);
-    };
+    useEffect(() => {
+        fetchDataTabela(tabelaSelecionada);
+    }, [tabelaSelecionada]);
 
     const handleAbrirModal = () => {
         if (!tabelaSelecionada) return;
@@ -164,8 +281,6 @@ const GerenciamentoTabelas = ({ currentUser }) => {
         setAlerta({ isOpen: true, message: mensagem });
         fetchDataTabela(tabelaSelecionada);
     };
-
-    const handleSalvarClick = () => setModalSalvarAberto(true);
 
     const handleConfirmarSalvar = async () => {
         setModalSalvarAberto(false);
@@ -188,32 +303,17 @@ const GerenciamentoTabelas = ({ currentUser }) => {
     const handleAdicionarLinha = () => {
         const hasIdColumn = colunas.some(col => col.key === 'id');
         let novaLinha = {};
-
-        // Apenas preenche o ID se for auto-incremento
         if (hasIdColumn && pkInfo && pkInfo.type === 'INTEGER') {
-            const maxId = linhasEditadas.reduce((max, row) => {
-                const currentId = parseInt(row.id, 10);
-                return !isNaN(currentId) && currentId > max ? currentId : max;
-            }, 0);
-            const novoId = maxId + 1;
-            
-            novaLinha = colunas.reduce((acc, col) => {
-                acc[col.key] = col.key === 'id' ? novoId : '';
-                return acc;
-            }, {});
+            const maxId = linhasEditadas.reduce((max, row) => Math.max(max, parseInt(row.id, 10) || 0), 0);
+            novaLinha = colunas.reduce((acc, col) => ({ ...acc, [col.key]: col.key === 'id' ? maxId + 1 : '' }), {});
         } else {
             novaLinha = colunas.reduce((acc, col) => ({ ...acc, [col.key]: '' }), {});
         }
-
         setLinhasEditadas([...linhasEditadas, novaLinha]);
     };
 
-    // **ATUALIZAÇÃO: Lógica de clique na célula agora usa a informação da PK**
     const handleCellClick = (rowIndex, colKey) => {
-        // Bloqueia a edição se a coluna for a chave primária E o tipo for INTEGER
-        if (pkInfo && colKey === pkInfo.name && pkInfo.type === 'INTEGER') {
-            return;
-        }
+        if (pkInfo && colKey === pkInfo.name && pkInfo.type === 'INTEGER') return;
         setEditingCell({ rowIndex, colKey });
     };
 
@@ -224,10 +324,27 @@ const GerenciamentoTabelas = ({ currentUser }) => {
     };
 
     const handleExcluirLinha = (rowIndex) => {
-        const novasLinhas = linhasEditadas.filter((_, index) => index !== rowIndex);
-        setLinhasEditadas(novasLinhas);
+        setLinhasEditadas(linhasEditadas.filter((_, index) => index !== rowIndex));
     };
     
+    // NOVO: Função para salvar a lista de tabelas de apoio
+    const handleSaveTabelasApoio = async (editedData) => {
+        try {
+            const response = await fetch('http://127.0.0.1:5000/api/tabelas/tabelas', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(editedData)
+            });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.message);
+            setAlerta({ isOpen: true, message: result.message });
+            setIsModalTabelasApoioAberto(false);
+            fetchListaTabelas(); // Atualiza o dropdown principal
+        } catch (error) {
+            setAlerta({ isOpen: true, message: `Erro ao salvar: ${error.message}` });
+        }
+    };
+
     function hasPermission(user, permission) {
         if (!user || !user.permissoes) return false;
         if (user.perfil_id === 'master_admin') return true;
@@ -238,31 +355,34 @@ const GerenciamentoTabelas = ({ currentUser }) => {
         <>
             <div className="card">
                 <div className="admin-actions-bar">
-                    <div className="filter-group" style={{ flexGrow: '0.5' }}>
+                    <div className="filter-group" style={{ width: '500px' }}>
                         <label htmlFor="table-select">Selecione uma Tabela de Apoio:</label>
                         <Select
                             id="table-select"
                             options={listaTabelas}
                             value={tabelaSelecionada}
-                            onChange={handleTabelaSelectChange}
+                            onChange={setTabelaSelecionada}
                             styles={selectStyles}
                         />
                     </div>
                     {canEdit && (
-                        <button className="admin-button" onClick={handleAbrirModal}>
-                            <i className="bi bi-pencil-square"></i> Alterar Dados
-                        </button>
+                        <div className="header-actions" style={{ width: '370px', columnCount: 2,  gap: '10px' }}>
+                                <button className="admin-button" onClick={() => setIsModalTabelasApoioAberto(true)}>
+                                    <i className="bi bi-pencil-fill"></i> Tabelas de Apoio
+                                </button>
+                                <button className="admin-button" onClick={handleAbrirModal} disabled={!tabelaSelecionada}>
+                                    <i className="bi bi-pencil-square"></i> Alterar Dados
+                                </button>
+                            </div>
                     )}
                 </div>
 
                 <div className="table-container" style={{ maxHeight: 'calc(100vh - 400px)' }}>
-                    {isLoading ? <p>A carregar dados...</p> : (
+                    {isLoading ? <p>Carregando dados...</p> : (
                         linhas.length > 0 && colunas.length > 0 ? (
                             <table className="simple-data-table">
                                 <thead>
-                                    <tr>
-                                        {colunas.map(col => <th key={col.key}>{col.name}</th>)}
-                                    </tr>
+                                    <tr>{colunas.map(col => <th key={col.key}>{col.name}</th>)}</tr>
                                 </thead>
                                 <tbody>
                                     {linhas.map((row, rowIndex) => (
@@ -272,14 +392,12 @@ const GerenciamentoTabelas = ({ currentUser }) => {
                                     ))}
                                 </tbody>
                             </table>
-                        ) : (
-                            <p style={{ padding: '20px', textAlign: 'center' }}>A tabela está vazia ou não foi possível carregar os dados.</p>
-                        )
+                        ) : <p style={{ padding: '20px', textAlign: 'center' }}>A tabela está vazia ou não foi possível carregar os dados.</p>
                     )}
                 </div>
             </div>
 
-            <Modal isOpen={isModalEdicaoAberto} onClose={() => setIsModalEdicaoAberto(false)} title={`A editar: ${tabelaSelecionada?.label}`} size="xl">
+            <Modal isOpen={isModalEdicaoAberto} onClose={() => setIsModalEdicaoAberto(false)} title={`Editando: ${tabelaSelecionada?.label}`} size="xl">
                 <div className="table-container editable-container" style={{ height: '60vh' }}>
                     <table className="simple-data-table editable">
                         <thead>
@@ -290,81 +408,42 @@ const GerenciamentoTabelas = ({ currentUser }) => {
                         </thead>
                         <tbody>
                             {linhasEditadas.map((row, rowIndex) => {
-                                // **ATUALIZAÇÃO: Determina se a célula da PK deve ser somente leitura**
                                 const isPkReadonly = (colKey) => pkInfo && colKey === pkInfo.name && pkInfo.type === 'INTEGER';
-
                                 return (
-                                    <tr 
-                                        key={row.id || rowIndex}
-                                        onMouseEnter={() => setHoveredRow(rowIndex)}
-                                        onMouseLeave={() => setHoveredRow(null)}
-                                    >
+                                    <tr key={row.id || rowIndex} onMouseEnter={() => setHoveredRow(rowIndex)} onMouseLeave={() => setHoveredRow(null)}>
                                         {colunas.map(col => (
-                                            <td 
-                                                key={col.key} 
-                                                onClick={() => handleCellClick(rowIndex, col.key)}
-                                                className={isPkReadonly(col.key) ? 'readonly-cell' : ''}
-                                            >
+                                            <td key={col.key} onClick={() => handleCellClick(rowIndex, col.key)} className={isPkReadonly(col.key) ? 'readonly-cell' : ''}>
                                                 {editingCell.rowIndex === rowIndex && editingCell.colKey === col.key && !isPkReadonly(col.key) ? (
-                                                    <input
-                                                        type="text"
-                                                        value={String(row[col.key] ?? '')}
-                                                        onChange={(e) => handleCellChange(e, rowIndex, col.key)}
-                                                        onBlur={() => setEditingCell({ rowIndex: null, colKey: null })}
-                                                        autoFocus
-                                                    />
-                                                ) : (
-                                                    String(row[col.key] ?? '')
-                                                )}
+                                                    <input type="text" value={String(row[col.key] ?? '')} onChange={(e) => handleCellChange(e, rowIndex, col.key)} onBlur={() => setEditingCell({ rowIndex: null, colKey: null })} autoFocus />
+                                                ) : ( String(row[col.key] ?? '') )}
                                             </td>
                                         ))}
                                         <td className="action-column">
                                             {hoveredRow === rowIndex && (
-                                                <button className="delete-row-btn" onClick={() => handleExcluirLinha(rowIndex)}>
-                                                    <i className="bi bi-trash"></i>
-                                                </button>
+                                                <button className="delete-row-btn" onClick={() => handleExcluirLinha(rowIndex)}><i className="bi bi-trash"></i></button>
                                             )}
                                         </td>
                                     </tr>
                                 );
                             })}
-                            {showInsertPreview && (
-                                <tr className="insert-preview-row">
-                                    <td colSpan={colunas.length + 1}></td>
-                                </tr>
-                            )}
+                            {showInsertPreview && <tr className="insert-preview-row"><td colSpan={colunas.length + 1}></td></tr>}
                         </tbody>
                     </table>
-                    <button 
-                        className="add-row-btn" 
-                        onClick={handleAdicionarLinha}
-                        onMouseEnter={() => setShowInsertPreview(true)}
-                        onMouseLeave={() => setShowInsertPreview(false)}
-                    >
-                        +
-                    </button>
+                    <button className="add-row-btn" onClick={handleAdicionarLinha} onMouseEnter={() => setShowInsertPreview(true)} onMouseLeave={() => setShowInsertPreview(false)}>+</button>
                 </div>
                 <div className="modal-footer">
                     <div></div>
                     <div>
                         <button type="button" className="modal-button cancel" onClick={() => setIsModalEdicaoAberto(false)}>Cancelar</button>
-                        <button type="button" className="modal-button confirm" style={{ backgroundColor: '#27ae60' }} onClick={handleSalvarClick}>Salvar Alterações</button>
+                        <button type="button" className="modal-button confirm" style={{ backgroundColor: '#27ae60' }} onClick={() => setModalSalvarAberto(true)}>Salvar Alterações</button>
                     </div>
                 </div>
             </Modal>
             
-            <ModalGerarCalendario 
-                isOpen={isModalCalendarioAberto}
-                onClose={() => setIsModalCalendarioAberto(false)}
-                onSucesso={handleSucessoCalendario}
-            />
+            <ModalGerarCalendario isOpen={isModalCalendarioAberto} onClose={() => setIsModalCalendarioAberto(false)} onSucesso={handleSucessoCalendario} />
+            <ModalGerenciarTabelasApoio isOpen={isModalTabelasApoioAberto} onClose={() => setIsModalTabelasApoioAberto(false)} onSave={handleSaveTabelasApoio} />
 
-            <ModalConfirmacao
-                isOpen={modalSalvarAberto}
-                onClose={() => setModalSalvarAberto(false)}
-                onConfirm={handleConfirmarSalvar}
-                title="Confirmar Alterações"
-            >
+            <ModalConfirmacao isOpen={modalSalvarAberto} onClose={() => setModalSalvarAberto(false)} onConfirm={handleConfirmarSalvar} title="Confirmar Alterações">
                 <p>Você tem certeza que deseja salvar todas as alterações feitas nesta tabela?</p>
                 <p>Linhas adicionadas, editadas e excluídas serão salvas permanentemente.</p>
             </ModalConfirmacao>

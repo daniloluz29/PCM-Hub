@@ -1,0 +1,133 @@
+"filename", "language", "JavaScript", "JSON", "Python", "PostCSS", "Markdown", "JavaScript JSX", "XML", "HTML", "Excel", "CSV", "comment", "blank", "total"
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Relatorios\EQUIPAMENTOS.xlsx", "Excel", 0, 0, 0, 0, 0, 0, 0, 0, 1268, 0, 0, 9, 1277
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Relatorios\HORÍMETROS.xlsx", "Excel", 0, 0, 0, 0, 0, 0, 0, 0, 17185, 0, 0, 93, 17278
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Relatorios\PREVENTIVAS.xlsx", "Excel", 0, 0, 0, 0, 0, 0, 0, 0, 9411, 0, 0, 66, 9477
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Relatorios\Tabelas\tEMAILS.xlsx", "Excel", 0, 0, 0, 0, 0, 0, 0, 0, 488, 0, 0, 1, 489
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Relatorios\Tabelas\tFABRICANTES.XLSX", "Excel", 0, 0, 0, 0, 0, 0, 0, 0, 108, 0, 0, 0, 108
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Relatorios\Tabelas\tLOCALIZAÇÃO.xlsx", "Excel", 0, 0, 0, 0, 0, 0, 0, 0, 136, 0, 0, 0, 136
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Relatorios\Tabelas\tMODELO_SUBMODELO.xlsx", "Excel", 0, 0, 0, 0, 0, 0, 0, 0, 200, 0, 0, 0, 200
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Relatorios\Tabelas\tPRODUTOS.XLSX", "Excel", 0, 0, 0, 0, 0, 0, 0, 0, 99, 0, 0, 1, 100
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Relatorios\Tabelas\tSTATUSEQUIP.XLSX", "Excel", 0, 0, 0, 0, 0, 0, 0, 0, 54, 0, 0, 0, 54
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Relatorios\Tabelas\tTIPO_OBJ.XLSX", "Excel", 0, 0, 0, 0, 0, 0, 0, 0, 78, 0, 0, 0, 78
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Rotas\atualizacao_backup.py", "Python", 0, 0, 147, 0, 0, 0, 0, 0, 0, 0, 3, 25, 175
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Rotas\atualizacaodb.py", "Python", 0, 0, 60, 0, 0, 0, 0, 0, 0, 0, 12, 17, 89
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Rotas\auth.py", "Python", 0, 0, 40, 0, 0, 0, 0, 0, 0, 0, 10, 14, 64
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Rotas\backup.py", "Python", 0, 0, 47, 0, 0, 0, 0, 0, 0, 0, 18, 15, 80
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Rotas\cadastros_basicos.py", "Python", 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 1, 5, 27
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Rotas\centros_custo.py", "Python", 0, 0, 91, 0, 0, 0, 0, 0, 0, 0, 6, 19, 116
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Rotas\chamados.py", "Python", 0, 0, 175, 0, 0, 0, 0, 0, 0, 0, 24, 37, 236
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Rotas\comunidade.py", "Python", 0, 0, 61, 0, 0, 0, 0, 0, 0, 0, 0, 7, 68
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Rotas\faixas.py", "Python", 0, 0, 109, 0, 0, 0, 0, 0, 0, 0, 4, 25, 138
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Rotas\faq.py", "Python", 0, 0, 72, 0, 0, 0, 0, 0, 0, 0, 9, 13, 94
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Rotas\filtros.py", "Python", 0, 0, 47, 0, 0, 0, 0, 0, 0, 0, 8, 16, 71
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Rotas\gestao_acoes.py", "Python", 0, 0, 407, 0, 0, 0, 0, 0, 0, 0, 11, 45, 463
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Rotas\hierarquias.py", "Python", 0, 0, 18, 0, 0, 0, 0, 0, 0, 0, 0, 4, 22
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Rotas\natureza_financeira.py", "Python", 0, 0, 94, 0, 0, 0, 0, 0, 0, 0, 4, 20, 118
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Rotas\notificacoes.py", "Python", 0, 0, 114, 0, 0, 0, 0, 0, 0, 0, 17, 27, 158
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Rotas\permissoes.py", "Python", 0, 0, 145, 0, 0, 0, 0, 0, 0, 0, 11, 30, 186
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Rotas\preventivas.py", "Python", 0, 0, 222, 0, 0, 0, 0, 0, 0, 0, 500, 28, 750
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Rotas\restaurarbackup.py", "Python", 0, 0, 39, 0, 0, 0, 0, 0, 0, 0, 13, 13, 65
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Rotas\solicitacoes.py", "Python", 0, 0, 86, 0, 0, 0, 0, 0, 0, 0, 13, 16, 115
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Rotas\tabelas.py", "Python", 0, 0, 353, 0, 0, 0, 0, 0, 0, 0, 34, 55, 442
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\Rotas\usuarios.py", "Python", 0, 0, 63, 0, 0, 0, 0, 0, 0, 0, 7, 14, 84
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\__init__.py", "Python", 0, 0, 29, 0, 0, 0, 0, 0, 0, 0, 7, 5, 41
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\centros_custo.csv", "CSV", 0, 0, 0, 0, 0, 0, 0, 0, 0, 201, 0, 1, 202
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\conv_db.py", "Python", 0, 0, 95, 0, 0, 0, 0, 0, 0, 0, 13, 17, 125
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\dados_exemplo.xlsx", "Excel", 0, 0, 0, 0, 0, 0, 0, 0, 382, 0, 0, 2, 384
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\data_db.py", "Python", 0, 0, 98, 0, 0, 0, 0, 0, 0, 0, 14, 14, 126
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\db.py", "Python", 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 21, 10, 51
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\import_db.py", "Python", 0, 0, 58, 0, 0, 0, 0, 0, 0, 0, 22, 17, 97
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\importacoes_bd.csv", "CSV", 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 1, 10
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\backend\init_db.py", "Python", 0, 0, 365, 0, 0, 0, 0, 0, 0, 0, 1, 34, 400
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\README.md", "Markdown", 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 6, 13
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\eslint.config.js", "JavaScript", 28, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 30
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\index.html", "HTML", 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 6, 7, 35
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\package-lock.json", "JSON", 0, 3979, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3980
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\package.json", "JSON", 0, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 37
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\public\manifest.json", "JSON", 0, 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 24
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\public\sw.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 3
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\public\vite.svg", "XML", 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\App.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 184, 0, 0, 0, 0, 5, 25, 214
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\components\AdvancedSortModal.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 130, 0, 0, 0, 0, 2, 22, 154
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\components\ChartModal.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 47, 0, 0, 0, 0, 8, 6, 61
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\components\ChartWrapper.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 25, 0, 0, 0, 0, 10, 3, 38
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\components\FiltrosSidebar.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 37, 0, 0, 0, 0, 7, 6, 50
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\components\FloatingFilters.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 183, 0, 0, 0, 0, 2, 9, 194
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\components\FloatingUserInfo.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 26, 0, 0, 0, 0, 4, 7, 37
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\components\Menu.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 181, 0, 0, 0, 0, 1, 19, 201
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\components\Modal.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 10, 5, 36
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\components\ModalAlerta.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 9, 4, 36
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\components\ModalConfirmacao.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 10, 4, 36
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\components\ModalNotificacoesControle.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 96, 0, 0, 0, 0, 1, 8, 105
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\components\Notificacoes.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 95, 0, 0, 0, 0, 0, 11, 106
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\components\PageHeader.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 7, 3, 25
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\components\TableModal.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 334, 0, 0, 0, 0, 5, 50, 389
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\components\TableWrapper.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 9, 3, 27
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\main.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 1, 9
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\AttBackupBD.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 553, 0, 0, 0, 0, 8, 58, 619
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\Cadastros.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 73, 0, 0, 0, 0, 1, 8, 82
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\Cadastros\GerenciamentoCC.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 265, 0, 0, 0, 0, 10, 39, 314
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\Cadastros\GerenciamentoDB.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 948, 0, 0, 0, 0, 6, 73, 1027
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\Cadastros\GerenciamentoFaixas.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 214, 0, 0, 0, 0, 4, 22, 240
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\Cadastros\GerenciamentoNatureza.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 200, 0, 0, 0, 0, 4, 25, 229
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\Cadastros\GerenciamentoPerfis.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 368, 0, 0, 0, 0, 4, 33, 405
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\Cadastros\GerenciamentoTabelas.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 335, 0, 0, 0, 0, 8, 37, 380
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\Cadastros\GerenciamentoUsuarios.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 104, 0, 0, 0, 0, 2, 15, 121
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\Cadastros\TabAtivos.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 303, 0, 0, 0, 0, 6, 27, 336
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\Cadastros\TabSolicitacoes.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 153, 0, 0, 0, 0, 8, 17, 178
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\Chamados\DetalheChamado.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 391, 0, 0, 0, 0, 11, 40, 442
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\Comunidade.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 31, 0, 0, 0, 0, 2, 4, 37
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\Comunidade\TabAgenda.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 399, 0, 0, 0, 0, 15, 51, 465
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\Comunidade\TabCatalogo.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 118, 0, 0, 0, 0, 10, 13, 141
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\Documentacao.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 72, 0, 0, 0, 0, 7, 6, 85
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\FAQ.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 190, 0, 0, 0, 0, 8, 27, 225
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\GestaoAcoes.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 266, 0, 0, 0, 0, 4, 37, 307
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\GestaoAcoes\DetPlanoDeAcao.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 484, 0, 0, 0, 0, 4, 49, 537
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\GestaoAcoes\DetTarefas.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 529, 0, 0, 0, 0, 6, 56, 591
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\GestaoAcoes\PainelInsights.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 274, 0, 0, 0, 0, 7, 40, 321
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\GestaoAcoes\PlanoDeAcao.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 154, 0, 0, 0, 0, 1, 16, 171
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\GestaoAcoes\Tarefa.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 94, 0, 0, 0, 0, 1, 8, 103
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\Login.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 93, 0, 0, 0, 0, 1, 17, 111
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\Perfil.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 158, 0, 0, 0, 0, 6, 19, 183
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\PortalChamados.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 231, 0, 0, 0, 0, 8, 24, 263
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\Preventivas.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 69, 0, 0, 0, 0, 1, 8, 78
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\Preventivas\SubAbaPendentes.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 312, 0, 0, 0, 0, 19, 40, 371
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\Preventivas\SubAbaRealizadas.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 547, 0, 0, 0, 0, 5, 57, 609
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\SolicitacaoCadastro.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 127, 0, 0, 0, 0, 5, 16, 148
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\pages\Telemetria.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 52, 0, 0, 0, 0, 15, 11, 78
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\App.css", "PostCSS", 0, 0, 0, 30, 0, 0, 0, 0, 0, 0, 8, 5, 43
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\base\_overrides.css", "PostCSS", 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 11, 1, 16
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\base\_reset.css", "PostCSS", 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 9, 1, 17
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\base\_theme.css", "PostCSS", 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 3, 3, 26
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\base\_typography.css", "PostCSS", 0, 0, 0, 25, 0, 0, 0, 0, 0, 0, 10, 8, 43
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\components\_accordion.css", "PostCSS", 0, 0, 0, 75, 0, 0, 0, 0, 0, 0, 16, 15, 106
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\components\_card.css", "PostCSS", 0, 0, 0, 49, 0, 0, 0, 0, 0, 0, 15, 10, 74
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\components\_context.css", "PostCSS", 0, 0, 0, 29, 0, 0, 0, 0, 0, 0, 11, 6, 46
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\components\_filtros.css", "PostCSS", 0, 0, 0, 110, 0, 0, 0, 0, 0, 0, 10, 18, 138
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\components\_floating-components.css", "PostCSS", 0, 0, 0, 94, 0, 0, 0, 0, 0, 0, 11, 16, 121
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\components\_graficos.css", "PostCSS", 0, 0, 0, 70, 0, 0, 0, 0, 0, 0, 14, 16, 100
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\components\_login.css", "PostCSS", 0, 0, 0, 158, 0, 0, 0, 0, 0, 0, 28, 28, 214
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\components\_modal.css", "PostCSS", 0, 0, 0, 102, 0, 0, 0, 0, 0, 0, 22, 20, 144
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\components\_notification.css", "PostCSS", 0, 0, 0, 156, 0, 0, 0, 0, 0, 0, 25, 27, 208
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\components\_page-header.css", "PostCSS", 0, 0, 0, 35, 0, 0, 0, 0, 0, 0, 5, 6, 46
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\components\_profile.css", "PostCSS", 0, 0, 0, 85, 0, 0, 0, 0, 0, 0, 7, 16, 108
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\components\_table.css", "PostCSS", 0, 0, 0, 362, 0, 0, 0, 0, 0, 0, 30, 54, 446
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\components\_tabs.css", "PostCSS", 0, 0, 0, 27, 0, 0, 0, 0, 0, 0, 10, 5, 42
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\components\_tooltip.css", "PostCSS", 0, 0, 0, 37, 0, 0, 0, 0, 0, 0, 11, 5, 53
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\components\_treeview.css", "PostCSS", 0, 0, 0, 66, 0, 0, 0, 0, 0, 0, 15, 10, 91
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\layout\_grid.css", "PostCSS", 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 6, 3, 18
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\layout\_navigation.css", "PostCSS", 0, 0, 0, 94, 0, 0, 0, 0, 0, 0, 20, 16, 130
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\layout\_sidebar.css", "PostCSS", 0, 0, 0, 181, 0, 0, 0, 0, 0, 0, 29, 34, 244
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\pages\_att_backup.css", "PostCSS", 0, 0, 0, 186, 0, 0, 0, 0, 0, 0, 7, 30, 223
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\pages\_cadastros.css", "PostCSS", 0, 0, 0, 980, 0, 0, 0, 0, 0, 0, 22, 161, 1163
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\pages\_community.css", "PostCSS", 0, 0, 0, 450, 0, 0, 0, 0, 0, 0, 31, 68, 549
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\pages\_dashboard.css", "PostCSS", 0, 0, 0, 88, 0, 0, 0, 0, 0, 0, 9, 18, 115
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\pages\_documentation.css", "PostCSS", 0, 0, 0, 37, 0, 0, 0, 0, 0, 0, 5, 8, 50
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\pages\_gestao-acoes.css", "PostCSS", 0, 0, 0, 647, 0, 0, 0, 0, 0, 0, 7, 111, 765
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\pages\_preventivas.css", "PostCSS", 0, 0, 0, 161, 0, 0, 0, 0, 0, 0, 13, 30, 204
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\src\styles\pages\_tickets.css", "PostCSS", 0, 0, 0, 236, 0, 0, 0, 0, 0, 0, 7, 41, 284
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\frontend\vite.config.js", "JavaScript", 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 8
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\package-lock.json", "JSON", 0, 1329, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1330
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\package.json", "JSON", 0, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 20
+"c:\Users\danilo.azevedo.TRADTI\OneDrive\Área de Trabalho\Dados\Manutenção\Dashboard Manutenção\PCM-Hub\run.py", "Python", 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 2, 6
+"Total", "-", 33, 5386, 3080, 4610, 7, 9549, 1, 22, 29409, 210, 1506, 2610, 56423

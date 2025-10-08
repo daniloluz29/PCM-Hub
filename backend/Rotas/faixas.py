@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from ..db import get_db_connection
-# Importa a função de criar notificação
+import sqlite3
 from ..Rotas.notificacoes import criar_notificacao
 
 bp = Blueprint('faixas', __name__, url_prefix='/api')
@@ -11,6 +11,32 @@ def get_faixas_grupos():
     grupos = conn.execute('SELECT * FROM faixas_grupos ORDER BY nome_grupo').fetchall()
     conn.close()
     return jsonify([dict(row) for row in grupos])
+
+# --- NOVA ROTA: POST para criar um novo grupo de faixas ---
+@bp.route('/faixas_grupos', methods=['POST'])
+def create_faixas_grupo():
+    data = request.get_json()
+    if not data or not all(k in data for k in ('id', 'nome_grupo', 'nome_exibicao')):
+        return jsonify({"message": "Dados incompletos."}), 400
+
+    conn = get_db_connection()
+    try:
+        conn.execute(
+            'INSERT INTO faixas_grupos (id, nome_grupo, nome_exibicao) VALUES (?, ?, ?)',
+            (data['id'], data['nome_grupo'], data['nome_exibicao'])
+        )
+        conn.commit()
+    except sqlite3.IntegrityError:
+        conn.close()
+        return jsonify({"message": f"Erro: O ID '{data['id']}' já existe."}), 409
+    except Exception as e:
+        conn.close()
+        return jsonify({"message": f"Erro inesperado: {e}"}), 500
+    finally:
+        conn.close()
+        
+    return jsonify({"message": "Novo grupo de faixas criado com sucesso!"}), 201
+
 
 @bp.route('/faixas_grupos/<string:id>', methods=['PUT'])
 def update_faixas_grupo(id):
@@ -51,7 +77,6 @@ def create_faixa():
             (data['grupo_id'], data['nome_faixa'], data['valor_inicio'], data['valor_fim'], data.get('status', 'Ativo'))
         )
         
-        # CORREÇÃO: Busca o nome de exibição do grupo para a notificação
         grupo = conn.execute('SELECT nome_exibicao FROM faixas_grupos WHERE id = ?', (data['grupo_id'],)).fetchone()
         nome_exibicao_grupo = grupo['nome_exibicao'] if grupo else "Faixas"
 
@@ -80,7 +105,6 @@ def update_faixa(id):
             if autor:
                 autor_nome = autor['nome']
 
-        # CORREÇÃO: Busca o grupo da faixa antes de atualizar
         faixa_info = conn.execute('SELECT grupo_id FROM faixas_definicoes WHERE id = ?', (id,)).fetchone()
         
         conn.execute(
@@ -115,7 +139,6 @@ def delete_faixa(id):
             if autor:
                 autor_nome = autor['nome']
         
-        # CORREÇÃO: Busca o grupo da faixa antes de excluir
         item_para_deletar = conn.execute('SELECT grupo_id FROM faixas_definicoes WHERE id = ?', (id,)).fetchone()
         if not item_para_deletar:
             return jsonify({"message": "Faixa não encontrada."}), 404

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 function FloatingUserInfo({ currentUser }) {
     // Estado para controlar se o widget está recolhido ou expandido
-    const [isCollapsed, setIsCollapsed] = useState(false);
+    const [isCollapsed, setIsCollapsed] = useState(true);
 
     if (!currentUser) {
         return null;

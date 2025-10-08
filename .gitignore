@@ -33,6 +33,7 @@ __pycache__/
 # Dependências do Node.js
 # Esta pasta pode ter milhares de arquivos e é recriada com 'npm install'
 /node_modules/
+.VSCodeCounter/
 
 # Pasta de build/produção
 # Gerada automaticamente ao compilar o projeto

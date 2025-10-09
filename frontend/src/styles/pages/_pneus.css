@@ -202,21 +202,23 @@
 
 .esqueleto-svg .eixo {
     stroke: #868e96;
-    stroke-width: 4;
+    stroke-width: 6; /* ALTERADO: Aumenta a espessura do eixo */
     stroke-linecap: round;
 }
 
 .esqueleto-svg .chassi {
     stroke: #868e96;
-    stroke-width: 4;
+    stroke-width: 6; /* ALTERADO: Aumenta a espessura do chassi para combinar */
     stroke-linecap: round;
 }
 
+/* REMOVIDO: A classe .pneu não é mais usada pois o pneu agora é um componente HTML.
 .esqueleto-svg .pneu {
     stroke: #495057;
     stroke-width: 2;
     transition: fill 0.3s;
 }
+*/
 
 .esqueleto-svg .medicao-text {
     font-size: 12px;

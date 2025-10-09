@@ -1,4 +1,6 @@
 import React from 'react';
+// CORREÇÃO: Ajustado o caminho de importação para resolver o erro de compilação.
+import IconPneus from '../customicons/IconPneus.jsx';
 
 function EsqueletoPreview({ configuracao }) {
     if (!configuracao || configuracao.length === 0) {
@@ -68,7 +70,6 @@ function EsqueletoPreview({ configuracao }) {
     const SVG_HEIGHT = currentY;
     const centerX = SVG_WIDTH / 2;
 
-    // NOVO: Adicionar a linha do chassi se houver 3 ou mais eixos
     if (eixos.length >= 2) {
         const primeiroEixoY = eixos[0].y;
         const ultimoEixoY = eixos[eixos.length - 1].y;
@@ -76,40 +77,64 @@ function EsqueletoPreview({ configuracao }) {
     }
 
     eixos.forEach((eixo, eixoIndex) => {
-        const eixoStartX = centerX - LARGURA_EIXO / 2;
-        const eixoEndX = centerX + LARGURA_EIXO / 2;
+        // Coordenadas originais para cálculo da posição dos pneus
+        const tirePlacementEixoStartX = centerX - LARGURA_EIXO / 2;
+        const tirePlacementEixoEndX = centerX + LARGURA_EIXO / 2;
 
-        elements.push(<line key={`eixo-${eixoIndex}`} x1={eixoStartX} y1={eixo.y} x2={eixoEndX} y2={eixo.y} className="eixo" />);
+        // ALTERADO: Calcula dinamicamente o comprimento do eixo para o desenho
+        let axleDrawStartX, axleDrawEndX;
+
+        if (eixo.pneus_por_lado === 2) {
+            // Estende o eixo até a borda externa do pneu mais externo
+            axleDrawStartX = tirePlacementEixoStartX - (LARGURA_PNEU * 2) - ESPACAMENTO_PNEU_INTERNO - 10;
+            axleDrawEndX = tirePlacementEixoEndX + 10 + LARGURA_PNEU + ESPACAMENTO_PNEU_INTERNO + LARGURA_PNEU;
+        } else { // Para 1 pneu por lado
+            // Estende o eixo até a borda externa do pneu único
+            axleDrawStartX = tirePlacementEixoStartX - LARGURA_PNEU - 10;
+            axleDrawEndX = tirePlacementEixoEndX + 10 + LARGURA_PNEU;
+        }
+
+        elements.push(<line key={`eixo-${eixoIndex}`} x1={axleDrawStartX} y1={eixo.y} x2={axleDrawEndX} y2={eixo.y} className="eixo" />);
 
         eixo.pneus.forEach((pneu, pneuIndex) => {
             let x, fill;
+            // A posição dos pneus continua usando as coordenadas originais para manter o alinhamento
             if (pneu.lado === 'esquerdo') {
                 if (pneu.tipo === 'unico') {
-                    x = eixoStartX - LARGURA_PNEU - 15;
+                    x = tirePlacementEixoStartX - LARGURA_PNEU - 15;
                     fill = '#6c757d';
                 } else if (pneu.tipo === 'externo') {
-                    x = eixoStartX - LARGURA_PNEU - 15;
+                    x = tirePlacementEixoStartX - LARGURA_PNEU - 15;
                     fill = '#6c757d';
                 } else { // interno
-                    x = eixoStartX - (LARGURA_PNEU * 2) - ESPACAMENTO_PNEU_INTERNO - 15;
+                    x = tirePlacementEixoStartX - (LARGURA_PNEU * 2) - ESPACAMENTO_PNEU_INTERNO - 15;
                     fill = '#adb5bd';
                 }
             } else { // lado direito
                 if (pneu.tipo === 'unico') {
-                    x = eixoEndX + 15;
+                    x = tirePlacementEixoEndX + 15;
                     fill = '#6c757d';
                 } else if (pneu.tipo === 'externo') {
-                    x = eixoEndX + 15 + LARGURA_PNEU + ESPACAMENTO_PNEU_INTERNO;
+                    x = tirePlacementEixoEndX + 15 + LARGURA_PNEU + ESPACAMENTO_PNEU_INTERNO;
                     fill = '#adb5bd';
                 } else { // interno
-                    x = eixoEndX + 15;
+                    x = tirePlacementEixoEndX + 15;
                     fill = '#6c757d';
                 }
             }
             
             const y = eixo.y - ALTURA_PNEU / 2;
 
-            elements.push(<rect key={`pneu-${eixoIndex}-${pneuIndex}`} x={x} y={y} width={LARGURA_PNEU} height={ALTURA_PNEU} rx="4" className="pneu" fill={fill} />);
+            elements.push(
+                <foreignObject key={`pneu-${eixoIndex}-${pneuIndex}`} x={x} y={y} width={LARGURA_PNEU} height={ALTURA_PNEU}>
+                    <IconPneus
+                        corComponentes={fill}
+                        corFundo="#3a3a3a"
+                        width={`${LARGURA_PNEU}px`}
+                        height={`${ALTURA_PNEU}px`}
+                    />
+                </foreignObject>
+            );
             elements.push(<text key={`texto-${eixoIndex}-${pneuIndex}`} x={x + LARGURA_PNEU / 2} y={y + ALTURA_PNEU + 15} className="posicao-text">{pneu.numero}</text>);
         });
     });
@@ -125,3 +150,4 @@ function EsqueletoPreview({ configuracao }) {
 }
 
 export default EsqueletoPreview;
+

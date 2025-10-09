@@ -193,7 +193,7 @@ function ModalCadastroLayout({ layouts, layoutInicial, onSave, onCancel }) {
                 </div>
                 <div className="layout-preview">
                     {/* ATUALIZADO: Padding condicional no título */}
-                    <h4 style={{ paddingBottom: configuracao.length > 0 ? '0' : '0' }}>Pré-visualização</h4>
+                    <h4 style={{ marginBottom: configuracao.length > 0 ? '0' : '0' }}>Pré-visualização</h4>
                     <EsqueletoPreview configuracao={configuracao} />
                 </div>
             </div>

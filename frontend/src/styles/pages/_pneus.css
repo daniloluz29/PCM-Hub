@@ -17,7 +17,6 @@
     border-radius: 8px 8px 0 0;
 }
 
-/* NOVO: Estilo aprimorado para o campo de busca */
 .search-container .form-control {
     border: 1px solid #dee2e6;
     border-radius: 6px;
@@ -117,7 +116,6 @@
     margin-top: 10px;
 }
 
-/* NOVO: Estilo aprimorado para os botões de adicionar nível */
 .add-buttons .btn {
     display: flex;
     align-items: center;
@@ -202,23 +200,15 @@
 
 .esqueleto-svg .eixo {
     stroke: #868e96;
-    stroke-width: 6; /* ALTERADO: Aumenta a espessura do eixo */
+    stroke-width: 6; 
     stroke-linecap: round;
 }
 
 .esqueleto-svg .chassi {
     stroke: #868e96;
-    stroke-width: 6; /* ALTERADO: Aumenta a espessura do chassi para combinar */
+    stroke-width: 6; 
     stroke-linecap: round;
 }
-
-/* REMOVIDO: A classe .pneu não é mais usada pois o pneu agora é um componente HTML.
-.esqueleto-svg .pneu {
-    stroke: #495057;
-    stroke-width: 2;
-    transition: fill 0.3s;
-}
-*/
 
 .esqueleto-svg .medicao-text {
     font-size: 12px;
@@ -300,5 +290,163 @@
     background-color: #c82333;
     border-color: #bd2130;
     transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   NOVO: ESTILOS PARA A ABA DE ANÁLISE DE PNEUS
+   ========================================================================== */
+
+/* --- Controles de Busca e Filtro --- */
+.search-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+}
+
+.search-bar {
+    flex-grow: 1;
+}
+
+.search-bar .form-control {
+    width: 100%;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 8px 15px;
+    transition: all 0.2s ease-in-out;
+}
+.search-bar .form-control:focus {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.filter-button-container {
+    position: relative;
+}
+
+.btn-filter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+}
+.btn-filter:hover {
+    background-color: #5a6268;
+}
+
+.filter-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 5px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 1000;
+    min-width: 200px;
+    padding: 5px 0;
+}
+
+.filter-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.filter-dropdown-item:hover {
+    background-color: #f5f5f5;
+}
+
+.filter-dropdown-item .bi-check-lg {
+    color: #0d6efd;
+    font-weight: bold;
+}
+
+
+/* --- Container da Análise --- */
+.analysis-container {
+    padding: 20px 0;
+}
+
+.analysis-group {
+    margin-bottom: 25px;
+}
+
+.group-title {
+    padding-bottom: 8px;
+    border-bottom: 2px solid #dee2e6;
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #343a40;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 20px;
+}
+
+.analysis-card {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.analysis-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    padding: 10px 15px;
+    border-bottom: 1px solid #e0e0e0;
+    border-radius: 8px 8px 0 0;
+}
+
+.card-tag {
+    font-weight: 600;
+    font-size: 16px;
+    color: #212529;
+}
+
+.card-body {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.info-label {
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.info-value {
+    color: #212529;
+    font-weight: 600;
+}
+
+.info-value.status-dev {
+    font-style: italic;
+    color: #adb5bd;
 }
 

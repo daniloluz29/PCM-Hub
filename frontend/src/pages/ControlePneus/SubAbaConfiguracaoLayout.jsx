@@ -2,11 +2,13 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import Modal from '../../components/Modal.jsx';
 import ModalCadastroLayout from '../../components/ModalCadastroLayout.jsx';
 import ModalConfirmacao from '../../components/ModalConfirmacao.jsx';
+import EsqueletoPreview from '../../components/EsqueletoPreview.jsx'; // NOVO: Import para o modal de prévia
 
 // ATUALIZADO: URL base da API
 const API_BASE_URL = 'http://127.0.0.1:5000';
 
-function SubAbaConfiguracaoLayout({ currentUser, isActive }) {
+// ALTERADO: Recebe a nova prop setSidebarContent.
+function SubAbaConfiguracaoLayout({ currentUser, isActive, setSidebarContent }) {
     const [layouts, setLayouts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -17,6 +19,35 @@ function SubAbaConfiguracaoLayout({ currentUser, isActive }) {
     const [layoutToDelete, setLayoutToDelete] = useState(null);
 
     const [searchTerm, setSearchTerm] = useState('');
+
+    // NOVO: Estados para o menu de contexto
+    const [contextMenu, setContextMenu] = useState({ visible: false, x: 0, y: 0, selectedLayout: null });
+    
+    // NOVO: Estados para o modal de pré-visualização
+    const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false);
+    const [previewLayout, setPreviewLayout] = useState(null);
+
+    // NOVO: useEffect para fechar o menu de contexto ao clicar em qualquer lugar
+    useEffect(() => {
+        const handleClick = () => setContextMenu({ ...contextMenu, visible: false });
+        window.addEventListener('click', handleClick);
+        return () => window.removeEventListener('click', handleClick);
+    }, [contextMenu]);
+
+
+    // NOVO: useEffect para definir o conteúdo da sidebar quando a aba estiver ativa.
+    useEffect(() => {
+        if (isActive) {
+            setSidebarContent(
+                <>
+                    {/* Futuramente, o conteúdo dos filtros para esta aba será inserido aqui. */}
+                    <p style={{ padding: '10px', color: '#6c757d', textAlign: 'center', fontSize: '14px' }}>
+                        Nenhum filtro disponível para esta aba no momento.
+                    </p>
+                </>
+            );
+        }
+    }, [isActive, setSidebarContent]);
 
     const fetchLayouts = useCallback(async () => {
         if (!isActive) return;
@@ -52,8 +83,13 @@ function SubAbaConfiguracaoLayout({ currentUser, isActive }) {
         );
     }, [layouts, searchTerm]);
 
-    const handleOpenModal = (layout = null) => {
-        setEditingLayout(layout);
+    const handleOpenModal = (layout = null, isCopy = false) => {
+        // NOVO: Se for uma cópia, passa o layout com um sinalizador
+        if (isCopy && layout) {
+             setEditingLayout({ ...layout, isCopy: true });
+        } else {
+            setEditingLayout(layout);
+        }
         setIsModalOpen(true);
     };
 
@@ -84,6 +120,30 @@ function SubAbaConfiguracaoLayout({ currentUser, isActive }) {
         } finally {
             setIsConfirmModalOpen(false);
             setLayoutToDelete(null);
+        }
+    };
+    
+    // NOVO: Funções para o menu de contexto
+    const handleContextMenu = (event, layout) => {
+        event.preventDefault();
+        setContextMenu({
+            visible: true,
+            x: event.pageX,
+            y: event.pageY,
+            selectedLayout: layout,
+        });
+    };
+
+    const handlePreview = () => {
+        if (contextMenu.selectedLayout) {
+            setPreviewLayout(contextMenu.selectedLayout);
+            setIsPreviewModalOpen(true);
+        }
+    };
+
+    const handleCopy = () => {
+        if (contextMenu.selectedLayout) {
+            handleOpenModal(contextMenu.selectedLayout, true);
         }
     };
 
@@ -123,7 +183,8 @@ function SubAbaConfiguracaoLayout({ currentUser, isActive }) {
                 </thead>
                 <tbody>
                     {filteredLayouts.map(layout => (
-                        <tr key={layout.id}>
+                        // ALTERADO: Adiciona o evento onContextMenu na linha da tabela
+                        <tr key={layout.id} onContextMenu={(e) => handleContextMenu(e, layout)}>
                             <td>{layout.tipo_obj}</td>
                             <td className="actions">
                                 <button className="btn btn-secondary btn-sm" title="Editar" onClick={() => handleOpenModal(layout)}>
@@ -151,7 +212,6 @@ function SubAbaConfiguracaoLayout({ currentUser, isActive }) {
             {!isLoading && !error && layouts.length > 0 && (
                 <div className="table-toolbar">
                     <div className="search-container">
-                        {/* ATUALIZADO: Ícone removido e placeholder melhorado */}
                         <input
                             type="text"
                             className="form-control"
@@ -168,10 +228,25 @@ function SubAbaConfiguracaoLayout({ currentUser, isActive }) {
             
             {renderContent()}
 
+            {/* NOVO: Renderização condicional do menu de contexto */}
+            {contextMenu.visible && (
+                <div 
+                    className="context-menu-container" 
+                    style={{ top: contextMenu.y, left: contextMenu.x }}
+                >
+                    <div className="context-menu-item" onClick={handlePreview}>
+                        <i className="bi bi-eye-fill"></i> Ver Prévia
+                    </div>
+                    <div className="context-menu-item" onClick={handleCopy}>
+                        <i className="bi bi-copy"></i> Criar uma Cópia
+                    </div>
+                </div>
+            )}
+
             <Modal
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
-                title={editingLayout ? "Editar Layout de Pneus" : "Novo Layout de Pneus"}
+                title={editingLayout ? (editingLayout.isCopy ? "Criar Cópia do Layout" : "Editar Layout de Pneus") : "Novo Layout de Pneus"}
                 size="xl"
             >
                 <ModalCadastroLayout
@@ -180,6 +255,18 @@ function SubAbaConfiguracaoLayout({ currentUser, isActive }) {
                     onSave={handleSaveLayout}
                     onCancel={handleCloseModal}
                 />
+            </Modal>
+
+            {/* NOVO: Modal para a pré-visualização do layout */}
+            <Modal
+                isOpen={isPreviewModalOpen}
+                onClose={() => setIsPreviewModalOpen(false)}
+                title={`Prévia do Layout: ${previewLayout?.tipo_obj || ''}`}
+                size="default"
+            >
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px' }}>
+                    {previewLayout && <EsqueletoPreview configuracao={previewLayout.configuracao} />}
+                </div>
             </Modal>
 
             <ModalConfirmacao

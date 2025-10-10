@@ -101,24 +101,6 @@
   font-weight: 600;
 }
 
-/* --- Título Vertical para Sidebar Recolhida --- */
-.sidebar-title-vertical {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-grow: 1;
-  color: #495057;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.sidebar-title-vertical span {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  white-space: nowrap;
-}
-
-
 /* --- Sidebar de Criação (Esquerda) --- */
 .fluxograma-nodes {
   display: grid;

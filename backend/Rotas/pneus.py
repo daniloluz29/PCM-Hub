@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from ..db import get_db_connection
 import json
 import pandas as pd
+import traceback # NOVO: Import para depuração detalhada
 
 bp = Blueprint('pneus', __name__, url_prefix='/api/pneus')
 
@@ -209,6 +210,81 @@ def get_equipamentos():
         return jsonify([row['equipamento'] for row in equipamentos])
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    finally:
+        if conn:
+            conn.close()
+            
+# ALTERADO: Endpoint para a análise geral com lógica de filtragem de CC corrigida
+@bp.route('/analise-geral', methods=['GET'])
+def get_analise_geral():
+    """Busca e agrupa dados de pneus por centro de custo e equipamento."""
+    conn = None
+    try:
+        conn = get_db_connection()
+        
+        # ETAPA 1: Identificar os centros de custo que têm pelo menos uma medição.
+        ccs_com_medicao_query = """
+            SELECT DISTINCT e.cod_cc
+            FROM controle_pneus cp
+            JOIN equipamentos e ON cp.equipamento = e.equipamento
+            WHERE e.cod_cc IS NOT NULL
+        """
+        ccs_validos_df = pd.read_sql_query(ccs_com_medicao_query, conn)
+        
+        if ccs_validos_df.empty:
+            return jsonify([])
+        
+        ccs_validos_lista = tuple(ccs_validos_df['cod_cc'].tolist())
+        
+        # ETAPA 2: Buscar todos os equipamentos desses centros de custo e suas medições.
+        placeholders = ','.join('?' for _ in ccs_validos_lista)
+        query = f"""
+            SELECT
+                e.equipamento,
+                cc.nome_cc,
+                cp.data_medicao,
+                cp.num_fogo
+            FROM equipamentos e
+            JOIN centros_custo cc ON e.cod_cc = cc.cod_cc
+            LEFT JOIN controle_pneus cp ON e.equipamento = cp.equipamento
+            WHERE e.cod_cc IN ({placeholders})
+        """
+        df = pd.read_sql_query(query, conn, params=ccs_validos_lista)
+
+        if df.empty:
+            return jsonify([])
+
+        # ETAPA 3: Processar os dados como antes.
+        df['data_medicao'] = pd.to_datetime(df['data_medicao'], errors='coerce')
+        
+        def agg_fogo(series):
+            return list(series.dropna().unique())
+
+        agg_funcs = {
+            'data_medicao': 'max',
+            'num_fogo': ['nunique', agg_fogo]
+        }
+        df_agg = df.groupby(['equipamento', 'nome_cc']).agg(agg_funcs).reset_index()
+
+        df_agg.columns = ['equipamento', 'nome_cc', 'ultima_medicao', 'pneus_agregados', 'numeros_fogo']
+        
+        df_agg['pneus_agregados'] = df_agg['pneus_agregados'].astype(int)
+
+        df_agg['ultima_medicao'] = df_agg['ultima_medicao'].dt.strftime('%d/%m/%Y').fillna('Sem medições')
+
+        resultado_final = df_agg.groupby('nome_cc').apply(
+            lambda x: x[['equipamento', 'pneus_agregados', 'ultima_medicao', 'numeros_fogo']].to_dict('records')
+        ).reset_index(name='equipamentos')
+        
+        resultado_final.rename(columns={'nome_cc': 'centro_custo'}, inplace=True)
+        
+        return jsonify(resultado_final.to_dict('records'))
+
+    except Exception as e:
+        print("--- ERRO DETALHADO EM /api/pneus/analise-geral ---")
+        traceback.print_exc()
+        print("-------------------------------------------------")
+        return jsonify({"error": "Ocorreu um erro interno no servidor."}), 500
     finally:
         if conn:
             conn.close()

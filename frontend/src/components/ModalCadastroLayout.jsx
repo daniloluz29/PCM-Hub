@@ -14,20 +14,32 @@ function ModalCadastroLayout({ layouts, layoutInicial, onSave, onCancel }) {
     const [isAlertOpen, setIsAlertOpen] = useState(false);
     const [alertTitle, setAlertTitle] = useState('');
     const [alertMessage, setAlertMessage] = useState('');
+    // NOVO: Estado para identificar se é uma cópia
+    const [isCopyMode, setIsCopyMode] = useState(false);
 
     useEffect(() => {
         if (layoutInicial) {
-            const tipoObj = { 
-                value: layoutInicial.cod_tipo_obj, 
-                label: `${layoutInicial.cod_tipo_obj} - ${layoutInicial.tipo_obj}` 
-            };
-            setTipoObjSelecionado(tipoObj);
-            setConfiguracao(layoutInicial.configuracao);
-            setLayoutAtivo(layoutInicial);
+            // NOVO: Verifica se é uma cópia
+            if (layoutInicial.isCopy) {
+                setTipoObjSelecionado(null); // Zera o tipo de equipamento
+                setConfiguracao(layoutInicial.configuracao);
+                setLayoutAtivo(null); // Não há layout ativo, pois é uma nova criação
+                setIsCopyMode(true); // Ativa o modo cópia
+            } else {
+                const tipoObj = { 
+                    value: layoutInicial.cod_tipo_obj, 
+                    label: `${layoutInicial.cod_tipo_obj} - ${layoutInicial.tipo_obj}` 
+                };
+                setTipoObjSelecionado(tipoObj);
+                setConfiguracao(layoutInicial.configuracao);
+                setLayoutAtivo(layoutInicial);
+                setIsCopyMode(false);
+            }
         } else {
             setTipoObjSelecionado(null);
             setConfiguracao([]);
             setLayoutAtivo(null);
+            setIsCopyMode(false);
         }
     }, [layoutInicial]);
 
@@ -52,13 +64,19 @@ function ModalCadastroLayout({ layouts, layoutInicial, onSave, onCancel }) {
         const layoutExistente = layouts.find(l => l.cod_tipo_obj === selectedOption.value);
 
         if (layoutExistente) {
-            setConfiguracao(layoutExistente.configuracao);
-            setLayoutAtivo(layoutExistente);
+            // Se for cópia, não carrega a configuração existente, apenas alerta.
+            if (!isCopyMode) {
+                setConfiguracao(layoutExistente.configuracao);
+                setLayoutAtivo(layoutExistente);
+            }
             setAlertTitle("Layout Existente");
             setAlertMessage(`Já existe um layout para ${layoutExistente.tipo_obj}. Qualquer alteração irá sobrescrever a configuração atual.`);
             setIsAlertOpen(true);
         } else {
-            setConfiguracao([]);
+            // Se não existe layout, mas estamos no modo cópia, mantém a configuração copiada.
+            if (!isCopyMode) {
+                setConfiguracao([]);
+            }
             setLayoutAtivo(null);
         }
     };
@@ -97,6 +115,7 @@ function ModalCadastroLayout({ layouts, layoutInicial, onSave, onCancel }) {
             return;
         }
 
+        // ALTERADO: A lógica de atualização agora depende do layoutAtivo e não do modo cópia.
         const isUpdating = !!(layoutAtivo && layoutAtivo.id);
         
         const payload = {
@@ -144,7 +163,8 @@ function ModalCadastroLayout({ layouts, layoutInicial, onSave, onCancel }) {
                             value={tipoObjSelecionado}
                             onChange={handleTipoObjChange}
                             placeholder="Selecione..."
-                            isDisabled={!!layoutInicial} 
+                            // ALTERADO: O campo só é desabilitado se for edição, não se for cópia.
+                            isDisabled={!!(layoutInicial && !layoutInicial.isCopy)} 
                         />
                     </div>
 
@@ -193,7 +213,7 @@ function ModalCadastroLayout({ layouts, layoutInicial, onSave, onCancel }) {
                 </div>
                 <div className="layout-preview">
                     {/* ATUALIZADO: Padding condicional no título */}
-                    <h4 style={{ marginBottom: configuracao.length > 0 ? '0' : '0' }}>Pré-visualização</h4>
+                    <h4 style={{ marginBottom: '0' }}>Pré-visualização</h4>
                     <EsqueletoPreview configuracao={configuracao} />
                 </div>
             </div>
@@ -202,4 +222,3 @@ function ModalCadastroLayout({ layouts, layoutInicial, onSave, onCancel }) {
 }
 
 export default ModalCadastroLayout;
-

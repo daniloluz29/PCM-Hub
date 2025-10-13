@@ -73,8 +73,8 @@ def create_faixa():
                 autor_nome = autor['nome']
 
         conn.execute(
-            'INSERT INTO faixas_definicoes (grupo_id, nome_faixa, valor_inicio, valor_fim, status) VALUES (?, ?, ?, ?, ?)',
-            (data['grupo_id'], data['nome_faixa'], data['valor_inicio'], data['valor_fim'], data.get('status', 'Ativo'))
+            'INSERT INTO faixas_definicoes (grupo_id, nome_faixa, valor_inicio, valor_fim, status, cor) VALUES (?, ?, ?, ?, ?, ?)',
+            (data['grupo_id'], data['nome_faixa'], data['valor_inicio'], data['valor_fim'], data.get('status', 'Ativo'), data.get('cor', '#cccccc'))
         )
         
         grupo = conn.execute('SELECT nome_exibicao FROM faixas_grupos WHERE id = ?', (data['grupo_id'],)).fetchone()
@@ -108,8 +108,8 @@ def update_faixa(id):
         faixa_info = conn.execute('SELECT grupo_id FROM faixas_definicoes WHERE id = ?', (id,)).fetchone()
         
         conn.execute(
-            'UPDATE faixas_definicoes SET nome_faixa = ?, valor_inicio = ?, valor_fim = ?, status = ? WHERE id = ?',
-            (data['nome_faixa'], data['valor_inicio'], data['valor_fim'], data['status'], id)
+            'UPDATE faixas_definicoes SET nome_faixa = ?, valor_inicio = ?, valor_fim = ?, status = ?, cor = ? WHERE id = ?',
+            (data['nome_faixa'], data['valor_inicio'], data['valor_fim'], data['status'], data['cor'], id)
         )
         
         grupo = conn.execute('SELECT nome_exibicao FROM faixas_grupos WHERE id = ?', (faixa_info['grupo_id'],)).fetchone()

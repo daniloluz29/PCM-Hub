@@ -79,7 +79,7 @@ const GerenciamentoFaixas = ({ currentUser }) => {
 
     const [modalFaixaAberto, setModalFaixaAberto] = useState(false);
     const [modalGrupoAberto, setModalGrupoAberto] = useState(false);
-    const [modalNovoGrupoAberto, setModalNovoGrupoAberto] = useState(false); // NOVO ESTADO
+    const [modalNovoGrupoAberto, setModalNovoGrupoAberto] = useState(false);
     const [faixaEmEdicao, setFaixaEmEdicao] = useState(null);
     const [grupoEmEdicao, setGrupoEmEdicao] = useState(null);
     const [faixaParaExcluir, setFaixaParaExcluir] = useState(null);
@@ -123,7 +123,7 @@ const GerenciamentoFaixas = ({ currentUser }) => {
 
     const handleAdicionarFaixa = (grupo) => {
         setFaixaEmEdicao(null);
-        setFormState({ grupo_id: grupo.id, status: '' });
+        setFormState({ grupo_id: grupo.id, status: 'Ativo', cor: '#cccccc' });
         setFormErrors({});
         setModalFaixaAberto(true);
     };
@@ -155,6 +155,7 @@ const GerenciamentoFaixas = ({ currentUser }) => {
         if (formState.valor_inicio === '' || formState.valor_inicio === null) errors.valor_inicio = true;
         if (formState.valor_fim === '' || formState.valor_fim === null) errors.valor_fim = true;
         if (!formState.status) errors.status = true;
+        if (!formState.cor) errors.cor = true;
         setFormErrors(errors);
         return Object.keys(errors).length === 0;
     };
@@ -194,7 +195,6 @@ const GerenciamentoFaixas = ({ currentUser }) => {
         setModalGrupoAberto(false);
     };
 
-    // NOVO: Função para salvar um novo grupo de faixas
     const handleSaveNovoGrupo = async (novoGrupoData) => {
         try {
             const response = await fetch('http://127.0.0.1:5000/api/faixas_grupos', {
@@ -206,7 +206,7 @@ const GerenciamentoFaixas = ({ currentUser }) => {
             if (!response.ok) throw new Error(result.message);
             setAlerta({ aberto: true, mensagem: result.message });
             setModalNovoGrupoAberto(false);
-            fetchData(); // Atualiza a lista de grupos
+            fetchData();
         } catch (err) {
             setAlerta({ aberto: true, mensagem: `Erro: ${err.message}` });
         }
@@ -236,7 +236,6 @@ const GerenciamentoFaixas = ({ currentUser }) => {
                     <label htmlFor="group-select">Selecione um Grupo de Faixas:</label>
                     <Select id="group-select" options={optionsGrupo} value={optionsGrupo.find(opt => opt.value === grupoSelecionado)} onChange={(option) => setGrupoSelecionado(option.value)} isLoading={isLoading} placeholder="Selecione..." />
                 </div>
-                {/* NOVO: Botão para adicionar nova tabela de faixas */}
                 <button className="admin-button" onClick={() => setModalNovoGrupoAberto(true)}>
                     <i className="bi bi-plus-lg"></i> Nova Tabela de Faixas
                 </button>
@@ -259,7 +258,7 @@ const GerenciamentoFaixas = ({ currentUser }) => {
                         </div>
                         <div className="faixa-table">
                             <div className="faixa-table-header">
-                                <span>Nome da Faixa</span><span>Início</span><span>Fim</span><span>Status</span><span>Ações</span>
+                                <span>Nome da Faixa</span><span>Início</span><span>Fim</span><span>Status</span><span>Cor</span><span>Ações</span>
                             </div>
                             <ul className="faixa-table-body">
                                 {(faixasPorGrupo[grupo.id] || []).map(faixa => (
@@ -268,6 +267,10 @@ const GerenciamentoFaixas = ({ currentUser }) => {
                                         <span>{faixa.valor_inicio}</span>
                                         <span>{faixa.valor_fim}</span>
                                         <span>{faixa.status}</span>
+                                        <div className="faixa-cor-cell">
+                                            <div className="faixa-cor-swatch" style={{ backgroundColor: faixa.cor }}></div>
+                                            <span>{faixa.cor}</span>
+                                        </div>
                                         <div className="faixa-table-actions">
                                             <button onClick={() => handleEditarFaixa(faixa)} title="Editar"><i className="bi bi-pencil"></i></button>
                                             <button onClick={() => handleExcluirFaixa(faixa)} title="Excluir"><i className="bi bi-trash"></i></button>
@@ -283,12 +286,21 @@ const GerenciamentoFaixas = ({ currentUser }) => {
                 <form onSubmit={(e) => { e.preventDefault(); handleSaveFaixa(); }}>
                     <div className="filter-group"><label>Nome da Faixa:</label><input name="nome_faixa" value={formState.nome_faixa || ''} onChange={handleFormChange} className={formErrors.nome_faixa ? 'input-error' : ''} /></div>
                     <div className="user-form-grid">
-                        <div className="filter-group"><label>Valor Início:</label><input type="number" name="valor_inicio" value={formState.valor_inicio || ''} onChange={handleFormChange} className={formErrors.valor_inicio ? 'input-error' : ''} /></div>
-                        <div className="filter-group"><label>Valor Fim:</label><input type="number" name="valor_fim" value={formState.valor_fim || ''} onChange={handleFormChange} className={formErrors.valor_fim ? 'input-error' : ''} /></div>
+                        <div className="filter-group"><label>Valor Início:</label><input type="number" name="valor_inicio" value={formState.valor_inicio ?? ''} onChange={handleFormChange} className={formErrors.valor_inicio ? 'input-error' : ''} /></div>
+                        <div className="filter-group"><label>Valor Fim:</label><input type="number" name="valor_fim" value={formState.valor_fim ?? ''} onChange={handleFormChange} className={formErrors.valor_fim ? 'input-error' : ''} /></div>
                     </div>
-                    <div className="filter-group">
-                        <label>Status:</label>
-                        <input type="text" name="status" value={formState.status || ''} onChange={handleFormChange} className={formErrors.status ? 'input-error' : ''} />
+                    <div className="user-form-grid">
+                        <div className="filter-group">
+                            <label>Status:</label>
+                            <input type="text" name="status" value={formState.status || ''} onChange={handleFormChange} className={formErrors.status ? 'input-error' : ''} />
+                        </div>
+                        <div className="filter-group">
+                            <label>Cor:</label>
+                            <div className="color-picker-group">
+                                <input type="color" name="cor" value={formState.cor || '#cccccc'} onChange={handleFormChange} />
+                                <input type="text" name="cor" value={formState.cor || ''} onChange={handleFormChange} className={formErrors.cor ? 'input-error' : ''} maxLength="7" />
+                            </div>
+                        </div>
                     </div>
                     <div className="modal-footer"> <div> </div>
                         <div><button type="button" className="modal-button cancel" onClick={() => setModalFaixaAberto(false)}>Cancelar</button><button type="submit" className="modal-button confirm" style={{backgroundColor: '#27ae60'}}>Salvar</button></div>
@@ -316,7 +328,6 @@ const GerenciamentoFaixas = ({ currentUser }) => {
             </ModalConfirmacao>
             <ModalAlerta isOpen={alerta.aberto} onClose={() => setAlerta({ aberto: false, mensagem: '' })} title="Operação Concluída"><p>{alerta.mensagem}</p></ModalAlerta>
             
-            {/* NOVO: Renderiza o modal de criação de grupo */}
             <ModalNovoGrupo 
                 isOpen={modalNovoGrupoAberto} 
                 onClose={() => setModalNovoGrupoAberto(false)} 
@@ -327,3 +338,4 @@ const GerenciamentoFaixas = ({ currentUser }) => {
 };
 
 export default GerenciamentoFaixas;
+

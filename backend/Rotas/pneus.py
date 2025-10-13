@@ -214,14 +214,20 @@ def get_analise_geral():
         if ccs_validos_df.empty:
             return jsonify([])
         
-        # CORRIGIDO: O nome da coluna é 'cod_cc', não 'cc_cod'.
         ccs_validos_lista = tuple(ccs_validos_df['cod_cc'].tolist())
         
         placeholders = ','.join('?' for _ in ccs_validos_lista)
+        # ALTERADO: Trocado JOIN por LEFT JOIN para tipo_obj para garantir que equipamentos sem tipo cadastrado ainda apareçam.
         query = f"""
-            SELECT e.equipamento, cc.nome_cc, cp.data_medicao, cp.num_fogo
+            SELECT
+                e.equipamento,
+                cc.nome_cc,
+                t.tipo_obj,
+                cp.data_medicao,
+                cp.num_fogo
             FROM equipamentos e
             JOIN centros_custo cc ON e.cod_cc = cc.cod_cc
+            LEFT JOIN tipo_obj t ON e.cod_tipo = t.cod_tipo_obj
             LEFT JOIN controle_pneus cp ON e.equipamento = cp.equipamento
             WHERE e.cod_cc IN ({placeholders})
         """
@@ -236,17 +242,16 @@ def get_analise_geral():
             return list(series.dropna().unique())
 
         agg_funcs = {'data_medicao': 'max', 'num_fogo': ['nunique', agg_fogo]}
-        df_agg = df.groupby(['equipamento', 'nome_cc']).agg(agg_funcs).reset_index()
+        df_agg = df.groupby(['equipamento', 'nome_cc', 'tipo_obj']).agg(agg_funcs).reset_index()
 
-        df_agg.columns = ['equipamento', 'nome_cc', 'ultima_medicao', 'pneus_agregados', 'numeros_fogo']
+        df_agg.columns = ['equipamento', 'nome_cc', 'tipo_obj', 'ultima_medicao', 'pneus_agregados', 'numeros_fogo']
         df_agg['pneus_agregados'] = df_agg['pneus_agregados'].astype(int)
         df_agg['ultima_medicao'] = df_agg['ultima_medicao'].dt.strftime('%d/%m/%Y').fillna('Sem medições')
 
         resultado_final = df_agg.groupby('nome_cc').apply(
-            lambda x: x[['equipamento', 'pneus_agregados', 'ultima_medicao', 'numeros_fogo']].to_dict('records')
+            lambda x: x[['equipamento', 'tipo_obj', 'pneus_agregados', 'ultima_medicao', 'numeros_fogo']].to_dict('records')
         ).reset_index(name='equipamentos')
         
-        # CORRIGIDO: Removido espaço extra em 'centro_custo'.
         resultado_final.rename(columns={'nome_cc': 'centro_custo'}, inplace=True)
         return jsonify(resultado_final.to_dict('records'))
 

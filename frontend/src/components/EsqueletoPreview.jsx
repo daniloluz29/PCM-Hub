@@ -10,7 +10,7 @@ function EsqueletoPreview({ configuracao, inspecao, onPneuClick }) {
         );
     }
     
-    // --- Constantes de Desenho ---
+    // --- Constantes de Desenho (inalteradas) ---
     const LARGURA_EIXO = 220;
     const LARGURA_PNEU = 30;
     const ALTURA_PNEU = 60;
@@ -71,7 +71,6 @@ function EsqueletoPreview({ configuracao, inspecao, onPneuClick }) {
     }
 
     eixos.forEach((eixo, eixoIndex) => {
-        // ... (lógica de cálculo de posição dos eixos inalterada)
         const tirePlacementEixoStartX = centerX - LARGURA_EIXO / 2;
         const tirePlacementEixoEndX = centerX + LARGURA_EIXO / 2;
         let axleDrawStartX, axleDrawEndX;
@@ -86,7 +85,6 @@ function EsqueletoPreview({ configuracao, inspecao, onPneuClick }) {
 
         eixo.pneus.forEach((pneu, pneuIndex) => {
             let x;
-            // ... (lógica de cálculo de posição dos pneus inalterada)
             if (pneu.lado === 'esquerdo') {
                  if (pneu.tipo === 'unico' || pneu.tipo === 'externo') x = tirePlacementEixoStartX - LARGURA_PNEU - 15;
                  else x = tirePlacementEixoStartX - (LARGURA_PNEU * 2) - ESPACAMENTO_PNEU_INTERNO - 15;
@@ -96,9 +94,20 @@ function EsqueletoPreview({ configuracao, inspecao, onPneuClick }) {
             }
             const y = eixo.y - ALTURA_PNEU / 2;
             
-            // ALTERADO: A cor do pneu agora vem dos dados da inspeção.
-            const corPneu = pneu.dados?.faixa_info?.cor || '#545454'; // Usa a cor da faixa ou uma cor padrão.
+            // NOVO: Lógica de cores baseada no estado do pneu.
             const isClickable = !!onPneuClick;
+            let corFundoIcone, corComponentesIcone;
+
+            if (!pneu.dados) {
+                // Caso 1: Posição vazia, sem pneu agregado. Cores bem claras.
+                corFundoIcone = '#E9ECEF';
+                corComponentesIcone = '#CED4DA';
+            } else {
+                // Caso 2 e 3: Posição com pneu agregado.
+                corFundoIcone = undefined; // Usa o default do IconPneus
+                // Usa a cor da faixa se existir, senão o IconPneus usa seu default.
+                corComponentesIcone = pneu.dados.faixa_info?.cor; 
+            }
 
             elements.push(
                 <g 
@@ -108,8 +117,8 @@ function EsqueletoPreview({ configuracao, inspecao, onPneuClick }) {
                 >
                     <foreignObject x={x} y={y} width={LARGURA_PNEU} height={ALTURA_PNEU}>
                         <IconPneus
-                            corComponentes={corPneu} // Aplica a cor dinâmica
-                            corFundo="#3a3a3a"
+                            corFundo={corFundoIcone}
+                            corComponentes={corComponentesIcone}
                             width={`${LARGURA_PNEU}px`}
                             height={`${ALTURA_PNEU}px`}
                         />

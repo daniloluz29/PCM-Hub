@@ -3,14 +3,14 @@ import React from 'react';
 /**
  * Componente que renderiza um ícone de pneu customizado com base em CSS.
  * @param {object} props - Propriedades do componente.
- * @param {string} [props.corFundo='#3a3a3a'] - A cor de fundo (carcaça) do pneu.
- * @param {string} [props.corComponentes='#545454'] - A cor dos blocos e sulcos do pneu.
+ * @param {string} [props.corFundo='#4a4a4a'] - A cor de fundo (carcaça) do pneu.
+ * @param {string} [props.corComponentes='#888888'] - A cor dos blocos e sulcos do pneu.
  * @param {string} [props.width='30px'] - A largura do ícone.
  * @param {string} [props.height='60px'] - A altura do ícone.
  */
-function IconPneus({ corFundo = '#3a3a3a', corComponentes = '#545454', width = '30px', height = '60px' }) {
+// ALTERADO: Cores padrão foram clareadas.
+function IconPneus({ corFundo = '#4a4a4a', corComponentes = '#888888', width = '30px', height = '60px' }) {
 
-    // Estilos inline para o container principal, aplicando as props dinâmicas.
     const tireStyles = {
         '--icon-pneu-cor-fundo': corFundo,
         '--icon-pneu-cor-componentes': corComponentes,
@@ -18,8 +18,6 @@ function IconPneus({ corFundo = '#3a3a3a', corComponentes = '#545454', width = '
         height: height,
     };
 
-    // O CSS é encapsulado aqui para evitar conflitos com estilos globais.
-    // As classes são nomeadas de forma específica.
     const css = `
         .icon-pneu-wrapper {
             width: 100%;
@@ -70,23 +68,14 @@ function IconPneus({ corFundo = '#3a3a3a', corComponentes = '#545454', width = '
         <>
             <style>{css}</style>
             <div className="icon-pneu-wrapper" style={tireStyles}>
-                {/* Coluna de blocos da esquerda */}
                 <div className="icon-pneu-side-strip">
                     {[...Array(8)].map((_, i) => <div key={`l-block-${i}`} className="icon-pneu-tread-block"></div>)}
                 </div>
-
-                {/* Tira interna da esquerda */}
                 <div className="icon-pneu-inner-strip"></div>
-
-                {/* Coluna central com as setas */}
                 <div className="icon-pneu-chevron-column">
                     {[...Array(5)].map((_, i) => <div key={`chevron-${i}`} className="icon-pneu-chevron"></div>)}
                 </div>
-
-                {/* Tira interna da direita */}
                 <div className="icon-pneu-inner-strip"></div>
-
-                {/* Coluna de blocos da direita */}
                 <div className="icon-pneu-side-strip">
                      {[...Array(8)].map((_, i) => <div key={`r-block-${i}`} className="icon-pneu-tread-block"></div>)}
                 </div>

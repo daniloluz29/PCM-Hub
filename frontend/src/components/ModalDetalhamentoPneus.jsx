@@ -46,11 +46,9 @@ function ModalDetalhamentoPneus({ equipamento, onCancel }) {
         setIsInfoModalOpen(true);
     };
 
-    // NOVO: Componente interno para renderizar o conteúdo do modal de informações.
     const renderInfoModalContent = () => {
         if (!selectedPneu) return null;
 
-        // Caso em que a posição não tem pneu agregado.
         if (!selectedPneu.dados) {
             return (
                 <div className="placeholder-message" style={{ padding: '20px', margin: 0, border: 'none', background: 'transparent' }}>
@@ -63,7 +61,6 @@ function ModalDetalhamentoPneus({ equipamento, onCancel }) {
         
         const { dados } = selectedPneu;
         
-        // Caso em que o pneu está agregado mas não tem medição.
         if (!dados.faixa_info) {
              return (
                 <div className="info-pneu-content">
@@ -97,6 +94,13 @@ function ModalDetalhamentoPneus({ equipamento, onCancel }) {
                     <strong>Status:</strong>
                     <span>{dados.faixa_info.status}</span>
                 </div>
+                <div className="info-pneu-item">
+                    <strong>Cor:</strong>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <span>{dados.faixa_info.cor}</span>
+                        <div className="color-swatch" style={{ backgroundColor: dados.faixa_info.cor }}></div>
+                    </div>
+                </div>
                  <div className="info-pneu-item">
                     <strong>Data da Medição:</strong>
                     <span>{dados.data_medicao || 'N/A'}</span>
@@ -114,8 +118,25 @@ function ModalDetalhamentoPneus({ equipamento, onCancel }) {
             return (
                 <div className="placeholder-message error-placeholder" style={{ padding: '30px' }}>
                     <div className="icon"><i className="bi bi-diagram-3-fill"></i></div>
-                    <h4>Layout não Cadastrado</h4>
-                    <p>{error}</p>
+                    <h4>Layout não Encontrado</h4>
+                    <p>Não foi possível carregar o layout para o equipamento <strong>{equipamento?.equipamento || 'desconhecido'}</strong>.</p>
+                    
+                    {equipamento?.tipo_obj ? (
+                        <p style={{marginTop: '10px'}}>
+                            Tipo de objeto: <strong>{equipamento.tipo_obj}</strong>
+                        </p>
+                    ) : (
+                         <p style={{marginTop: '10px', fontSize: '12px', color: '#6c757d'}}>
+                            (Não foi possível identificar o tipo de objeto.)
+                        </p>
+                    )}
+
+                    <p style={{ fontSize: '12px', color: '#6c757d', marginTop: '15px' }}>
+                        Causa: {error}
+                    </p>
+                    <p style={{ fontSize: '12px', color: '#6c757d', marginTop: '5px' }}>
+                        Verifique na aba "Configuração de Layouts" se existe um layout para este tipo de equipamento.
+                    </p>
                 </div>
             );
         }

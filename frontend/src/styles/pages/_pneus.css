@@ -12,9 +12,10 @@
     align-items: center;
     padding: 10px;
     background-color: #f8f9fa;
-    border: 1px solid #dee2e6;
-    border-bottom: none;
-    border-radius: 8px 8px 0 0;
+    /* ALTERADO: Borda e radius agora são controlados pelo wrapper */
+    border: none;
+    border-bottom: 1px solid #dee2e6; /* Mantém a linha divisória */
+    border-radius: 0;
 }
 
 .search-container .form-control {
@@ -40,9 +41,9 @@
 .placeholder-message {
     text-align: center;
     padding: 40px 20px;
-    background-color: #f8f9fa;
-    border: 1px solid #dee2e6;
-    border-top: none; 
+    /* ALTERADO: Ajustes para se encaixar no novo layout */
+    background-color: #fff;
+    border: none;
     border-radius: 0 0 8px 8px;
     margin-top: 0;
 }
@@ -325,7 +326,7 @@
     position: relative;
 }
 
-.btn-filter {
+.btn-filter, .btn-toggle-visibility { /* AGRUPADO */
     display: flex;
     align-items: center;
     gap: 8px;
@@ -336,8 +337,9 @@
     border-radius: 6px;
     cursor: pointer;
     font-weight: 500;
+    white-space: nowrap;
 }
-.btn-filter:hover {
+.btn-filter:hover, .btn-toggle-visibility:hover { /* AGRUPADO */
     background-color: #5a6268;
 }
 
@@ -374,8 +376,18 @@
 
 
 /* --- Container da Análise --- */
+
+/* NOVO: Wrapper para unificar visualmente o filtro e o conteúdo */
+.analysis-content-wrapper {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    overflow: hidden; /* Garante que o border-radius seja aplicado corretamente */
+}
+
 .analysis-container {
-    padding: 20px 0;
+    /* ALTERADO: Padding em todos os lados e fundo branco */
+    padding: 20px;
+    background-color: #fff;
 }
 
 .analysis-group {
@@ -392,9 +404,19 @@
 
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    /* ALTERADO: Define 1 coluna por padrão para mobile */
+    grid-template-columns: 1fr;
     gap: 20px;
 }
+
+/* NOVO: Media query para ajustar o grid em telas maiores */
+@media (min-width: 992px) {
+    .card-grid {
+        /* Passa a ter 2 colunas em telas com mais de 992px de largura */
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 
 .analysis-card {
     background-color: #fff;
@@ -402,7 +424,9 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+    cursor: pointer; /* NOVO: Adiciona o cursor para indicar que é clicável */
 }
+
 
 .analysis-card:hover {
     transform: translateY(-3px);
@@ -424,9 +448,35 @@
 
 .card-body {
     padding: 15px;
+    /* ALTERADO: Adicionado flexbox para layout com imagem */
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* NOVO: Placeholder de imagem no card */
+.card-img-placeholder {
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0; /* Impede que o placeholder encolha */
+    background-color: #e9ecef;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #adb5bd;
+}
+
+.card-img-placeholder .bi {
+    font-size: 32px;
+}
+
+/* NOVO: Wrapper para o conteúdo de texto do card */
+.card-info-content {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    width: 100%;
 }
 
 .info-item {
@@ -450,3 +500,64 @@
     color: #adb5bd;
 }
 
+.placeholder-message p {
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+/* NOVO: Estilo para o ícone no placeholder de erro */
+.placeholder-message.error-placeholder .icon {
+    color: #dc3545; /* Cor de perigo/erro do Bootstrap */
+}
+
+/* NOVO: Estilo para o grupo de pneu clicável no esqueleto */
+.esqueleto-svg .pneu-clicavel {
+    cursor: pointer;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.esqueleto-svg .pneu-clicavel:hover {
+    opacity: 0.90;
+}
+
+/* NOVO: Estilos para o conteúdo do modal de informações do pneu */
+.info-pneu-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px;
+}
+
+.info-pneu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.info-pneu-item:last-child {
+    border-bottom: none;
+}
+
+.info-pneu-item strong {
+    color: #495057;
+}
+
+.info-pneu-item span {
+    font-weight: 500;
+    color: #212529;
+    background-color: #f8f9fa;
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+
+/* NOVO: Estilo para a amostra de cor no modal de informações */
+.color-swatch {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+    display: inline-block;
+}

@@ -10,7 +10,7 @@ function EsqueletoPreview({ configuracao, inspecao, onPneuClick }) {
         );
     }
     
-    // --- Constantes de Desenho (inalteradas) ---
+    // --- Constantes de Desenho ---
     const LARGURA_EIXO = 220;
     const LARGURA_PNEU = 30;
     const ALTURA_PNEU = 60;
@@ -20,9 +20,10 @@ function EsqueletoPreview({ configuracao, inspecao, onPneuClick }) {
     const START_Y = 50;
     const SVG_WIDTH = 400;
 
-    // --- Mapeamento e cálculo de posições (lógica inalterada) ---
+    // --- Mapeamento e Numeração ---
     const eixos = [];
     let currentY = START_Y;
+
     configuracao.forEach((nivel) => {
         if (nivel.tipo === 'eixo') {
             eixos.push({ y: currentY, pneus: [], pneus_por_lado: nivel.pneus_por_lado });
@@ -34,6 +35,7 @@ function EsqueletoPreview({ configuracao, inspecao, onPneuClick }) {
 
     const slotsLadoEsquerdo = [];
     const slotsLadoDireito = [];
+
     eixos.forEach((eixo, index) => {
         if (eixo.pneus_por_lado === 1) {
             slotsLadoEsquerdo.push({ eixoIndex: index, tipo: 'unico', lado: 'esquerdo' });
@@ -56,76 +58,108 @@ function EsqueletoPreview({ configuracao, inspecao, onPneuClick }) {
     let positionCounter = 1;
     ordemInspecao.forEach(pneu => {
         const eixo = eixos[pneu.eixoIndex];
-        const numeroPosicao = String(positionCounter++).padStart(2, '0');
-        const dadosInspecao = inspecao ? inspecao[numeroPosicao] : null;
-        eixo.pneus.push({ ...pneu, numero: numeroPosicao, dados: dadosInspecao });
+        const numero = String(positionCounter++).padStart(2, '0');
+        const dadosInspecao = inspecao ? (inspecao[numero] || null) : null;
+        eixo.pneus.push({ ...pneu, numero, dados: dadosInspecao });
     });
 
-    // --- Renderização dos elementos SVG ---
+
+    // --- Renderização SVG ---
     const elements = [];
     const SVG_HEIGHT = currentY;
     const centerX = SVG_WIDTH / 2;
 
     if (eixos.length >= 2) {
-        elements.push(<line key="chassi-line" x1={centerX} y1={eixos[0].y} x2={centerX} y2={eixos[eixos.length - 1].y} className="chassi" />);
+        const primeiroEixoY = eixos[0].y;
+        const ultimoEixoY = eixos[eixos.length - 1].y;
+        elements.push(<line key="chassi-line" x1={centerX} y1={primeiroEixoY} x2={centerX} y2={ultimoEixoY} className="chassi" />);
     }
 
     eixos.forEach((eixo, eixoIndex) => {
         const tirePlacementEixoStartX = centerX - LARGURA_EIXO / 2;
         const tirePlacementEixoEndX = centerX + LARGURA_EIXO / 2;
+
         let axleDrawStartX, axleDrawEndX;
         if (eixo.pneus_por_lado === 2) {
             axleDrawStartX = tirePlacementEixoStartX - (LARGURA_PNEU * 2) - ESPACAMENTO_PNEU_INTERNO - 10;
             axleDrawEndX = tirePlacementEixoEndX + 10 + LARGURA_PNEU + ESPACAMENTO_PNEU_INTERNO + LARGURA_PNEU;
-        } else { 
+        } else {
             axleDrawStartX = tirePlacementEixoStartX - LARGURA_PNEU - 10;
             axleDrawEndX = tirePlacementEixoEndX + 10 + LARGURA_PNEU;
         }
+
         elements.push(<line key={`eixo-${eixoIndex}`} x1={axleDrawStartX} y1={eixo.y} x2={axleDrawEndX} y2={eixo.y} className="eixo" />);
 
         eixo.pneus.forEach((pneu, pneuIndex) => {
-            let x;
-            if (pneu.lado === 'esquerdo') {
-                 if (pneu.tipo === 'unico' || pneu.tipo === 'externo') x = tirePlacementEixoStartX - LARGURA_PNEU - 15;
-                 else x = tirePlacementEixoStartX - (LARGURA_PNEU * 2) - ESPACAMENTO_PNEU_INTERNO - 15;
+            let x, corFundo, corComponentes;
+
+            // LÓGICA DE COR CONDICIONAL (inalterada, pois estava correta)
+            if (inspecao) {
+                // Modo Detalhamento
+                if (pneu.dados?.faixa_info?.cor) {
+                    corComponentes = pneu.dados.faixa_info.cor; // Cor da medição
+                    corFundo = undefined; // Padrão
+                } else if (pneu.dados) {
+                    corComponentes = '#6c757d'; // Pneu agregado, sem medição
+                    corFundo = undefined; // Padrão
+                } else {
+                    corComponentes = '#CED4DA'; // Posição vazia
+                    corFundo = '#E9ECEF';   // Posição vazia
+                }
             } else {
-                 if (pneu.tipo === 'unico' || pneu.tipo === 'interno') x = tirePlacementEixoEndX + 15;
-                 else x = tirePlacementEixoEndX + 15 + LARGURA_PNEU + ESPACAMENTO_PNEU_INTERNO;
+                // Modo Cadastro
+                corFundo = undefined; // Padrão
+                if (pneu.tipo === 'interno') {
+                    corComponentes = '#adb5bd'; // Cinza claro para internos
+                } else {
+                    corComponentes = '#6c757d'; // Cinza escuro para externos/únicos
+                }
             }
-            const y = eixo.y - ALTURA_PNEU / 2;
             
-            // NOVO: Lógica de cores baseada no estado do pneu.
-            const isClickable = !!onPneuClick;
-            let corFundoIcone, corComponentesIcone;
-
-            if (!pneu.dados) {
-                // Caso 1: Posição vazia, sem pneu agregado. Cores bem claras.
-                corFundoIcone = '#E9ECEF';
-                corComponentesIcone = '#CED4DA';
-            } else {
-                // Caso 2 e 3: Posição com pneu agregado.
-                corFundoIcone = undefined; // Usa o default do IconPneus
-                // Usa a cor da faixa se existir, senão o IconPneus usa seu default.
-                corComponentesIcone = pneu.dados.faixa_info?.cor; 
+            // LÓGICA DE POSICIONAMENTO CORRIGIDA
+            if (pneu.lado === 'esquerdo') {
+                if (pneu.tipo === 'unico' || pneu.tipo === 'interno') {
+                    // Posição INTERNA (mais próxima do centro)
+                    x = tirePlacementEixoStartX - LARGURA_PNEU - 15;
+                } else { // externo
+                    // Posição EXTERNA (mais afastada do centro)
+                    x = tirePlacementEixoStartX - (LARGURA_PNEU * 2) - ESPACAMENTO_PNEU_INTERNO - 15;
+                }
+            } else { // lado direito
+                 if (pneu.tipo === 'unico' || pneu.tipo === 'interno') {
+                    // Posição INTERNA (mais próxima do centro)
+                    x = tirePlacementEixoEndX + 15;
+                } else { // externo
+                    // Posição EXTERNA (mais afastada do centro)
+                    x = tirePlacementEixoEndX + 15 + LARGURA_PNEU + ESPACAMENTO_PNEU_INTERNO;
+                }
             }
+            
+            const y = eixo.y - ALTURA_PNEU / 2;
 
-            elements.push(
-                <g 
-                  key={`pneu-group-${eixoIndex}-${pneuIndex}`} 
-                  onClick={() => isClickable && onPneuClick(pneu)}
-                  className={isClickable ? 'pneu-clicavel' : ''}
-                >
-                    <foreignObject x={x} y={y} width={LARGURA_PNEU} height={ALTURA_PNEU}>
-                        <IconPneus
-                            corFundo={corFundoIcone}
-                            corComponentes={corComponentesIcone}
-                            width={`${LARGURA_PNEU}px`}
-                            height={`${ALTURA_PNEU}px`}
-                        />
-                    </foreignObject>
-                    <text x={x + LARGURA_PNEU / 2} y={y + ALTURA_PNEU + 15} className="posicao-text">{pneu.numero}</text>
-                </g>
+            const pneuIcon = (
+                <IconPneus
+                    corFundo={corFundo}
+                    corComponentes={corComponentes}
+                    width={`${LARGURA_PNEU}px`}
+                    height={`${ALTURA_PNEU}px`}
+                />
             );
+            
+            const pneuElement = onPneuClick ? (
+                <g key={`pneu-container-${eixoIndex}-${pneuIndex}`} onClick={() => onPneuClick(pneu)} className="pneu-clicavel">
+                     <foreignObject x={x} y={y} width={LARGURA_PNEU} height={ALTURA_PNEU}>
+                        {pneuIcon}
+                    </foreignObject>
+                </g>
+            ) : (
+                 <foreignObject key={`pneu-container-${eixoIndex}-${pneuIndex}`} x={x} y={y} width={LARGURA_PNEU} height={ALTURA_PNEU}>
+                    {pneuIcon}
+                </foreignObject>
+            );
+
+            elements.push(pneuElement);
+            elements.push(<text key={`texto-${eixoIndex}-${pneuIndex}`} x={x + LARGURA_PNEU / 2} y={y + ALTURA_PNEU + 15} className="posicao-text">{pneu.numero}</text>);
         });
     });
 

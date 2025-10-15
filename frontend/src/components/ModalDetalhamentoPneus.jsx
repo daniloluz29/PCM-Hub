@@ -69,7 +69,7 @@ function ModalDetalhamentoPneus({ equipamento, onCancel }) {
                         <span>{dados.num_fogo || 'N/A'}</span>
                     </div>
                      <div className="placeholder-message" style={{padding: '20px 0'}}>
-                        <div className="icon"><i className="bi bi-rulers"></i></div>
+                        <div className="icon"><i className="bi-clipboard-x"></i></div>
                         <p>Este pneu ainda não possui medições registradas.</p>
                     </div>
                 </div>
@@ -95,13 +95,6 @@ function ModalDetalhamentoPneus({ equipamento, onCancel }) {
                     <span>{dados.faixa_info.status}</span>
                 </div>
                 <div className="info-pneu-item">
-                    <strong>Cor:</strong>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <span>{dados.faixa_info.cor}</span>
-                        <div className="color-swatch" style={{ backgroundColor: dados.faixa_info.cor }}></div>
-                    </div>
-                </div>
-                 <div className="info-pneu-item">
                     <strong>Data da Medição:</strong>
                     <span>{dados.data_medicao || 'N/A'}</span>
                 </div>

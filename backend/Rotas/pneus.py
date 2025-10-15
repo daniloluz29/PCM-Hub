@@ -113,11 +113,9 @@ def get_inspecoes_por_equipamento(prefixo_equipamento):
     try:
         conn = get_db_connection()
 
-        # ETAPA 1: Buscar as faixas de definição para pneus.
         faixas_query = "SELECT nome_faixa, valor_inicio, valor_fim, status, cor FROM faixas_definicoes WHERE grupo_id = 'estado_pneus'"
         faixas_pneus = [dict(row) for row in conn.execute(faixas_query).fetchall()]
 
-        # ETAPA 2: Buscar o layout do equipamento.
         layout_query = """
             SELECT l.configuracao FROM equipamentos e
             JOIN tipo_obj t ON e.cod_tipo = t.cod_tipo_obj
@@ -130,36 +128,37 @@ def get_inspecoes_por_equipamento(prefixo_equipamento):
             return jsonify({"error": "Nenhum layout encontrado para este equipamento."}), 404
         layout_config = json.loads(layout_row['configuracao'])
 
-        # ETAPA 3: Buscar os dados de inspeção.
         inspecao_query = """
             SELECT posicao_agregado, data_medicao, medicao, num_fogo, estado_conservacao, modelo_pneu
-            FROM controle_pneus WHERE equipamento = ? ORDER BY data_medicao DESC
+            FROM controle_pneus WHERE equipamento = ?
         """
         df = pd.read_sql_query(inspecao_query, conn, params=(prefixo_equipamento,))
 
         if df.empty:
             return jsonify({"layout": layout_config, "ultima_inspecao": {}})
 
-        # ETAPA 4: Processar e enriquecer os dados da inspeção.
-        df['data_medicao'] = pd.to_datetime(df['data_medicao'])
-        ultima_inspecao_df = df.sort_values('data_medicao', ascending=False).drop_duplicates('posicao_agregado')
+        df['data_medicao'] = pd.to_datetime(df['data_medicao'], errors='coerce')
+        
+        df_sorted = df.sort_values('data_medicao', ascending=False, na_position='last')
+        ultima_inspecao_df = df_sorted.drop_duplicates('posicao_agregado')
         
         ultima_inspecao = {}
         for _, row in ultima_inspecao_df.iterrows():
             posicao_num = str(row['posicao_agregado'])[:2].strip()
             if not posicao_num:
                 continue
-
+            
+            # CORREÇÃO: Converte explicitamente NaN para None antes de criar o dicionário.
             dados_pneu = {
-                'medicao': row['medicao'],
-                'num_fogo': row['num_fogo'],
-                'data_medicao': row['data_medicao'].strftime('%d/%m/%Y %H:%M'),
+                'medicao': row['medicao'] if pd.notna(row['medicao']) else None,
+                'num_fogo': row['num_fogo'] if pd.notna(row['num_fogo']) else None,
+                'data_medicao': row['data_medicao'].strftime('%d/%m/%Y %H:%M') if pd.notna(row['data_medicao']) else None,
                 'faixa_info': None
             }
 
-            if pd.notna(row['medicao']):
+            if dados_pneu['medicao'] is not None:
                 for faixa in faixas_pneus:
-                    if faixa['valor_inicio'] <= row['medicao'] <= faixa['valor_fim']:
+                    if faixa['valor_inicio'] <= dados_pneu['medicao'] <= faixa['valor_fim']:
                         dados_pneu['faixa_info'] = {
                             'nome_faixa': faixa['nome_faixa'],
                             'status': faixa['status'],
@@ -217,7 +216,6 @@ def get_analise_geral():
         ccs_validos_lista = tuple(ccs_validos_df['cod_cc'].tolist())
         
         placeholders = ','.join('?' for _ in ccs_validos_lista)
-        # ALTERADO: Trocado JOIN por LEFT JOIN para tipo_obj para garantir que equipamentos sem tipo cadastrado ainda apareçam.
         query = f"""
             SELECT
                 e.equipamento,

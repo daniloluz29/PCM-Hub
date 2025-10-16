@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import EsqueletoPreview from './EsqueletoPreview.jsx';
-import ModalAlerta from './ModalAlerta.jsx';
+import ModalAlerta from '../../components/ModalAlerta.jsx';
 
 // ATUALIZADO: URL base da API
 const API_BASE_URL = 'http://127.0.0.1:5000';

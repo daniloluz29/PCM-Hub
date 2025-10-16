@@ -12,10 +12,9 @@
     align-items: center;
     padding: 10px;
     background-color: #f8f9fa;
-    /* ALTERADO: Borda e radius agora são controlados pelo wrapper */
-    border: none;
-    border-bottom: 1px solid #dee2e6; /* Mantém a linha divisória */
-    border-radius: 0;
+    border: 1px solid #dee2e6;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
 }
 
 .search-container .form-control {
@@ -41,9 +40,9 @@
 .placeholder-message {
     text-align: center;
     padding: 40px 20px;
-    /* ALTERADO: Ajustes para se encaixar no novo layout */
-    background-color: #fff;
-    border: none;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-top: none; 
     border-radius: 0 0 8px 8px;
     margin-top: 0;
 }
@@ -225,6 +224,15 @@
     pointer-events: none;
 }
 
+.pneu-clicavel {
+    cursor: pointer;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.pneu-clicavel:hover {
+    opacity: 0.8;
+}
+
 /* --- Tabela de Layouts --- */
 .layout-table {
     width: 100%;
@@ -296,6 +304,18 @@
 /* ==========================================================================
    NOVO: ESTILOS PARA A ABA DE ANÁLISE DE PNEUS
    ========================================================================== */
+.analysis-content-wrapper {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    margin-top: 20px;
+}
+
+.analysis-content-wrapper .table-toolbar {
+    border: none;
+    border-bottom: 1px solid #dee2e6;
+    border-radius: 8px 8px 0 0;
+}
 
 /* --- Controles de Busca e Filtro --- */
 .search-controls {
@@ -326,7 +346,7 @@
     position: relative;
 }
 
-.btn-filter, .btn-toggle-visibility { /* AGRUPADO */
+.btn-filter {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -337,9 +357,8 @@
     border-radius: 6px;
     cursor: pointer;
     font-weight: 500;
-    white-space: nowrap;
 }
-.btn-filter:hover, .btn-toggle-visibility:hover { /* AGRUPADO */
+.btn-filter:hover {
     background-color: #5a6268;
 }
 
@@ -374,20 +393,59 @@
     font-weight: bold;
 }
 
-
-/* --- Container da Análise --- */
-
-/* NOVO: Wrapper para unificar visualmente o filtro e o conteúdo */
-.analysis-content-wrapper {
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
-    overflow: hidden; /* Garante que o border-radius seja aplicado corretamente */
+/* NOVO: Estilos para a barra de filtro de status */
+.status-filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 15px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
 }
 
-.analysis-container {
-    /* ALTERADO: Padding em todos os lados e fundo branco */
-    padding: 20px;
+.status-filter-bar .filter-label {
+    font-weight: 600;
+    color: #495057;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.status-filter-bar .filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.status-filter-button {
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 15px;
+    border: 1px solid #ced4da;
     background-color: #fff;
+    color: #495057;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.status-filter-button:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+}
+
+.status-filter-button.selected {
+    background-color: #e87722;
+    color: #fff;
+    border-color: #e87722;
+    box-shadow: 0 2px 4px rgba(13, 110, 253, 0.2);
+}
+
+
+/* --- Container da Análise --- */
+.analysis-container {
+    padding: 20px;
+    background-color: white;
+    border-radius: 0 0 8px 8px;
 }
 
 .analysis-group {
@@ -404,15 +462,12 @@
 
 .card-grid {
     display: grid;
-    /* ALTERADO: Define 1 coluna por padrão para mobile */
     grid-template-columns: 1fr;
     gap: 20px;
 }
 
-/* NOVO: Media query para ajustar o grid em telas maiores */
 @media (min-width: 992px) {
     .card-grid {
-        /* Passa a ter 2 colunas em telas com mais de 992px de largura */
         grid-template-columns: repeat(2, 1fr);
     }
 }
@@ -424,9 +479,8 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
-    cursor: pointer; /* NOVO: Adiciona o cursor para indicar que é clicável */
+    cursor: pointer;
 }
-
 
 .analysis-card:hover {
     transform: translateY(-3px);
@@ -448,36 +502,36 @@
 
 .card-body {
     padding: 15px;
-    /* ALTERADO: Adicionado flexbox para layout com imagem */
     display: flex;
-    align-items: center;
     gap: 15px;
+    align-items: center;
 }
 
-/* NOVO: Placeholder de imagem no card */
-.card-img-placeholder {
-    width: 100px;
-    height: 100px;
-    flex-shrink: 0; /* Impede que o placeholder encolha */
-    background-color: #e9ecef;
-    border-radius: 6px;
+.card-preview-container {
+    flex-shrink: 0;
+    width: 100px; 
+    height: 100px; 
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #adb5bd;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    padding: 5px;
+    box-sizing: border-box;
 }
 
-.card-img-placeholder .bi {
-    font-size: 32px;
+.mini-esqueleto-svg {
+    max-width: 100%;
+    max-height: 100%;
 }
 
-/* NOVO: Wrapper para o conteúdo de texto do card */
 .card-info-content {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    width: 100%;
+    gap: 8px;
 }
+
 
 .info-item {
     display: flex;
@@ -495,32 +549,84 @@
     font-weight: 600;
 }
 
-.info-value.status-dev {
-    font-style: italic;
-    color: #adb5bd;
+.status-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    justify-content: flex-end;
 }
 
-.placeholder-message p {
+.status-tag {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #fff;
+    text-align: right;
+}
+
+.status-ok {
+    background-color: #198754; 
+}
+
+.status-warning {
+    background-color: #ffc107; 
+    color: #000;
+}
+
+.status-critical {
+    background-color: #dc3545; 
+}
+
+.status-default {
+    background-color: #6c757d; 
+}
+
+
+/* --- MODAL DETALHAMENTO --- */
+.detalhamento-pneus-container {
+    padding: 10px;
+}
+
+.error-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.error-placeholder .icon {
+    font-size: 48px;
+    color: #dc3545; 
+    margin-bottom: 15px;
+}
+
+.error-placeholder h4 {
+    color: #495057;
+    margin-bottom: 10px;
+}
+
+.error-placeholder p {
     color: #6c757d;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+    font-size: 14px;
 }
 
-/* NOVO: Estilo para o ícone no placeholder de erro */
-.placeholder-message.error-placeholder .icon {
-    color: #dc3545; /* Cor de perigo/erro do Bootstrap */
+.error-placeholder .error-cause {
+    font-style: italic;
+    font-size: 12px;
+    color: #adb5bd;
+    margin-top: 15px;
+    max-width: 100%;
+    overflow-wrap: break-word;
 }
 
-/* NOVO: Estilo para o grupo de pneu clicável no esqueleto */
-.esqueleto-svg .pneu-clicavel {
-    cursor: pointer;
-    transition: opacity 0.2s ease-in-out;
-}
 
-.esqueleto-svg .pneu-clicavel:hover {
-    opacity: 0.90;
-}
-
-/* NOVO: Estilos para o conteúdo do modal de informações do pneu */
+/* --- MODAL INFO PNEU --- */
 .info-pneu-content {
     display: flex;
     flex-direction: column;
@@ -553,7 +659,6 @@
     border-radius: 4px;
 }
 
-/* NOVO: Estilo para a amostra de cor no modal de informações */
 .color-swatch {
     width: 20px;
     height: 20px;
@@ -561,3 +666,4 @@
     border: 1px solid #dee2e6;
     display: inline-block;
 }
+

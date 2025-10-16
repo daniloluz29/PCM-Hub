@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import Modal from '../../components/Modal.jsx';
-import ModalCadastroLayout from '../../components/ModalCadastroLayout.jsx';
+import ModalCadastroLayout from './ModalCadastroLayout.jsx';
 import ModalConfirmacao from '../../components/ModalConfirmacao.jsx';
-import EsqueletoPreview from '../../components/EsqueletoPreview.jsx'; // NOVO: Import para o modal de prévia
+import EsqueletoPreview from './EsqueletoPreview.jsx'; // NOVO: Import para o modal de prévia
 
 // ATUALIZADO: URL base da API
 const API_BASE_URL = 'http://127.0.0.1:5000';

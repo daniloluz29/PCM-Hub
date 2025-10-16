@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import EsqueletoPreview from './EsqueletoPreview.jsx';
-import Modal from './Modal.jsx';
+import Modal from '../../components/Modal.jsx';
 
 const API_BASE_URL = 'http://127.0.0.1:5000';
 

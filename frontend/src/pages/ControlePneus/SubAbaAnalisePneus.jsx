@@ -1,28 +1,35 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Modal from '../../components/Modal.jsx';
-import ModalDetalhamentoPneus from '../../components/ModalDetalhamentoPneus.jsx'; // CAMINHO CORRIGIDO
+import ModalDetalhamentoPneus from './ModalDetalhamentoPneus.jsx';
+import MiniEsqueletoPreview from './MiniEsqueletoPreview.jsx';
+import StatusEquipamento from './StatusEquipamento.jsx';
 
-// ATUALIZADO: URL base da API
 const API_BASE_URL = 'http://127.0.0.1:5000';
 
-// ALTERADO: Recebe a nova prop setSidebarContent.
+// NOVO: Lista de todos os status possíveis para os botões de filtro
+const ALL_STATUSES = [
+    "OK",
+    "Sem medições recentes",
+    "Faltando medição",
+    "Pneus com alto desgaste",
+    "Faltando agregação",
+    "Sem layout cadastrado"
+];
+
 function SubAbaAnalisePneus({ currentUser, isActive, setSidebarContent }) {
     const [analiseData, setAnaliseData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-    
-    // Estados para o filtro
     const [searchTerm, setSearchTerm] = useState('');
     const [filterBy, setFilterBy] = useState({ key: 'equipamento', label: 'Equipamento' });
     const [isFilterDropdownOpen, setIsFilterDropdownOpen] = useState(false);
     const filterBtnRef = useRef(null);
-    
     const [ocultarSemAgregados, setOcultarSemAgregados] = useState(true);
-
-    // NOVO: Estados para controlar o modal de detalhamento
-    const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedEquip, setSelectedEquip] = useState(null);
-    
+    // NOVO: Estado para os filtros de status
+    const [statusFilters, setStatusFilters] = useState([]);
+
     const filterOptions = [
         { key: 'centro_custo', label: 'Centro de Custo' },
         { key: 'equipamento', label: 'Equipamento' },
@@ -36,14 +43,16 @@ function SubAbaAnalisePneus({ currentUser, isActive, setSidebarContent }) {
             try {
                 const response = await fetch(`${API_BASE_URL}/api/pneus/analise-geral`);
                 if (!response.ok) {
-                    throw new Error('Falha ao buscar dados de análise.');
+                    const errorData = await response.json().catch(() => ({})); 
+                    const errorMessage = errorData.details || 'Falha ao buscar dados de análise.';
+                    throw new Error(errorMessage);
                 }
                 const data = await response.json();
                 setAnaliseData(data);
                 setError(null);
             } catch (err) {
                 console.error("Erro detalhado:", err);
-                setError(err.message);
+                setError(err.message); 
                 setAnaliseData([]);
             } finally {
                 setIsLoading(false);
@@ -63,45 +72,66 @@ function SubAbaAnalisePneus({ currentUser, isActive, setSidebarContent }) {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
     
-    const filteredData = useMemo(() => {
-        if (!analiseData) return [];
-
-        const lowercasedSearchTerm = searchTerm.toLowerCase();
-
-        return analiseData.map(grupo => {
-            let filteredEquipamentos = grupo.equipamentos;
-
-            if (ocultarSemAgregados) {
-                filteredEquipamentos = filteredEquipamentos.filter(
-                    equip => equip.pneus_agregados > 0
-                );
+    // NOVO: Handler para clicar nos botões de filtro de status
+    const handleStatusFilterClick = (status) => {
+        setStatusFilters(prevFilters => {
+            if (prevFilters.includes(status)) {
+                return prevFilters.filter(s => s !== status); // Remove o status
+            } else {
+                return [...prevFilters, status]; // Adiciona o status
             }
+        });
+    };
 
-            if (lowercasedSearchTerm) {
+    const filteredData = useMemo(() => {
+        let data = analiseData;
+
+        if (ocultarSemAgregados) {
+            data = data.map(grupo => ({
+                ...grupo,
+                equipamentos: grupo.equipamentos.filter(equip => equip.pneus_agregados > 0)
+            })).filter(grupo => grupo.equipamentos.length > 0);
+        }
+
+        // NOVO: Lógica de filtro por status
+        if (statusFilters.length > 0) {
+            data = data.map(grupo => ({
+                ...grupo,
+                equipamentos: grupo.equipamentos.filter(equip => {
+                    // Verifica se o status do equipamento contém algum dos filtros selecionados
+                    return statusFilters.some(filterStatus => equip.status?.includes(filterStatus));
+                })
+            })).filter(grupo => grupo.equipamentos.length > 0);
+        }
+
+        if (!searchTerm) {
+            return data;
+        }
+
+        const lowercasedFilter = searchTerm.toLowerCase();
+        
+        if (filterBy.key === 'centro_custo') {
+            return data.filter(grupo => 
+                grupo.centro_custo.toLowerCase().includes(lowercasedFilter)
+            );
+        }
+
+        return data.map(grupo => {
+            const filteredEquipamentos = grupo.equipamentos.filter(equip => {
                 if (filterBy.key === 'equipamento') {
-                    filteredEquipamentos = filteredEquipamentos.filter(equip =>
-                        equip.equipamento.toLowerCase().includes(lowercasedSearchTerm)
-                    );
+                    return equip.equipamento.toLowerCase().includes(lowercasedFilter);
                 }
                 if (filterBy.key === 'num_fogo') {
-                    filteredEquipamentos = filteredEquipamentos.filter(equip =>
-                        equip.numeros_fogo.some(fogo =>
-                            String(fogo).toLowerCase().includes(lowercasedSearchTerm)
-                        )
-                    );
+                    // Esta lógica precisa ser implementada se necessário
+                    return true;
                 }
-            }
-            
+                return true;
+            });
             return { ...grupo, equipamentos: filteredEquipamentos };
-        
-        }).filter(grupo => {
-             if (lowercasedSearchTerm && filterBy.key === 'centro_custo') {
-                return grupo.centro_custo.toLowerCase().includes(lowercasedSearchTerm);
-            }
-            return grupo.equipamentos.length > 0;
-        });
+        }).filter(grupo => grupo.equipamentos.length > 0);
 
-    }, [analiseData, searchTerm, filterBy, ocultarSemAgregados]);
+    }, [analiseData, searchTerm, filterBy, ocultarSemAgregados, statusFilters]);
+
 
     useEffect(() => {
         if (isActive) {
@@ -113,16 +143,9 @@ function SubAbaAnalisePneus({ currentUser, isActive, setSidebarContent }) {
         }
     }, [isActive, setSidebarContent]);
 
-    // NOVO: Funções para abrir e fechar o modal de detalhamento
-    const handleOpenDetailModal = (equip) => {
-        setSelectedEquip(equip);
-        setIsDetailModalOpen(true);
-    };
-
-    const handleCloseDetailModal = () => {
-        setIsDetailModalOpen(false);
-        // Atraso para limpar o estado para que o conteúdo do modal não desapareça durante a animação de fechamento
-        setTimeout(() => setSelectedEquip(null), 300);
+    const handleCardClick = (equipamento) => {
+        setSelectedEquip(equipamento);
+        setIsModalOpen(true);
     };
     
     const renderContent = () => {
@@ -133,12 +156,7 @@ function SubAbaAnalisePneus({ currentUser, isActive, setSidebarContent }) {
             return <div className="error-message">Erro ao carregar dados: {error}</div>;
         }
         if (filteredData.length === 0) {
-            return (
-                <div className="placeholder-message">
-                    <h4>Nenhum dado encontrado.</h4>
-                    <p>Não há medições de pneus registradas ou os filtros não retornaram resultados.</p>
-                </div>
-            );
+            return <div className="placeholder-message"><h4>Nenhum dado encontrado.</h4><p>Não há medições de pneus registradas ou os filtros não retornaram resultados.</p></div>;
         }
 
         return filteredData.map(grupo => (
@@ -146,14 +164,16 @@ function SubAbaAnalisePneus({ currentUser, isActive, setSidebarContent }) {
                 <h3 className="group-title">{grupo.centro_custo}</h3>
                 <div className="card-grid">
                     {grupo.equipamentos.map(equip => (
-                        // ALTERADO: Adicionado onClick para abrir o modal
-                        <div key={equip.equipamento} className="analysis-card" onClick={() => handleOpenDetailModal(equip)}>
+                        <div key={equip.equipamento} className="analysis-card" onClick={() => handleCardClick(equip)}>
                             <div className="card-header">
                                 <span className="card-tag">{equip.equipamento}</span>
                             </div>
                             <div className="card-body">
-                                <div className="card-img-placeholder">
-                                    <i className="bi bi-truck-front-fill"></i>
+                                <div className="card-preview-container">
+                                    <MiniEsqueletoPreview 
+                                        configuracao={equip.configuracao} 
+                                        inspecao={equip.ultima_inspecao} 
+                                    />
                                 </div>
                                 <div className="card-info-content">
                                     <div className="info-item">
@@ -166,7 +186,7 @@ function SubAbaAnalisePneus({ currentUser, isActive, setSidebarContent }) {
                                     </div>
                                     <div className="info-item">
                                         <span className="info-label">Status:</span>
-                                        <span className="info-value status-dev">Em desenvolvimento</span>
+                                        <StatusEquipamento status={equip.status} />
                                     </div>
                                 </div>
                             </div>
@@ -191,12 +211,6 @@ function SubAbaAnalisePneus({ currentUser, isActive, setSidebarContent }) {
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
                         </div>
-                        
-                        <button className="btn-toggle-visibility" onClick={() => setOcultarSemAgregados(!ocultarSemAgregados)}>
-                            <i className={`bi ${ocultarSemAgregados ? 'bi-eye-fill' : 'bi-eye-slash-fill'}`}></i>
-                            <span>{ocultarSemAgregados ? 'Exibir sem agregados' : 'Ocultar sem agregados'}</span>
-                        </button>
-                        
                         <div className="filter-button-container" ref={filterBtnRef}>
                             <button className="btn-filter" onClick={() => setIsFilterDropdownOpen(!isFilterDropdownOpen)}>
                                 <i className="bi bi-funnel-fill"></i>
@@ -213,28 +227,42 @@ function SubAbaAnalisePneus({ currentUser, isActive, setSidebarContent }) {
                                 </div>
                             )}
                         </div>
+                        <button className="btn-filter" onClick={() => setOcultarSemAgregados(!ocultarSemAgregados)}>
+                            {ocultarSemAgregados ? <i className="bi bi-eye-slash-fill"></i> : <i className="bi bi-eye-fill"></i>}
+                            <span>{ocultarSemAgregados ? 'Exibir sem agregados' : 'Ocultar sem agregados'}</span>
+                        </button>
                     </div>
                 </div>
-
+                 {/* NOVO: Barra de filtro de status */}
+                <div className="status-filter-bar">
+                    <span className="filter-label">Status:</span>
+                    <div className="filter-buttons">
+                        {ALL_STATUSES.map(status => (
+                            <button
+                                key={status}
+                                className={`status-filter-button ${statusFilters.includes(status) ? 'selected' : ''}`}
+                                onClick={() => handleStatusFilterClick(status)}
+                            >
+                                {status}
+                            </button>
+                        ))}
+                    </div>
+                </div>
                 <div className="analysis-container">
                     {renderContent()}
                 </div>
             </div>
-
-            {/* NOVO: Renderização do modal de detalhamento */}
-            <Modal
-                isOpen={isDetailModalOpen}
-                onClose={handleCloseDetailModal}
+            
+            <Modal 
+                isOpen={isModalOpen}
+                onClose={() => {
+                    setIsModalOpen(false);
+                    setSelectedEquip(null);
+                }}
                 title={`Layout do Equipamento: ${selectedEquip?.equipamento || ''}`}
-                size="default" 
+                size="default"
             >
-                {/* O conteúdo do modal só é renderizado se houver um equipamento selecionado */}
-                {selectedEquip && (
-                    <ModalDetalhamentoPneus
-                        equipamento={selectedEquip}
-                        onCancel={handleCloseDetailModal}
-                    />
-                )}
+                {selectedEquip && <ModalDetalhamentoPneus equipamento={selectedEquip} onCancel={() => setIsModalOpen(false)} />}
             </Modal>
         </div>
     );

@@ -1,5 +1,5 @@
 import React from 'react';
-import IconPneus from '../customicons/IconPneus.jsx';
+import IconPneus from '../../customicons/IconPneus.jsx';
 
 function EsqueletoPreview({ configuracao, inspecao, onPneuClick }) {
     if (!configuracao || configuracao.length === 0) {

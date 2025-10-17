@@ -41,8 +41,13 @@ function EsqueletoPreview({ configuracao, inspecao, onPneuClick }) {
             slotsLadoEsquerdo.push({ eixoIndex: index, tipo: 'unico', lado: 'esquerdo' });
             slotsLadoDireito.push({ eixoIndex: index, tipo: 'unico', lado: 'direito' });
         } else if (eixo.pneus_por_lado === 2) {
-            slotsLadoEsquerdo.push({ eixoIndex: index, tipo: 'interno', lado: 'esquerdo' });
+            // CORRIGIDO: Ordem de inserção no lado esquerdo invertida.
+            // O externo é adicionado primeiro para que, após a inversão da lista,
+            // o interno seja numerado antes do externo.
             slotsLadoEsquerdo.push({ eixoIndex: index, tipo: 'externo', lado: 'esquerdo' });
+            slotsLadoEsquerdo.push({ eixoIndex: index, tipo: 'interno', lado: 'esquerdo' });
+            
+            // Ordem do lado direito permanece a mesma.
             slotsLadoDireito.push({ eixoIndex: index, tipo: 'interno', lado: 'direito' });
             slotsLadoDireito.push({ eixoIndex: index, tipo: 'externo', lado: 'direito' });
         }
@@ -58,9 +63,9 @@ function EsqueletoPreview({ configuracao, inspecao, onPneuClick }) {
     let positionCounter = 1;
     ordemInspecao.forEach(pneu => {
         const eixo = eixos[pneu.eixoIndex];
-        const numero = String(positionCounter++).padStart(2, '0');
-        const dadosInspecao = inspecao ? (inspecao[numero] || null) : null;
-        eixo.pneus.push({ ...pneu, numero, dados: dadosInspecao });
+        const numeroPosicao = String(positionCounter++).padStart(2, '0');
+        const dadosInspecao = inspecao ? inspecao[numeroPosicao] : null;
+        eixo.pneus.push({ ...pneu, numero: numeroPosicao, dados: dadosInspecao });
     });
 
 
@@ -116,21 +121,17 @@ function EsqueletoPreview({ configuracao, inspecao, onPneuClick }) {
                 }
             }
             
-            // LÓGICA DE POSICIONAMENTO CORRIGIDA
+            // LÓGICA DE POSICIONAMENTO
             if (pneu.lado === 'esquerdo') {
                 if (pneu.tipo === 'unico' || pneu.tipo === 'interno') {
-                    // Posição INTERNA (mais próxima do centro)
                     x = tirePlacementEixoStartX - LARGURA_PNEU - 15;
                 } else { // externo
-                    // Posição EXTERNA (mais afastada do centro)
                     x = tirePlacementEixoStartX - (LARGURA_PNEU * 2) - ESPACAMENTO_PNEU_INTERNO - 15;
                 }
             } else { // lado direito
                  if (pneu.tipo === 'unico' || pneu.tipo === 'interno') {
-                    // Posição INTERNA (mais próxima do centro)
                     x = tirePlacementEixoEndX + 15;
                 } else { // externo
-                    // Posição EXTERNA (mais afastada do centro)
                     x = tirePlacementEixoEndX + 15 + LARGURA_PNEU + ESPACAMENTO_PNEU_INTERNO;
                 }
             }

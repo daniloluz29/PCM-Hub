@@ -7,7 +7,7 @@ import SubAbaAnalisePneus from './ControlePneus/SubAbaAnalisePneus.jsx';
 import SubAbaConfiguracaoLayout from './ControlePneus/SubAbaConfiguracaoLayout.jsx';
 
 function PaginaControlePneus({ currentUser }) {
-    const [abaAtiva, setAbaAtiva] = React.useState('configuracao'); // Mudei para 'configuracao' para vermos a nova tela primeiro
+    const [abaAtiva, setAbaAtiva] = React.useState('analise'); // Mudei para 'configuracao' para vermos a nova tela primeiro
     // NOVO: Adiciona os estados para controlar a sidebar.
     const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
     const [sidebarContent, setSidebarContent] = useState(null);

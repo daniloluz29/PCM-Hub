@@ -2,6 +2,7 @@ import React, { useState, useMemo, useRef, useEffect } from 'react';
 import {DataGrid} from 'react-data-grid';
 import * as XLSX from 'xlsx';
 import AdvancedSortModal from './AdvancedSortModal.jsx';
+import 'react-data-grid/lib/styles.css'; // <-- ADICIONE ESTA LINHA
 
 // Constante para representar valores vazios no filtro
 const EMPTY_VALUE_LABEL = '(Vazios)';

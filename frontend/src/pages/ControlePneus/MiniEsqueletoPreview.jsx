@@ -3,7 +3,6 @@ import IconPneus from '../../customicons/IconPneus.jsx';
 
 // Este componente é uma versão simplificada do EsqueletoPreview para os cards.
 function MiniEsqueletoPreview({ configuracao, inspecao }) {
-    // ALTERADO: Adicionada verificação para o caso de não haver layout.
     if (!configuracao || configuracao.length === 0) {
         return (
             <div style={{ 
@@ -49,8 +48,10 @@ function MiniEsqueletoPreview({ configuracao, inspecao }) {
             slotsLadoEsquerdo.push({ eixoIndex: index, tipo: 'unico', lado: 'esquerdo' });
             slotsLadoDireito.push({ eixoIndex: index, tipo: 'unico', lado: 'direito' });
         } else if (eixo.pneus_por_lado === 2) {
-            slotsLadoEsquerdo.push({ eixoIndex: index, tipo: 'interno', lado: 'esquerdo' });
+            // CORRIGIDO: Ordem de inserção no lado esquerdo invertida.
             slotsLadoEsquerdo.push({ eixoIndex: index, tipo: 'externo', lado: 'esquerdo' });
+            slotsLadoEsquerdo.push({ eixoIndex: index, tipo: 'interno', lado: 'esquerdo' });
+            
             slotsLadoDireito.push({ eixoIndex: index, tipo: 'interno', lado: 'direito' });
             slotsLadoDireito.push({ eixoIndex: index, tipo: 'externo', lado: 'direito' });
         }
@@ -95,7 +96,7 @@ function MiniEsqueletoPreview({ configuracao, inspecao }) {
         eixo.pneus.forEach((pneu, pneuIndex) => {
             let x;
             if (pneu.lado === 'esquerdo') {
-                if (pneu.tipo === 'unico' || pneu.tipo === 'externo') x = tirePlacementEixoStartX - LARGURA_PNEU - 4;
+                if (pneu.tipo === 'unico' || pneu.tipo === 'interno') x = tirePlacementEixoStartX - LARGURA_PNEU - 4;
                 else x = tirePlacementEixoStartX - (LARGURA_PNEU * 2) - ESPACAMENTO_PNEU_INTERNO - 4;
             } else {
                 if (pneu.tipo === 'unico' || pneu.tipo === 'interno') x = tirePlacementEixoEndX + 4;

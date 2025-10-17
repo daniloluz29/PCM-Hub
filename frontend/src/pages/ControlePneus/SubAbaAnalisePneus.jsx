@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Modal from '../../components/Modal.jsx';
-import ModalDetalhamentoPneus from './ModalDetalhamentoPneus.jsx';
+import ModalDetalhamentoPneus from './ModalDetalhamentoEquipamento.jsx';
 import MiniEsqueletoPreview from './MiniEsqueletoPreview.jsx';
 import StatusEquipamento from './StatusEquipamento.jsx';
 

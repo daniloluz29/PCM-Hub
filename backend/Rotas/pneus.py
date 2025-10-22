@@ -302,7 +302,7 @@ def get_analise_geral():
         if conn:
             conn.close()
 
-# --- NOVO: ROTAS PARA GERENCIAMENTO DE POSIÇÕES ---
+# --- ROTAS PARA GERENCIAMENTO DE POSIÇÕES ---
 
 @bp.route('/posicoes', methods=['GET'])
 def listar_posicoes():
@@ -311,15 +311,12 @@ def listar_posicoes():
     try:
         conn = get_db_connection()
         
-        # Busca posições já classificadas
         classificadas_db = conn.execute("SELECT id, nome_posicao, classificacao FROM pneus_posicoes ORDER BY nome_posicao").fetchall()
         classificadas = [dict(row) for row in classificadas_db]
 
-        # Busca todas as posições únicas da tabela de controle
         todas_posicoes_db = conn.execute("SELECT DISTINCT posicao_agregado FROM controle_pneus WHERE posicao_agregado IS NOT NULL").fetchall()
         todas_posicoes = {row['posicao_agregado'] for row in todas_posicoes_db}
         
-        # Compara para encontrar as pendentes
         posicoes_classificadas_set = {row['nome_posicao'] for row in classificadas}
         pendentes = sorted(list(todas_posicoes - posicoes_classificadas_set))
 
@@ -336,7 +333,6 @@ def listar_posicoes():
 
 @bp.route('/posicoes', methods=['POST'])
 def adicionar_posicao():
-    """Adiciona uma nova classificação de posição."""
     dados = request.get_json()
     if not dados or 'nome_posicao' not in dados or 'classificacao' not in dados:
         return jsonify({"error": "Dados incompletos"}), 400
@@ -359,7 +355,6 @@ def adicionar_posicao():
 
 @bp.route('/posicoes/<int:posicao_id>', methods=['PUT'])
 def atualizar_posicao(posicao_id):
-    """Atualiza a classificação de uma posição existente."""
     dados = request.get_json()
     if not dados or 'classificacao' not in dados:
         return jsonify({"error": "Dados incompletos"}), 400
@@ -381,7 +376,6 @@ def atualizar_posicao(posicao_id):
 
 @bp.route('/posicoes/<int:posicao_id>', methods=['DELETE'])
 def deletar_posicao(posicao_id):
-    """Deleta uma classificação de posição."""
     conn = None
     try:
         conn = get_db_connection()
@@ -389,6 +383,150 @@ def deletar_posicao(posicao_id):
         conn.commit()
         return jsonify({"message": "Classificação deletada com sucesso."})
     except Exception as e:
+        return jsonify({"error": str(e), "details": traceback.format_exc()}), 500
+    finally:
+        if conn:
+            conn.close()
+            
+# NOVO: ROTA PARA ANÁLISE DE ESTADOS DE PNEUS
+@bp.route('/analise-estados', methods=['GET'])
+def get_analise_estados():
+    conn = None
+    try:
+        conn = get_db_connection()
+        faixas = get_faixas_pneus(conn)
+        
+        # Query principal para buscar as últimas medições de cada pneu
+        query = """
+            WITH UltimaMedicao AS (
+                SELECT
+                    cp.num_fogo,
+                    cp.equipamento,
+                    pp.classificacao,
+                    MAX(cp.data_medicao) as ultima_data
+                FROM controle_pneus cp
+                JOIN pneus_posicoes pp ON cp.posicao_agregado = pp.nome_posicao
+                WHERE cp.num_fogo IS NOT NULL AND cp.medicao IS NOT NULL
+                GROUP BY cp.num_fogo, cp.equipamento, pp.classificacao
+            )
+            SELECT
+                um.num_fogo,
+                um.equipamento,
+                um.classificacao,
+                cp.medicao,
+                cp.posicao_agregado
+            FROM UltimaMedicao um
+            JOIN controle_pneus cp ON um.num_fogo = cp.num_fogo AND um.ultima_data = cp.data_medicao
+        """
+        df = pd.read_sql_query(query, conn)
+
+        if df.empty:
+            return jsonify({"graficos": [], "tabela_detalhes": []})
+
+        # Classifica cada medição
+        def get_faixa_info(medicao):
+            return classificar_medicao(medicao, faixas)
+
+        df['faixa_info'] = df['medicao'].apply(get_faixa_info)
+        df.dropna(subset=['faixa_info'], inplace=True) # Remove pneus sem faixa correspondente
+
+        # Prepara dados para os gráficos
+        df['faixa'] = df['faixa_info'].apply(lambda x: x['nome_faixa'])
+        df['cor'] = df['faixa_info'].apply(lambda x: x['cor'])
+        
+        contagem_faixas = df.groupby(['classificacao', 'faixa', 'cor']).size().reset_index(name='total_pneus')
+        
+        graficos_data = []
+        for classificacao, group in contagem_faixas.groupby('classificacao'):
+            dados_grafico = group[['faixa', 'total_pneus', 'cor']].to_dict('records')
+            # Ordena as faixas pela ordem de valor_inicio para o gráfico
+            faixas_ordenadas = sorted(faixas, key=lambda x: x['valor_inicio'])
+            nomes_faixas_ordenados = [f['nome_faixa'] for f in faixas_ordenadas]
+            dados_grafico.sort(key=lambda x: nomes_faixas_ordenados.index(x['faixa']) if x['faixa'] in nomes_faixas_ordenados else -1)
+            
+            graficos_data.append({
+                "grupo_classificacao": classificacao,
+                "dados": dados_grafico
+            })
+
+        # Prepara dados para a tabela de detalhes
+        tabela_detalhes = df[['equipamento', 'num_fogo', 'posicao_agregado', 'classificacao', 'medicao', 'faixa']].to_dict('records')
+
+        return jsonify({
+            "graficos": graficos_data,
+            "tabela_detalhes": tabela_detalhes
+        })
+
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"error": str(e), "details": traceback.format_exc()}), 500
+    finally:
+        if conn:
+            conn.close()
+
+# --- ROTA PARA HISTÓRICO DE MEDIÇÕES ---
+
+@bp.route('/historico-medicoes', methods=['GET'])
+def get_historico_medicoes():
+    conn = None
+    try:
+        conn = get_db_connection()
+        # CORREÇÃO: Adicionada a coluna 'mes' para ordenação
+        query = """
+            SELECT 
+                cp.equipamento, 
+                cp.num_fogo, 
+                c.ano, 
+                c.mes,
+                c.mesext, 
+                c.semanames, 
+                COUNT(cp.medicao) as contagem
+            FROM controle_pneus cp
+            JOIN calendario c ON DATE(cp.data_medicao) = c.data
+            WHERE cp.num_fogo IS NOT NULL AND cp.data_medicao IS NOT NULL
+            GROUP BY cp.equipamento, cp.num_fogo, c.ano, c.mes, c.mesext, c.semanames
+            ORDER BY cp.equipamento, cp.num_fogo
+        """
+        df = pd.read_sql_query(query, conn)
+        
+        if df.empty: return jsonify({"meses": [], "dados": []})
+
+        pivot_df = df.pivot_table(
+            index=['equipamento', 'num_fogo'],
+            columns=['ano', 'mesext', 'semanames'],
+            values='contagem',
+            fill_value=0
+        )
+
+        dados_finais = []
+        for idx, row in pivot_df.iterrows():
+            equipamento, num_fogo = idx
+            medicoes = {}
+            for (ano, mes, semana), contagem in row.items():
+                chave = f"{mes}-{semana}"
+                medicoes[chave] = int(contagem)
+            
+            dados_finais.append({
+                "equipamento": str(equipamento),
+                "num_fogo": str(num_fogo),
+                "medicoes": medicoes
+            })
+            
+        # CORREÇÃO: Lógica de ordenação do cabeçalho
+        # 1. Agrupa para obter a informação de cada mês e o número de semanas
+        header_info = df.groupby(['ano', 'mes', 'mesext'])['semanames'].nunique().reset_index()
+        # 2. Ordena cronologicamente por ano e depois pelo número do mês
+        header_info.sort_values(by=['ano', 'mes'], inplace=True)
+
+        meses_header = []
+        # Usa drop_duplicates para garantir que cada mês apareça apenas uma vez, mantendo a ordem
+        for _, row in header_info.drop_duplicates(subset=['mesext'], keep='first').iterrows():
+            meses_header.append({ "mes": row['mesext'], "num_semanas": int(row['semanames']) })
+
+        return jsonify({ "meses": meses_header, "dados": dados_finais })
+
+    except Exception as e:
+        traceback.print_exc()
         return jsonify({"error": str(e), "details": traceback.format_exc()}), 500
     finally:
         if conn:

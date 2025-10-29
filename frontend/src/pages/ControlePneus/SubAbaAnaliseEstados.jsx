@@ -4,12 +4,18 @@ import ChartWrapper from '../../components/ChartWrapper.jsx';
 import ChartModal from '../../components/ChartModal.jsx';
 import TableWrapper from '../../components/TableWrapper.jsx';
 import TableModal from '../../components/TableModal.jsx';
+// Importa o componente Modal padrão
+import Modal from '../../components/Modal.jsx';
+// Importa os componentes de conteúdo dos modais
+import ModalDetalhamentoEquipamento from './ModalDetalhamentoEquipamento.jsx';
+import ModalDetalhamentoPneus from './ModalDetalhamentoPneus.jsx';
 
 const API_BASE_URL = 'http://127.0.0.1:5000';
 
-// --- Componentes Auxiliares (Reutilizados e Adaptados do Exemplo) ---
+// --- Componentes Auxiliares ---
 
-const DetalhesPneusTable = ({ data }) => {
+// Tabela de detalhes com suporte a onRowContextMenu
+const DetalhesPneusTable = ({ data, onRowContextMenu }) => {
     const [sortConfig, setSortConfig] = useState({ key: 'medicao', direction: 'descending' });
     const headers = ["Equipamento", "Nº Fogo", "Posição", "Classificação", "Medição (mm)", "Faixa"];
     const keys = ["equipamento", "num_fogo", "posicao_agregado", "classificacao", "medicao", "faixa"];
@@ -18,13 +24,31 @@ const DetalhesPneusTable = ({ data }) => {
         let sortableData = [...data];
         if (sortConfig.key) {
             sortableData.sort((a, b) => {
-                if (a[sortConfig.key] < b[sortConfig.key]) return sortConfig.direction === 'ascending' ? -1 : 1;
-                if (a[sortConfig.key] > b[sortConfig.key]) return sortConfig.direction === 'ascending' ? 1 : -1;
+                const valA = a[sortConfig.key];
+                const valB = b[sortConfig.key];
+                // Trata nulos ou não numéricos primeiro
+                if (valA == null && valB == null) return 0;
+                if (valA == null) return sortConfig.direction === 'ascending' ? -1 : 1; // Nulos primeiro ou último
+                if (valB == null) return sortConfig.direction === 'ascending' ? 1 : -1;
+
+                // Comparação numérica se possível
+                const numA = Number(valA);
+                const numB = Number(valB);
+                if (!isNaN(numA) && !isNaN(numB)) {
+                   if (numA < numB) return sortConfig.direction === 'ascending' ? -1 : 1;
+                   if (numA > numB) return sortConfig.direction === 'ascending' ? 1 : -1;
+                   return 0;
+                }
+
+                 // Comparação de string como fallback
+                if (String(valA) < String(valB)) return sortConfig.direction === 'ascending' ? -1 : 1;
+                if (String(valA) > String(valB)) return sortConfig.direction === 'ascending' ? 1 : -1;
                 return 0;
             });
         }
         return sortableData;
     }, [data, sortConfig]);
+
 
     const requestSort = (key) => {
         let direction = 'ascending';
@@ -44,8 +68,12 @@ const DetalhesPneusTable = ({ data }) => {
                 </thead>
                 <tbody>
                     {sortedData.map((row, index) => (
-                        <tr key={`${row.equipamento}-${row.num_fogo}-${index}`}>
-                            {keys.map(key => <td key={key}>{key === 'medicao' ? `${row[key] || 'N/A'} mm` : row[key]}</td>)}
+                        <tr
+                            key={`${row.equipamento}-${row.num_fogo}-${index}`}
+                            onContextMenu={(e) => onRowContextMenu(e, row)} // Adiciona o handler aqui
+                        >
+                            {/* Garante que valores nulos sejam exibidos como 'N/A' */}
+                            {keys.map(key => <td key={key}>{key === 'medicao' ? (row[key] != null ? `${row[key]} mm` : 'N/A') : (row[key] ?? 'N/A')}</td>)}
                         </tr>
                     ))}
                 </tbody>
@@ -76,14 +104,28 @@ const SubAbaAnaliseEstados = ({ setSidebarContent, isActive }) => {
     const [error, setError] = useState(null);
     const [chartInModal, setChartInModal] = useState(null);
     const [isTableModalOpen, setIsTableModalOpen] = useState(false);
-    
+
     const [activeClick, setActiveClick] = useState([]);
     const [collapsedBlocks, setCollapsedBlocks] = useState({});
     const [isCtrlPressed, setIsCtrlPressed] = useState(false);
-    
-    // NOVO: Estado para rastrear o gráfico que origina o filtro
+
     const [filterSourceChart, setFilterSourceChart] = useState(null);
 
+    // Estado para o menu de contexto
+    const [contextMenu, setContextMenu] = useState({ visible: false, x: 0, y: 0, selectedRow: null });
+    // Estados para os modais de detalhamento
+    const [isEquipModalOpen, setIsEquipModalOpen] = useState(false);
+    const [isPneuModalOpen, setIsPneuModalOpen] = useState(false);
+    // NOVO: Estado para armazenar os dados da linha selecionada para os modais
+    const [modalData, setModalData] = useState(null);
+
+
+    // Hook para fechar o menu de contexto
+    useEffect(() => {
+        const handleClick = () => setContextMenu({ visible: false, x: 0, y: 0, selectedRow: null });
+        window.addEventListener('click', handleClick);
+        return () => window.removeEventListener('click', handleClick);
+    }, []);
 
     useEffect(() => {
         const handleKeyDown = (event) => { if (event.key === 'Control') setIsCtrlPressed(true); };
@@ -116,7 +158,7 @@ const SubAbaAnaliseEstados = ({ setSidebarContent, isActive }) => {
         };
         fetchData();
     }, [isActive]);
-    
+
     useEffect(() => {
         if (isActive) {
             setSidebarContent(
@@ -127,12 +169,11 @@ const SubAbaAnaliseEstados = ({ setSidebarContent, isActive }) => {
         }
     }, [isActive, setSidebarContent]);
 
-    // ALTERADO: A função de clique agora também define o gráfico de origem do filtro
     const handleChartClick = (type, data, chartId) => {
         if (!data) return;
         const value = data.faixa;
         const newSelection = { type, value };
-        
+
         setActiveClick(prev => {
             const isAlreadySelected = prev.some(item => item.value === newSelection.value);
             let newActiveClick;
@@ -141,13 +182,13 @@ const SubAbaAnaliseEstados = ({ setSidebarContent, isActive }) => {
             } else {
                 newActiveClick = isAlreadySelected && prev.length === 1 ? [] : [newSelection];
             }
-            
+
             if (newActiveClick.length > 0) {
                 setFilterSourceChart(chartId);
             } else {
                 setFilterSourceChart(null);
             }
-            
+
             return newActiveClick;
         });
     };
@@ -156,12 +197,13 @@ const SubAbaAnaliseEstados = ({ setSidebarContent, isActive }) => {
         if (activeClick.length === 0) return tabelaDetalhesData;
 
         const faixasAtivas = activeClick.map(f => f.value);
-        return tabelaDetalhesData.filter(row => faixasAtivas.includes(row.faixa));
+        // Garante que a comparação inclua 'N/A' se 'N/A' estiver ativo
+        return tabelaDetalhesData.filter(row => faixasAtivas.includes(row.faixa ?? 'N/A'));
     }, [tabelaDetalhesData, activeClick]);
 
+
     const toggleBlock = blockName => setCollapsedBlocks(p => ({...p, [blockName]: !p[blockName]}));
-    
-    // ALTERADO: A função de renderização do gráfico agora sabe o seu próprio ID
+
     const renderChart = (grupo) => {
         const chartId = grupo.grupo_classificacao;
         return (
@@ -182,6 +224,44 @@ const SubAbaAnaliseEstados = ({ setSidebarContent, isActive }) => {
         );
     };
 
+    // Handler para o clique com o botão direito na tabela
+    const handleContextMenu = (event, row) => {
+        event.preventDefault();
+        setContextMenu({
+            visible: true,
+            x: event.pageX,
+            y: event.pageY,
+            selectedRow: row // Armazena a linha inteira selecionada
+        });
+    };
+
+    // Handlers para abrir os modais
+    const handleOpenEquipModal = () => {
+        if (contextMenu.selectedRow) {
+            setModalData(contextMenu.selectedRow); // Armazena os dados da linha
+            setIsEquipModalOpen(true);
+            setContextMenu({ visible: false, x:0, y:0, selectedRow: null }); // Fecha o menu
+        }
+    };
+
+    const handleOpenPneuModal = () => {
+        if (contextMenu.selectedRow) {
+            setModalData(contextMenu.selectedRow); // Armazena os dados da linha
+            setIsPneuModalOpen(true);
+            setContextMenu({ visible: false, x:0, y:0, selectedRow: null }); // Fecha o menu
+        }
+    };
+
+     // Função para fechar e limpar dados do modal
+    const closeEquipModal = () => {
+        setIsEquipModalOpen(false);
+        setModalData(null);
+    };
+    const closePneuModal = () => {
+        setIsPneuModalOpen(false);
+        setModalData(null);
+    };
+
     return (
         <>
             {isLoading && <p>Carregando análise...</p>}
@@ -200,7 +280,6 @@ const SubAbaAnaliseEstados = ({ setSidebarContent, isActive }) => {
                                     title={`Classificação: ${grupo.grupo_classificacao}`}
                                     onPhotoModeClick={() => setChartInModal({ title: `Estado de Conservação - ${grupo.grupo_classificacao}`, chart: renderChart(grupo) })}
                                     kpiCards={[{ title: 'Total de Pneus', value: grupo.dados.reduce((acc, item) => acc + item.total_pneus, 0) }]}
-                                    // NOVO: Adiciona a propriedade que destaca o gráfico
                                     isFilterSource={filterSourceChart === grupo.grupo_classificacao}
                                 >
                                    {renderChart(grupo)}
@@ -216,23 +295,74 @@ const SubAbaAnaliseEstados = ({ setSidebarContent, isActive }) => {
                         </div>
                         <div className={`analysis-block-content ${collapsedBlocks.detalhamento ? 'collapsed' : ''}`}>
                             <TableWrapper title={`Exibindo ${filteredTableData.length} de ${tabelaDetalhesData.length} pneus`} onExpandClick={() => setIsTableModalOpen(true)}>
-                                <DetalhesPneusTable data={filteredTableData} />
+                                {/* Passa o handler de context menu para a tabela */}
+                                <DetalhesPneusTable data={filteredTableData} onRowContextMenu={handleContextMenu} />
                             </TableWrapper>
                         </div>
                     </div>
                 </>
             )}
 
+            {/* Renderiza o menu de contexto */}
+            {contextMenu.visible && (
+                <div className="context-menu-container" style={{ top: contextMenu.y, left: contextMenu.x }}>
+                    <div className="context-menu-item" onClick={handleOpenEquipModal}>
+                        <i className="bi bi-truck"></i> Detalhamento do Equipamento
+                    </div>
+                    <div className="context-menu-item" onClick={handleOpenPneuModal}>
+                        <i className="bi bi-gear-wide-connected"></i> Detalhamento do Pneu
+                    </div>
+                </div>
+            )}
+
+            {/* Modal de Equipamento */}
+            <Modal
+                isOpen={isEquipModalOpen}
+                onClose={closeEquipModal} // Usa a nova função de fechar
+                title={`Layout do Equipamento: ${modalData?.equipamento || ''}`}
+                size="default"
+            >
+                {/* Renderiza o conteúdo APENAS se modalData existir */}
+                {modalData && (
+                    <ModalDetalhamentoEquipamento
+                        equipamento={{ equipamento: modalData.equipamento }}
+                        onCancel={closeEquipModal}
+                    />
+                )}
+            </Modal>
+
+            {/* Modal de Pneu */}
+            <Modal
+                isOpen={isPneuModalOpen}
+                onClose={closePneuModal} // Usa a nova função de fechar
+                // O título será definido dinamicamente dentro do ModalDetalhamentoPneus
+                size="xl"
+            >
+                 {/* Renderiza o conteúdo APENAS se modalData existir */}
+                 {modalData && (
+                     <ModalDetalhamentoPneus
+                        pneuSelecionado={{
+                            numero: modalData.posicao_agregado?.slice(0, 2),
+                            // Passa apenas o num_fogo, o modal buscará o resto
+                            dados: { num_fogo: modalData.num_fogo }
+                        }}
+                        isOpen={isPneuModalOpen} // Passa isOpen para lógica interna
+                        onClose={closePneuModal}
+                    />
+                 )}
+            </Modal>
+
+
             <ChartModal isOpen={!!chartInModal} onClose={() => setChartInModal(null)} chartTitle={chartInModal?.title}>
                 {chartInModal?.chart}
             </ChartModal>
-            
-            <TableModal 
-                isOpen={isTableModalOpen} 
-                onClose={() => setIsTableModalOpen(false)} 
-                title="Detalhamento Avançado dos Pneus" 
-                columns={[{ key: 'equipamento', name: 'Equipamento' }, {key: 'num_fogo', name: 'Nº Fogo'}, {key: 'posicao_agregado', name: 'Posição'}, {key: 'classificacao', name: 'Classificação'}, {key: 'medicao', name: 'Medição (mm)'}, {key: 'faixa', name: 'Faixa'}]} 
-                rows={filteredTableData} 
+
+            <TableModal
+                isOpen={isTableModalOpen}
+                onClose={() => setIsTableModalOpen(false)}
+                title="Detalhamento Avançado dos Pneus"
+                columns={[{ key: 'equipamento', name: 'Equipamento' }, {key: 'num_fogo', name: 'Nº Fogo'}, {key: 'posicao_agregado', name: 'Posição'}, {key: 'classificacao', name: 'Classificação'}, {key: 'medicao', name: 'Medição (mm)'}, {key: 'faixa', name: 'Faixa'}]}
+                rows={filteredTableData}
             />
         </>
     );

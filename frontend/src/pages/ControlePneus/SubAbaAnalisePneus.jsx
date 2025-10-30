@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Modal from '../../components/Modal.jsx';
-import ModalDetalhamentoPneus from './ModalDetalhamentoEquipamento.jsx';
+import ModalDetalhamentoEquipamentos from './ModalDetalhamentoEquipamento.jsx';
 import MiniEsqueletoPreview from './MiniEsqueletoPreview.jsx';
 import StatusEquipamento from './StatusEquipamento.jsx';
 
@@ -262,7 +262,7 @@ function SubAbaAnalisePneus({ currentUser, isActive, setSidebarContent }) {
                 title={`Layout do Equipamento: ${selectedEquip?.equipamento || ''}`}
                 size="default"
             >
-                {selectedEquip && <ModalDetalhamentoPneus equipamento={selectedEquip} onCancel={() => setIsModalOpen(false)} />}
+                {selectedEquip && <ModalDetalhamentoEquipamentos equipamento={selectedEquip} onCancel={() => setIsModalOpen(false)} />}
             </Modal>
         </div>
     );

@@ -1,5 +1,14 @@
 from flask import Flask
 from flask_cors import CORS
+import os
+
+# --- 1. Importações do Cache ---
+from flask_caching import Cache
+
+# --- 2. Criação do Objeto Cache (ainda não inicializado) ---
+# Criamos o objeto 'cache' aqui, para que ele possa ser importado
+# por todos os seus 24 arquivos de rota (blueprints).
+cache = Cache()
 
 def create_app():
     """
@@ -8,6 +17,23 @@ def create_app():
     """
     app = Flask(__name__)
     CORS(app) # Habilita CORS para toda a aplicação
+
+    # --- 3. Configuração do Cache (Opção 2 - FileSystem) ---
+    # Define o tipo de cache que queremos
+    app.config['CACHE_TYPE'] = 'FileSystemCache'
+    
+    # Define a pasta onde os arquivos de cache serão salvos
+    # (Estamos criando uma pasta 'cache_storage' dentro da pasta 'backend')
+    cache_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'cache_storage')
+    app.config['CACHE_DIR'] = cache_dir
+
+    # Cria a pasta de cache se ela não existir
+    if not os.path.exists(cache_dir):
+        os.makedirs(cache_dir)
+        
+    # --- 4. Inicializa o Cache com a Aplicação ---
+    # Agora o objeto 'cache' está pronto para ser usado.
+    cache.init_app(app)
 
     # Importa todos os blueprints da pasta 'routes'
     from .Rotas import (
@@ -18,7 +44,7 @@ def create_app():
     )
 
     # Registra cada blueprint na aplicação.
-    # O blueprint organiza um conjunto de rotas relacionadas.
+    # (Nenhuma mudança necessária aqui)
     app.register_blueprint(centros_custo.bp)
     app.register_blueprint(natureza_financeira.bp)
     app.register_blueprint(faixas.bp)
@@ -42,3 +68,4 @@ def create_app():
     app.register_blueprint(pneus.bp)
 
     return app
+

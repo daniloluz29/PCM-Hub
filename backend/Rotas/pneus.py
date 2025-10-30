@@ -6,12 +6,22 @@ import numpy as np
 import traceback
 from datetime import datetime, timedelta
 
+# --- 1. IMPORTAR O CACHE ---
+# Importa o objeto 'cache' que criamos no __init__.py
+from .. import cache
+
 bp = Blueprint('pneus', __name__, url_prefix='/api/pneus')
 
 # --- ROTAS PARA GERENCIAMENTO DE LAYOUTS ---
-# ... (código existente sem alteração) ...
+
 @bp.route('/layouts', methods=['POST'])
 def criar_layout():
+    # --- LIMPEZA DE CACHE ---
+    # Como esta rota cria um novo layout,
+    # limpamos o cache da rota que lista os layouts.
+    cache.delete_memoized(listar_layouts)
+    # -------------------------
+    
     dados = request.get_json()
     if not dados or 'cod_tipo_obj' not in dados or 'configuracao' not in dados:
         return jsonify({"error": "Dados incompletos"}), 400
@@ -33,6 +43,7 @@ def criar_layout():
             conn.close()
 
 @bp.route('/layouts', methods=['GET'])
+@cache.cached(timeout=0, query_string=True) # Cache infinito, seguro por filtros
 def listar_layouts():
     conn = None
     try:
@@ -57,6 +68,10 @@ def listar_layouts():
 
 @bp.route('/layouts/<int:layout_id>', methods=['PUT'])
 def atualizar_layout(layout_id):
+    # --- LIMPEZA DE CACHE ---
+    cache.delete_memoized(listar_layouts)
+    # -------------------------
+
     dados = request.get_json()
     if not dados or 'configuracao' not in dados:
         return jsonify({"error": "Dados incompletos"}), 400
@@ -78,6 +93,10 @@ def atualizar_layout(layout_id):
 
 @bp.route('/layouts/<int:layout_id>', methods=['DELETE'])
 def deletar_layout(layout_id):
+    # --- LIMPEZA DE CACHE ---
+    cache.delete_memoized(listar_layouts)
+    # -------------------------
+
     conn = None
     try:
         conn = get_db_connection()
@@ -91,6 +110,7 @@ def deletar_layout(layout_id):
             conn.close()
 
 @bp.route('/tipos-equipamento', methods=['GET'])
+@cache.cached(timeout=0, query_string=True) # Cache infinito
 def get_tipos_equipamento():
     conn = None
     try:
@@ -105,6 +125,8 @@ def get_tipos_equipamento():
 
 # --- ROTAS PARA DADOS DE INSPEÇÃO E ANÁLISE ---
 def get_faixas_pneus(conn):
+    # Esta função é chamada por outras rotas cacheadas,
+    # então ela mesma não precisa de um decorator.
     faixas_db = conn.execute("SELECT nome_faixa, valor_inicio, valor_fim, status, cor FROM faixas_definicoes WHERE grupo_id = 'estado_pneus'").fetchall()
     return [dict(row) for row in faixas_db]
 
@@ -122,6 +144,7 @@ def classificar_medicao(medicao, faixas):
     return None
 
 @bp.route('/inspecoes/<prefixo_equipamento>', methods=['GET'])
+@cache.cached(timeout=0) # Cache infinito. (query_string=True não é necessário aqui, pois o filtro já faz parte da URL)
 def get_inspecoes_por_equipamento(prefixo_equipamento):
     conn = None
     try:
@@ -135,7 +158,6 @@ def get_inspecoes_por_equipamento(prefixo_equipamento):
         """
         layout_row = conn.execute(layout_query, (prefixo_equipamento,)).fetchone()
 
-        # Mesmo se não houver layout, busca o tipo de objeto para retornar no erro 404
         if not layout_row or not layout_row['configuracao']:
             tipo_obj_row = conn.execute("SELECT t.tipo_obj FROM equipamentos e JOIN tipo_obj t ON e.cod_tipo = t.cod_tipo_obj WHERE e.equipamento = ?", (prefixo_equipamento,)).fetchone()
             tipo_obj = tipo_obj_row['tipo_obj'] if tipo_obj_row else None
@@ -171,11 +193,9 @@ def get_inspecoes_por_equipamento(prefixo_equipamento):
                 'faixa_info': faixa_info
             }
 
-        # Converte para JSON garantindo que nulos sejam tratados corretamente
         ultima_inspecao_serializable = {}
         for key, value in ultima_inspecao.items():
             ultima_inspecao_serializable[key] = {k: (v.isoformat() if isinstance(v, datetime) else v) for k, v in value.items() if pd.notna(v)}
-            # Garante que faixa_info seja incluído mesmo se outros campos forem nulos
             if 'faixa_info' in value:
                  ultima_inspecao_serializable[key]['faixa_info'] = value['faixa_info']
 
@@ -193,8 +213,8 @@ def get_inspecoes_por_equipamento(prefixo_equipamento):
         if conn:
             conn.close()
 
-# ... (restante do código de /analise-geral, /posicoes, /analise-estados, /historico-medicoes) ...
 @bp.route('/analise-geral', methods=['GET'])
+@cache.cached(timeout=0, query_string=True) # Cache infinito, seguro por filtros
 def get_analise_geral():
     conn = None
     try:
@@ -320,6 +340,7 @@ def get_analise_geral():
 # --- ROTAS PARA GERENCIAMENTO DE POSIÇÕES ---
 
 @bp.route('/posicoes', methods=['GET'])
+@cache.cached(timeout=0, query_string=True) # Cache infinito
 def listar_posicoes():
     """Lista posições classificadas e pendentes."""
     conn = None
@@ -348,6 +369,10 @@ def listar_posicoes():
 
 @bp.route('/posicoes', methods=['POST'])
 def adicionar_posicao():
+    # --- LIMPEZA DE CACHE ---
+    cache.delete_memoized(listar_posicoes)
+    # -------------------------
+
     dados = request.get_json()
     if not dados or 'nome_posicao' not in dados or 'classificacao' not in dados:
         return jsonify({"error": "Dados incompletos"}), 400
@@ -370,6 +395,10 @@ def adicionar_posicao():
 
 @bp.route('/posicoes/<int:posicao_id>', methods=['PUT'])
 def atualizar_posicao(posicao_id):
+    # --- LIMPEZA DE CACHE ---
+    cache.delete_memoized(listar_posicoes)
+    # -------------------------
+
     dados = request.get_json()
     if not dados or 'classificacao' not in dados:
         return jsonify({"error": "Dados incompletos"}), 400
@@ -391,6 +420,10 @@ def atualizar_posicao(posicao_id):
 
 @bp.route('/posicoes/<int:posicao_id>', methods=['DELETE'])
 def deletar_posicao(posicao_id):
+    # --- LIMPEZA DE CACHE ---
+    cache.delete_memoized(listar_posicoes)
+    # -------------------------
+
     conn = None
     try:
         conn = get_db_connection()
@@ -405,6 +438,7 @@ def deletar_posicao(posicao_id):
 
 # ROTA PARA ANÁLISE DE ESTADOS DE PNEUS
 @bp.route('/analise-estados', methods=['GET'])
+@cache.cached(timeout=0, query_string=True) # Cache infinito, seguro por filtros
 def get_analise_estados():
     conn = None
     try:
@@ -481,11 +515,11 @@ def get_analise_estados():
 
 # --- ROTA PARA HISTÓRICO DE MEDIÇÕES (GERAL) ---
 @bp.route('/historico-medicoes', methods=['GET'])
+@cache.cached(timeout=0, query_string=True) # Cache infinito, seguro por filtros
 def get_historico_medicoes():
     conn = None
     try:
         conn = get_db_connection()
-        # CORREÇÃO: Adicionada a coluna 'mes' para ordenação
         query = """
             SELECT
                 cp.equipamento,
@@ -526,12 +560,10 @@ def get_historico_medicoes():
                 "medicoes": medicoes
             })
 
-        # CORREÇÃO: Lógica de ordenação do cabeçalho
         header_info = df.groupby(['ano', 'mes', 'mesext'])['semanames'].nunique().reset_index()
         header_info.sort_values(by=['ano', 'mes'], inplace=True)
 
         meses_header = []
-        # Garante que meses únicos sejam mantidos na ordem correta
         meses_vistos = set()
         for _, row in header_info.iterrows():
             if row['mesext'] not in meses_vistos:
@@ -551,11 +583,11 @@ def get_historico_medicoes():
 
 # ROTA PARA HISTÓRICO DE AGREGAÇÃO DE UM PNEU
 @bp.route('/historico-agregacao/<num_fogo>', methods=['GET'])
+@cache.cached(timeout=0) # Cache infinito
 def get_historico_agregacao(num_fogo):
     conn = None
     try:
         conn = get_db_connection()
-        # CORREÇÃO: Ordena convertendo o texto da data (formato DD/MM/YYYY)
         query = """
             SELECT equipamento, data_entrada, horim_entrada, data_saida, horim_saida, posicao, motivo_desag
             FROM agregacao_pneus
@@ -571,20 +603,12 @@ def get_historico_agregacao(num_fogo):
         if df.empty:
             return jsonify([])
 
-        # Converte horimetros para numérico, tratando erros
         df['horim_entrada'] = pd.to_numeric(df['horim_entrada'], errors='coerce')
         df['horim_saida'] = pd.to_numeric(df['horim_saida'], errors='coerce')
-
-        # Calcula as horas rodadas
         df['horas_rodadas'] = df['horim_saida'] - df['horim_entrada']
-
-        # CORREÇÃO: Substitui NaT (Not-a-Time) e NaN (Not-a-Number) por None
         df = df.replace({pd.NaT: None, np.nan: None})
-
-        # Converte para dict e retorna JSON
         records = df.to_dict('records')
         return jsonify(records)
-
 
     except Exception as e:
         traceback.print_exc()
@@ -595,11 +619,11 @@ def get_historico_agregacao(num_fogo):
 
 # ROTA PARA HISTÓRICO DE MEDIÇÕES DE UM PNEU
 @bp.route('/historico-medicoes-pneu/<num_fogo>', methods=['GET'])
+@cache.cached(timeout=0) # Cache infinito
 def get_historico_medicoes_pneu(num_fogo):
     conn = None
     try:
         conn = get_db_connection()
-        # Busca a data como datetime para ordenar corretamente
         query = """
             SELECT data_medicao, medicao
             FROM controle_pneus
@@ -611,31 +635,15 @@ def get_historico_medicoes_pneu(num_fogo):
         if df.empty:
             return jsonify([])
 
-        # Converte medicao para numérico para cálculo
         df['medicao'] = pd.to_numeric(df['medicao'], errors='coerce')
-
-        # Calcula o desgaste (medição anterior - medição atual)
         df['medicao_anterior'] = df['medicao'].shift(-1)
         df['desgaste'] = df['medicao_anterior'] - df['medicao']
-
-        # Define desgaste como None se for negativo (reforma) ou NaN (primeira medição)
-        # Arredonda para 2 casas decimais se for válido
         df['desgaste'] = df['desgaste'].apply(lambda x: round(x, 2) if (pd.notna(x) and x >= 0) else None)
-
-
-        # Formata a data (agora no final, após ordenar)
         df['data_medicao'] = pd.to_datetime(df['data_medicao']).dt.strftime('%d/%m/%Y %H:%M')
-
-        # Substitui NaN/NaT por None para compatibilidade com JSON
         df = df.replace({pd.NaT: None, np.nan: None})
-
-        # Remove a coluna auxiliar
         df = df.drop(columns=['medicao_anterior'])
-
-        # Converte para dict e retorna JSON
         records = df.to_dict('records')
         return jsonify(records)
-
 
     except Exception as e:
         traceback.print_exc()
@@ -647,6 +655,7 @@ def get_historico_medicoes_pneu(num_fogo):
 
 # NOVO: ROTA PARA BUSCAR DETALHES DA ÚLTIMA MEDIÇÃO DE UM PNEU
 @bp.route('/pneu-detalhes/<num_fogo>', methods=['GET'])
+@cache.cached(timeout=0) # Cache infinito
 def get_pneu_detalhes(num_fogo):
     conn = None
     try:
@@ -661,8 +670,6 @@ def get_pneu_detalhes(num_fogo):
         pneu_row = conn.execute(query, (num_fogo,)).fetchone()
 
         if not pneu_row:
-            # Se não encontrar medição, retorna apenas o num_fogo
-            # E busca a última posição agregada conhecida
             last_pos_query = """
                 SELECT posicao_agregado
                 FROM controle_pneus
@@ -681,16 +688,13 @@ def get_pneu_detalhes(num_fogo):
         detalhes = {
             "num_fogo": num_fogo,
             "medicao": pneu_row['medicao'],
-            # Formata a data corretamente
             "data_medicao": pd.to_datetime(pneu_row['data_medicao']).strftime('%d/%m/%Y %H:%M'),
             "faixa_info": faixa_info,
-            "posicao_agregado": pneu_row['posicao_agregado'] # Inclui a posição
+            "posicao_agregado": pneu_row['posicao_agregado']
         }
 
-        # Trata NaN em medicao antes de retornar
         if pd.isna(detalhes["medicao"]):
             detalhes["medicao"] = None
-
 
         return jsonify(detalhes)
 
@@ -700,4 +704,3 @@ def get_pneu_detalhes(num_fogo):
     finally:
         if conn:
             conn.close()
-
